@@ -14,12 +14,12 @@ function LoginPage() {
 
   return (
     <div className="h-screen bg-orange-200">
-      <div className="absolute top-[120px] right-0 left-0 mx-auto sm:w-[400px] w-[300px] h-[240px] p-4 rounded-lg drop-shadow-2xl">
+      <div className="absolute top-[220px] right-0 left-0 mx-auto sm:w-[400px] w-[300px] h-[240px]">
         <div className="text-center font-serif">
           <h1 className="text-[36px] font-bold">トリカル</h1>
           <h2 className="text-[24px] translate-y-[-8px]">~Trip Calculator~</h2>
         </div>
-        <div className="bg-orange-100 flex items-center p-2 rounded mt-4">
+        <div className="bg-orange-100 flex items-center p-2 rounded mt-4 drop-shadow-2xl">
           <img
             src="./pictures/google_icon.png"
             alt="google"
