@@ -3,6 +3,7 @@ import { useAppDispatch, useAppSelector } from "./app/storeType";
 import { auth } from "./firebase";
 import { login, logout } from "./slices/userSlice";
 import LoginPage from "./components/loginPage/LoginPage";
+import TopPage from "./components/topPage/TopPage";
 
 const App = () => {
   const dispatch = useAppDispatch();
@@ -24,9 +25,8 @@ const App = () => {
       }
     });
   }, [dispatch]);
-  
 
-  return <>{user ? <div>App</div> : <LoginPage />}</>;
+  return <>{user ? <TopPage /> : <LoginPage />}</>;
 };
 
 export default App;
