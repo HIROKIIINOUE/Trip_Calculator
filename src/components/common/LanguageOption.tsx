@@ -11,6 +11,7 @@ const LanguageOption = (props: Props) => {
     setLanguageOptionPage(false);
   };
 
+  // 【次回】言語選択ページのデザイン作成
   return (
     <>
       <div

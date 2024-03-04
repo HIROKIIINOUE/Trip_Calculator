@@ -23,25 +23,25 @@ const Header = () => {
 
   return (
     <div className="h-[60px] w-full bg-orange-400 flex justify-end">
-      <div className="w-[20%] h-[60px] flex items-center">
+      <div className="lg:w-[25%] sm:w-[35%] w-full h-[60px] flex items-center">
         {user ? (
-          <p
+          <div
             onClick={logout}
-            className="w-[50%] h-full flex items-center justify-center hover:bg-orange-300 cursor-pointer duration-700"
+            className="w-[50%] h-full gap-1 flex items-center justify-center hover:bg-orange-300 cursor-pointer duration-700"
           >
             <LogoutIcon />
-            ログアウト
-          </p>
+            <p>ログアウト</p>
+          </div>
         ) : (
           <p className="w-[50%] h-full"></p>
         )}
-        <p
+        <div
           onClick={toLanguageOption}
-          className="w-[50%] h-full flex items-center justify-center hover:bg-orange-300 cursor-pointer duration-700"
+          className="w-[50%] h-full gap-1 flex items-center justify-center hover:bg-orange-300 cursor-pointer duration-700"
         >
           <LanguageIcon />
-          言語
-        </p>
+          <p>言語</p>
+        </div>
       </div>
       {languageOptionPage && (
         <LanguageOption setLanguageOptionPage={setLanguageOptionPage} />
