@@ -29,6 +29,7 @@ const LanguageOption = (props: Props) => {
   const handleSelectLanguage = (language: string): any => {
     dispatch(selectLanguage(language));
     console.log(currentLanguage);
+    localStorage.setItem("language", language);
     setLanguageOptionPage(false);
   };
 
