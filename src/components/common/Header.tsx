@@ -7,7 +7,7 @@ import LanguageOption from "./LanguageOption";
 
 const Header = () => {
   const user = useAppSelector((state) => state.user.user);
-  const [languageOptionPage, setLanguageOptionPage] = useState<boolean>(true); //←ココ戻すこと
+  const [languageOptionPage, setLanguageOptionPage] = useState<boolean>(false);
 
   const logout = (): void => {
     if (!window.confirm("ログアウトしますか？")) {
@@ -40,11 +40,14 @@ const Header = () => {
           className="w-[50%] h-full gap-1 flex items-center justify-center hover:bg-orange-300 cursor-pointer duration-700"
         >
           <LanguageIcon />
-          <p>言語</p>
+          <p className="font-bold">Language</p>
         </div>
       </div>
       {languageOptionPage && (
-        <LanguageOption languageOptionPage={languageOptionPage} setLanguageOptionPage={setLanguageOptionPage} />
+        <LanguageOption
+          languageOptionPage={languageOptionPage}
+          setLanguageOptionPage={setLanguageOptionPage}
+        />
       )}
     </div>
   );
