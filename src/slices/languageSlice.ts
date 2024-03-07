@@ -6,7 +6,6 @@ const getLocalStorageValue = (key: string, initValue: string) => {
 
   return item ? item : initValue;
 };
-
 const initialLanguage: LanguageType = {
   language: getLocalStorageValue("language", "japanese"),
 };

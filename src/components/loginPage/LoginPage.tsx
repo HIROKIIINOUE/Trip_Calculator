@@ -28,7 +28,7 @@ function LoginPage() {
         <Header />
         <div className="absolute top-[220px] right-0 left-0 mx-auto sm:w-[400px] w-[300px] h-[240px]">
           <div className="text-center font-serif">
-            <h1 className="text-[36px]">~ Trip Calculator ~</h1>
+            <h1 className="md:text-[36px] text-[30px]">~ Trip Calculator ~</h1>
           </div>
           <div className="bg-orange-100 flex items-center p-2 rounded mt-4 drop-shadow-2xl">
             <img
@@ -44,7 +44,7 @@ function LoginPage() {
               className="h-full grow"
               onClick={logIn}
             >
-              <span className="capitalize sm:text-xl text-lg">
+              <span className="capitalize md:text-[20px] text-[16px]">
                 {translatedData[language][0]}
               </span>
             </Button>
