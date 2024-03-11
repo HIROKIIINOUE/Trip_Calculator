@@ -1,12 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Button } from "@mui/material";
 import { signInWithPopup } from "firebase/auth";
 import { auth, provider } from "../../firebase";
 import Header from "../common/Header";
-import { useAppSelector } from "../../app/storeType";
-// import { TranslatedData } from "../../type/LanguageType";
+import { useAppDispatch, useAppSelector } from "../../app/storeType";
+import { login, logout } from "../../slices/userSlice";
+import { useNavigate } from "react-router";
 
 function LoginPage() {
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+
   const language = useAppSelector((state) => state.language.language);
   const translatedData: any = {
     japanese: ["Googleでログインする"],
@@ -21,6 +25,25 @@ function LoginPage() {
       alert(error);
     }
   };
+
+  useEffect(() => {
+    auth.onAuthStateChanged((loginUser) => {
+      if (loginUser) {
+        dispatch(
+          login({
+            uid: loginUser.uid,
+            photo: loginUser.photoURL,
+            email: loginUser.email,
+            displayName: loginUser.displayName,
+          })
+        );
+        navigate("/userpage");
+      } else {
+        dispatch(logout());
+        navigate("/");
+      }
+    });
+  }, [dispatch]);
 
   return (
     <>
