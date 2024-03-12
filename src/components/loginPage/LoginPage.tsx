@@ -15,7 +15,7 @@ function LoginPage() {
   const translatedData: any = {
     japanese: ["Googleでログインする"],
     english: ["login as google account"],
-    french: ["French"],
+    french: ["Connectez-vous avec un compte Google"],
   };
 
   const logIn = () => {
@@ -37,7 +37,7 @@ function LoginPage() {
             displayName: loginUser.displayName,
           })
         );
-        navigate("/userpage");
+        navigate(`/user=${loginUser.displayName}`);
       } else {
         dispatch(logout());
         navigate("/");
