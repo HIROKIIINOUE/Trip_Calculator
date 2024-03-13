@@ -16,7 +16,7 @@ const TopPage = () => {
   return (
     <>
       <Header />
-      <div>TopPage</div>
+      <div></div>
     </>
   );
 };
