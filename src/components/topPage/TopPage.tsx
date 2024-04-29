@@ -9,6 +9,39 @@ import NewTripSetUpPage from "./NewTripSetUpPage";
 const TopPage = () => {
   const navigate = useNavigate();
   const user = useAppSelector((state) => state.user.user);
+  const language = useAppSelector((state) => state.language.language);
+  const translatedData: any = {
+    japanese: [
+      "例",
+      "日本旅行",
+      "通貨",
+      "YEN",
+      "予算",
+      "50,000",
+      "開始日",
+      "2024/04/29",
+    ],
+    english: [
+      "ex",
+      "Japan trip",
+      "currency",
+      "YEN",
+      "budget",
+      "50,000",
+      "start",
+      "29/04/2024",
+    ],
+    french: [
+      "ex",
+      "Voyage au Japon",
+      "devise",
+      "YEN",
+      "budget",
+      "50,000",
+      "commence",
+      "29/04/2024",
+    ],
+  };
 
   const [newTripSetUpPage, setNewTripSetUpPage] = useState<boolean>(false);
 
@@ -73,97 +106,32 @@ const TopPage = () => {
                   >
                     <div className="h-full w-full">
                       <h2 className="h-[40%] w-full text-[24px] bg-orange-100 text-center rounded-xl">
-                        日本旅行
+                        ({translatedData[language][0]}){" "}
+                        {translatedData[language][1]}
                       </h2>
-                      <div className="h-[60%] w-full flex">
-                        <div className="h-hull w-[25%] p-1">
+                      <div className="h-[60%] w-full flex  font-bold">
+                        <div className="h-hull w-[33%] px-2">
                           <p className="h-[50%] flex items-center justify-center border-b-2 border-orange-400">
-                            自国通貨
+                            {translatedData[language][2]}
                           </p>
                           <p className="h-[50%] flex items-center justify-center">
-                            円
+                            {translatedData[language][3]}
                           </p>
                         </div>
-                        <div className="h-hull w-[25%] p-1">
+                        <div className="h-hull w-[34%] px-2">
                           <p className="h-[50%] flex items-center justify-center border-b-2 border-orange-400">
-                            現地通貨
+                            {translatedData[language][4]}
                           </p>
                           <p className="h-[50%] flex items-center justify-center">
-                            ユーロ
+                            {translatedData[language][5]}
                           </p>
                         </div>
-                        <div className="h-hull w-[25%] p-1">
+                        <div className="h-hull w-[33%] px-2">
                           <p className="h-[50%] flex items-center justify-center border-b-2 border-orange-400">
-                            予算
+                            {translatedData[language][6]}
                           </p>
                           <p className="h-[50%] flex items-center justify-center">
-                            50,000円
-                          </p>
-                        </div>
-                        <div className="h-hull w-[25%] p-1">
-                          <p className="h-[50%] flex items-center justify-center border-b-2 border-orange-400">
-                            開始日
-                          </p>
-                          <p className="h-[50%] flex items-center justify-center">
-                            30,000円
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </Box>
-                  <Box
-                    sx={{
-                      display: "flex",
-                      backgroundColor: "rgb(255 237 213)",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      height: "100px",
-                      borderRadius: "8px",
-                      border: "solid 2px",
-                      borderColor: "rgb(251 146 60)",
-                      cursor: "pointer",
-                      marginBottom: "18px",
-                      boxShadow: "4px 4px 15px -5px #777777",
-                      "&:hover": {
-                        opacity: "0.7",
-                      },
-                    }}
-                  >
-                    <div className="h-full w-full">
-                      <h2 className="h-[40%] w-full text-[24px] bg-orange-100 text-center rounded-xl">
-                        日本旅行
-                      </h2>
-                      <div className="h-[60%] w-full flex">
-                        <div className="h-hull w-[25%] p-1">
-                          <p className="h-[50%] flex items-center justify-center border-b-2 border-orange-400">
-                            自国通貨
-                          </p>
-                          <p className="h-[50%] flex items-center justify-center">
-                            円
-                          </p>
-                        </div>
-                        <div className="h-hull w-[25%] p-1">
-                          <p className="h-[50%] flex items-center justify-center border-b-2 border-orange-400">
-                            現地通貨
-                          </p>
-                          <p className="h-[50%] flex items-center justify-center">
-                            ユーロ
-                          </p>
-                        </div>
-                        <div className="h-hull w-[25%] p-1">
-                          <p className="h-[50%] flex items-center justify-center border-b-2 border-orange-400">
-                            予算
-                          </p>
-                          <p className="h-[50%] flex items-center justify-center">
-                            50,000円
-                          </p>
-                        </div>
-                        <div className="h-hull w-[25%] p-1">
-                          <p className="h-[50%] flex items-center justify-center border-b-2 border-orange-400">
-                            開始日
-                          </p>
-                          <p className="h-[50%] flex items-center justify-center">
-                            30,000円
+                            {translatedData[language][7]}
                           </p>
                         </div>
                       </div>
