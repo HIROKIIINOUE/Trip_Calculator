@@ -11,6 +11,13 @@ const Header = () => {
   const navigate = useNavigate();
   const [languageOptionPage, setLanguageOptionPage] = useState<boolean>(false);
 
+  const language = useAppSelector((state) => state.language.language);
+  const translatedData: any = {
+    japanese: ["ログアウト"],
+    english: ["logout"],
+    french: ["Deconnectez"],
+  };
+
   const logout = (): void => {
     if (!window.confirm("ログアウトしますか？")) {
       return;
@@ -50,7 +57,7 @@ const Header = () => {
             className="w-[50%] h-full gap-1 flex items-center justify-center hover:bg-orange-300 cursor-pointer duration-700"
           >
             <LogoutIcon />
-            <p>ログアウト</p>
+            <p className="font-bold">{translatedData[language][0]}</p>
           </div>
         ) : (
           <p className="w-[50%] h-full"></p>
