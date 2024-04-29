@@ -26,7 +26,7 @@ const LanguageOption = (props: Props) => {
     setTimeout(handleFadeUp, 10);
   }
 
-  const handleSelectLanguage = (language: string): any => {
+  const handleSelectLanguage = (language: string): void => {
     dispatch(selectLanguage(language));
     console.log(currentLanguage);
     localStorage.setItem("language", language);
