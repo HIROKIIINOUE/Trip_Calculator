@@ -1,5 +1,7 @@
-import { Box, Button, TextField } from "@mui/material";
-import React, { useEffect, useRef, useState } from "react";
+import { Button, TextField } from "@mui/material";
+import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
+import React, { useRef, useState } from "react";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
 type Props = {
   setNewTripSetUpPage: React.Dispatch<React.SetStateAction<boolean>>;
@@ -113,21 +115,22 @@ const NewTripSetUpPage = (props: Props) => {
             />
           </div>
           <div className="w-full mt-4">
-            <TextField
-              sx={{ width: "100%" }}
-              id="outlined-basic"
-              label="開始日"
-              variant="outlined"
-              inputRef={startDayRef}
-              onChange={() =>
-                setButtonDisabled(
-                  !titleRef.current?.value ||
-                    !yourCurrencyRef.current?.value ||
-                    !budgetRef.current?.value ||
-                    !startDayRef.current?.value
-                )
-              }
-            />
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DatePicker
+                label="開始日"
+                sx={{ width: "100%" }}
+                inputRef={startDayRef}
+                onChange={(date) => {
+                  const dateString = date?.toISOString().split("T")[0];
+                  setButtonDisabled(
+                    !titleRef.current?.value ||
+                      !yourCurrencyRef.current?.value ||
+                      !budgetRef.current?.value ||
+                      !dateString 
+                  );
+                }}
+              />
+            </LocalizationProvider>
           </div>
           <Button
             sx={{ width: "100%", height: "48px", marginTop: "36px" }}
