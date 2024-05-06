@@ -6,3 +6,8 @@ export interface UserInformation {
     displayName: string;
   };
 }
+
+export interface CurrentUserInformationInDatabase {
+  uid: string,
+  ID: string
+}

@@ -5,6 +5,19 @@ import { useAppSelector } from "../../app/storeType";
 import { Box } from "@mui/material";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import NewTripSetUpPage from "./NewTripSetUpPage";
+import {
+  CollectionReference,
+  DocumentData,
+  QuerySnapshot,
+  addDoc,
+  collection,
+  onSnapshot,
+} from "firebase/firestore";
+import { db } from "../../firebase";
+import {
+  CurrentUserInformationInDatabase,
+  UserInformation,
+} from "../../type/UserType";
 
 const TopPage = () => {
   const navigate = useNavigate();
@@ -44,12 +57,51 @@ const TopPage = () => {
   };
 
   const [newTripSetUpPage, setNewTripSetUpPage] = useState<boolean>(false);
+  const [userInfoListInDatabase, setUserInfoListInDatabase] = useState<any[]>(
+    []
+  );
 
   useEffect(() => {
     if (!user) {
       navigate("/");
     }
   }, []);
+
+  const toNewTripSetUpPage = async (): Promise<void> => {
+    setNewTripSetUpPage(true);
+
+    // 自分用：↓User情報をdatabase上に作成。もし既にあればスキップ
+    const collectionRef: CollectionReference<DocumentData> = collection(
+      db,
+      "dataList"
+    );
+
+    // 自分用：↓databaseから既存のuser情報を取得
+    onSnapshot(collectionRef, (QuerySnapshot) => {
+      const results: CurrentUserInformationInDatabase[] = [];
+      QuerySnapshot.docs.forEach((doc) => {
+        results.push({
+          uid: doc.data().user?.uid,
+          ID: doc.id,
+        });
+      });
+      setUserInfoListInDatabase(results);
+    });
+
+    // 自分用：↓現在のログイン情報がdatabase上に既にあるかどうかチェック
+    const judge: string[] = userInfoListInDatabase.map((userInfo) => {
+      if (userInfo.uid === user?.uid) {
+        return userInfo.uid;
+      }
+    });
+
+    // 自分用：ログインしているuser情報がdatabase上に無い場合のみdatabaseに追加
+    if (!judge[0]) {
+      await addDoc(collectionRef, {
+        user: user,
+      });
+    }
+  };
 
   return (
     <>
@@ -73,7 +125,7 @@ const TopPage = () => {
                   opacity: "0.7",
                 },
               }}
-              onClick={() => setNewTripSetUpPage(true)}
+              onClick={toNewTripSetUpPage}
             >
               <AddCircleOutlineIcon
                 style={{ fontSize: "32px", color: "rgb(194 65 12)" }}
