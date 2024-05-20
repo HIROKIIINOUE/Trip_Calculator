@@ -1,7 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { CurrencyType } from "../type/currencyType";
 
-
 const currencyInformation: CurrencyType = {
   currencyRateList: null,
   currentCurrency: null,
@@ -13,14 +12,14 @@ export const currencySlice = createSlice({
   name: "currencyRate",
   initialState: currencyInformation,
   reducers: {
-    setCurrencyInfo: (state, action) => {
+    setCurrencyRateList: (state, action) => {
       state.currencyRateList = action.payload;
-    },
-    setCurrentCurrency: (state, action) => {
-      state.currentCurrency = action.payload;
     },
     setCountryNameList: (state, action) => {
       state.countryNameList = action.payload;
+    },
+    setCurrentCurrency: (state, action) => {
+      state.currentCurrency = action.payload;
     },
     setCurrentCountryName: (state, action) => {
       state.currentCountryName = action.payload;
@@ -30,8 +29,8 @@ export const currencySlice = createSlice({
 
 export default currencySlice.reducer;
 export const {
-  setCurrencyInfo,
-  setCurrentCurrency,
+  setCurrencyRateList,
   setCountryNameList,
+  setCurrentCurrency,
   setCurrentCountryName,
 } = currencySlice.actions;

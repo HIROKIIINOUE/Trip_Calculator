@@ -1,26 +1,25 @@
 import React, { useEffect, useState } from "react";
 import Header from "../common/Header";
 import { useNavigate } from "react-router";
-import { useAppSelector } from "../../app/storeType";
+import { useAppDispatch, useAppSelector } from "../../app/storeType";
 import { Box } from "@mui/material";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import NewTripSetUpPage from "./NewTripSetUpPage";
 import {
   CollectionReference,
   DocumentData,
-  QuerySnapshot,
   addDoc,
   collection,
   onSnapshot,
 } from "firebase/firestore";
 import { db } from "../../firebase";
-import {
-  CurrentUserInformationInDatabase,
-  UserInformation,
-} from "../../type/UserType";
+import { CurrentUserInformationInDatabase } from "../../type/UserType";
+import { fetchData } from "../../api/exchangeRateAPI";
+import { setCurrencyRateList } from "../../slices/currencySlice";
 
 const TopPage = () => {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.user.user);
   const language = useAppSelector((state) => state.language.language);
   const translatedData: any = {
@@ -64,7 +63,16 @@ const TopPage = () => {
   useEffect(() => {
     if (!user) {
       navigate("/");
+      return;
     }
+
+    // 自分用:api/exchangeRateAPI.ts からAPI関数を叩く
+    const getExchangeRateData = async (): Promise<void> => {
+      const data = await fetchData();
+      const currencyRateList = data[0].conversion_rates;
+      dispatch(setCurrencyRateList(currencyRateList));
+    };
+    getExchangeRateData();
   }, []);
 
   const toNewTripSetUpPage = async (): Promise<void> => {
