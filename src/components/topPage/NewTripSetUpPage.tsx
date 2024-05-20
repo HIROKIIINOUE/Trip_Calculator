@@ -1,7 +1,10 @@
+// 次回：自国通貨と予算のinput box を修正 → 入力項目をデータベースに追加
+
 import { Button, TextField } from "@mui/material";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import React, { useRef, useState } from "react";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import InputMoney from "../common/InputMoney";
 
 type Props = {
   setNewTripSetUpPage: React.Dispatch<React.SetStateAction<boolean>>;
@@ -45,10 +48,11 @@ const NewTripSetUpPage = (props: Props) => {
     setNewTripSetUpPage(false);
   };
 
+  // 自分用：↓ページ全体のデザイン
   const boxDesignBefore =
-    "h-[500px] md:w-[50%] w-[80%] fixed top-12 bottom-0 right-0 left-0 mx-auto bg-orange-100 rounded translate-y-[-800px] duration-1000";
+    "h-[500px] md:w-[50%] w-[80%] fixed top-12 bottom-0 right-0 left-0 mx-auto bg-orange-100 rounded shadow-lg translate-y-[-800px] duration-1000";
   const boxDesignAfter =
-    "h-[500px] md:w-[50%] w-[80%] fixed top-12 bottom-0 right-0 left-0 mx-auto bg-orange-100 rounded translate-y-[0px] duration-1000";
+    "h-[500px] md:w-[50%] w-[80%] fixed top-12 bottom-0 right-0 left-0 mx-auto bg-orange-100 rounded shadow-2xl shadow-orange-400 translate-y-[0px] duration-1000";
 
   return (
     <>
@@ -98,20 +102,12 @@ const NewTripSetUpPage = (props: Props) => {
             />
           </div>
           <div className="w-full mt-4">
-            <TextField
-              sx={{ width: "100%" }}
-              id="outlined-basic"
-              label="予算"
-              variant="outlined"
-              inputRef={budgetRef}
-              onChange={() =>
-                setButtonDisabled(
-                  !titleRef.current?.value ||
-                    !yourCurrencyRef.current?.value ||
-                    !budgetRef.current?.value ||
-                    !startDayRef.current?.value
-                )
-              }
+            <InputMoney
+              titleRef={titleRef}
+              yourCurrencyRef={yourCurrencyRef}
+              budgetRef={budgetRef}
+              startDayRef={startDayRef}
+              setButtonDisabled={setButtonDisabled}
             />
           </div>
           <div className="w-full mt-4">
@@ -126,7 +122,7 @@ const NewTripSetUpPage = (props: Props) => {
                     !titleRef.current?.value ||
                       !yourCurrencyRef.current?.value ||
                       !budgetRef.current?.value ||
-                      !dateString 
+                      !dateString
                   );
                 }}
               />
