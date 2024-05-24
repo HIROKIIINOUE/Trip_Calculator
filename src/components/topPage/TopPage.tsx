@@ -15,7 +15,10 @@ import {
 import { db } from "../../firebase";
 import { CurrentUserInformationInDatabase } from "../../type/UserType";
 import { fetchData } from "../../api/exchangeRateAPI";
-import { setCurrencyRateList } from "../../slices/currencySlice";
+import {
+  setCurrencyNameList,
+  setCurrencyRateList,
+} from "../../slices/currencySlice";
 
 const TopPage = () => {
   const navigate = useNavigate();
@@ -67,10 +70,13 @@ const TopPage = () => {
     }
 
     // 自分用:api/exchangeRateAPI.ts からAPI関数を叩く
+    // →「通貨レートデータ」と「通貨名リストデータ」をreduxで保存
     const getExchangeRateData = async (): Promise<void> => {
       const data = await fetchData();
       const currencyRateList = data[0].conversion_rates;
+      const currencyNameList = Object.keys(currencyRateList);
       dispatch(setCurrencyRateList(currencyRateList));
+      dispatch(setCurrencyNameList(currencyNameList));
     };
     getExchangeRateData();
   }, []);

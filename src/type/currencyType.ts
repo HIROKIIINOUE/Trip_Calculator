@@ -164,6 +164,6 @@ export interface CurrencyType {
     ZWL: number;
   };
   currentCurrency: number | null;
-  countryNameList: string[] | null;
+  currencyNameList: string[] | null;
   currentCountryName: string | null;
 }

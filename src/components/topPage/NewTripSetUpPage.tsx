@@ -1,10 +1,12 @@
-// 次回：自国通貨と予算のinput box を修正 → 入力項目をデータベースに追加
+// 次回ココから：自国通貨と予算のinput box を修正 → 入力項目をデータベースに追加
 
 import { Button, TextField } from "@mui/material";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import React, { useRef, useState } from "react";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import InputMoney from "../common/InputMoney";
+import InputCurrencyName from "../common/InputCurrencyName";
+import { useNavigate } from "react-router-dom";
 
 type Props = {
   setNewTripSetUpPage: React.Dispatch<React.SetStateAction<boolean>>;
@@ -13,6 +15,7 @@ type Props = {
 
 const NewTripSetUpPage = (props: Props) => {
   const { setNewTripSetUpPage, newTripSetUpPage } = props;
+  const navigate = useNavigate();
   const titleRef = useRef<HTMLInputElement>(null);
   const yourCurrencyRef = useRef<HTMLInputElement>(null);
   const budgetRef = useRef<HTMLInputElement>(null);
@@ -31,21 +34,9 @@ const NewTripSetUpPage = (props: Props) => {
 
     console.log(title, yourCurrency, budget, startDay);
 
-    // 入力後にインプットvalueを空にする
-    if (titleRef.current) {
-      titleRef.current.value = "";
-    }
-    if (yourCurrencyRef.current) {
-      yourCurrencyRef.current.value = "";
-    }
-    if (budgetRef.current) {
-      budgetRef.current.value = "";
-    }
-    if (startDayRef.current) {
-      startDayRef.current.value = "";
-    }
     setButtonDisabled(true);
     setNewTripSetUpPage(false);
+    navigate("/");
   };
 
   // 自分用：↓ページ全体のデザイン
@@ -85,20 +76,12 @@ const NewTripSetUpPage = (props: Props) => {
             />
           </div>
           <div className="w-full mt-4">
-            <TextField
-              sx={{ width: "100%" }}
-              id="outlined-basic"
-              label="自国通貨"
-              variant="outlined"
-              inputRef={yourCurrencyRef}
-              onChange={() =>
-                setButtonDisabled(
-                  !titleRef.current?.value ||
-                    !yourCurrencyRef.current?.value ||
-                    !budgetRef.current?.value ||
-                    !startDayRef.current?.value
-                )
-              }
+            <InputCurrencyName
+              titleRef={titleRef}
+              yourCurrencyRef={yourCurrencyRef}
+              budgetRef={budgetRef}
+              startDayRef={startDayRef}
+              setButtonDisabled={setButtonDisabled}
             />
           </div>
           <div className="w-full mt-4">

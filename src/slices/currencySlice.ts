@@ -4,7 +4,7 @@ import { CurrencyType } from "../type/currencyType";
 const currencyInformation: CurrencyType = {
   currencyRateList: null,
   currentCurrency: null,
-  countryNameList: null,
+  currencyNameList: null,
   currentCountryName: null,
 };
 
@@ -15,8 +15,8 @@ export const currencySlice = createSlice({
     setCurrencyRateList: (state, action) => {
       state.currencyRateList = action.payload;
     },
-    setCountryNameList: (state, action) => {
-      state.countryNameList = action.payload;
+    setCurrencyNameList: (state, action) => {
+      state.currencyNameList = action.payload;
     },
     setCurrentCurrency: (state, action) => {
       state.currentCurrency = action.payload;
@@ -30,7 +30,7 @@ export const currencySlice = createSlice({
 export default currencySlice.reducer;
 export const {
   setCurrencyRateList,
-  setCountryNameList,
+  setCurrencyNameList,
   setCurrentCurrency,
   setCurrentCountryName,
 } = currencySlice.actions;
