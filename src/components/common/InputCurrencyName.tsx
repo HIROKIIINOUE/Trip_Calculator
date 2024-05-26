@@ -7,9 +7,9 @@ import {
   Select,
   SelectChangeEvent,
 } from "@mui/material";
-import React, { useEffect } from "react";
+import React from "react";
 import { useAppSelector } from "../../app/storeType";
-import { current } from "@reduxjs/toolkit";
+import { newTripSetUpPageDescription } from "../../data/translatedDescriptionData";
 
 type Props = {
   titleRef: React.RefObject<HTMLInputElement>;
@@ -31,6 +31,8 @@ const InputCurrencyName = (props: Props) => {
   const currencyNameList = useAppSelector(
     (state) => state.currency.currencyNameList
   );
+  const language = useAppSelector((state) => state.language.language);
+  const translatedData: any = newTripSetUpPageDescription;
 
   const handleChange = (event: SelectChangeEvent<any>) => {
     const {
@@ -57,14 +59,14 @@ const InputCurrencyName = (props: Props) => {
           inputRef={yourCurrencyRef}
           renderValue={(selected) => {
             if (!selected) {
-              return <em>選択</em>;
+              return <em>{translatedData[language][1]}</em>;
             }
             return selected;
           }}
           inputProps={{ "aria-label": "Without label" }}
         >
           <MenuItem disabled value="">
-            <em>通貨</em>
+            <em>{translatedData[language][2]}</em>
           </MenuItem>
           {currencyNameList?.map((name) => (
             <MenuItem key={name} value={name}>

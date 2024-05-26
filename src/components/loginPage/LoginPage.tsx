@@ -7,18 +7,16 @@ import { useAppDispatch, useAppSelector } from "../../app/storeType";
 import { login, logout } from "../../slices/userSlice";
 import { useNavigate } from "react-router";
 import LoadingPage from "../common/LoadingPage";
+import { loginPageDescription } from "../../data/translatedDescriptionData";
+import { TranslationType } from "../../type/LanguageType";
 
 function LoginPage() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const [loadingPage, setLoadingPage] = useState<boolean>(false);
-
   const language = useAppSelector((state) => state.language.language);
-  const translatedData: any = {
-    japanese: ["Googleでログインする"],
-    english: ["login as google account"],
-    french: ["Connectez-vous avec un compte Google"],
-  };
+  // 【any】↓ここの型直し
+  const translatedData: any = loginPageDescription;
 
   const logIn = async () => {
     setLoadingPage(true);
@@ -55,7 +53,7 @@ function LoginPage() {
       {loadingPage && <LoadingPage />}
       <div className="h-screen bg-orange-200">
         <Header />
-        <div className="absolute top-[220px] right-0 left-0 mx-auto sm:w-[500px] w-[300px] h-[240px]">
+        <div className="absolute top-[220px] right-0 left-0 sm:w-[500px] w-[300px] h-[240px] mx-auto">
           <div className="text-center font-serif">
             <h1 className="md:text-[36px] text-[30px]">~ Trip Calculator ~</h1>
           </div>

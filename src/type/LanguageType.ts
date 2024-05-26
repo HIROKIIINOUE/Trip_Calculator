@@ -2,7 +2,7 @@ export interface LanguageType {
   language: string;
 }
 
-export interface TranslatedData {
+export interface TranslationType {
   japanese: string[];
   english: string[];
   french: string[];

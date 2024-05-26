@@ -19,44 +19,14 @@ import {
   setCurrencyNameList,
   setCurrencyRateList,
 } from "../../slices/currencySlice";
+import { topPageDescription } from "../../data/translatedDescriptionData";
 
 const TopPage = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.user.user);
   const language = useAppSelector((state) => state.language.language);
-  const translatedData: any = {
-    japanese: [
-      "例",
-      "日本旅行",
-      "通貨",
-      "YEN",
-      "予算",
-      "50,000",
-      "開始日",
-      "2024/04/29",
-    ],
-    english: [
-      "ex",
-      "Japan trip",
-      "currency",
-      "YEN",
-      "budget",
-      "50,000",
-      "start",
-      "29/04/2024",
-    ],
-    french: [
-      "ex",
-      "Voyage au Japon",
-      "devise",
-      "YEN",
-      "budget",
-      "50,000",
-      "commence",
-      "29/04/2024",
-    ],
-  };
+  const translatedData: any = topPageDescription;
 
   const [newTripSetUpPage, setNewTripSetUpPage] = useState<boolean>(false);
   const [userInfoListInDatabase, setUserInfoListInDatabase] = useState<any[]>(
@@ -81,16 +51,15 @@ const TopPage = () => {
     getExchangeRateData();
   }, []);
 
+  // 自分用：↓ポップアップ画面出現処理と同時にUser情報をdatabase上に作成。もし既にdatabase上にあればスキップ
   const toNewTripSetUpPage = async (): Promise<void> => {
     setNewTripSetUpPage(true);
 
-    // 自分用：↓User情報をdatabase上に作成。もし既にあればスキップ
     const collectionRef: CollectionReference<DocumentData> = collection(
       db,
       "dataList"
     );
-
-    // 自分用：↓databaseから既存のuser情報を取得
+    // 自分用：↓databaseから既存のuser情報リストを取得
     onSnapshot(collectionRef, (QuerySnapshot) => {
       const results: CurrentUserInformationInDatabase[] = [];
       QuerySnapshot.docs.forEach((doc) => {
@@ -102,7 +71,7 @@ const TopPage = () => {
       setUserInfoListInDatabase(results);
     });
 
-    // 自分用：↓現在のログイン情報がdatabase上に既にあるかどうかチェック
+    // 自分用：↓現在のログイン情報がdatabase上のuser情報リストにあるかどうかチェック
     const judge: string[] = userInfoListInDatabase.map((userInfo) => {
       if (userInfo.uid === user?.uid) {
         return userInfo.uid;
@@ -166,8 +135,7 @@ const TopPage = () => {
               >
                 <div className="h-full w-full">
                   <h2 className="h-[40%] w-full text-[24px] bg-orange-100 text-center rounded-xl">
-                    ({translatedData[language][0]}){" "}
-                    {translatedData[language][1]}
+                    ({translatedData[language][0]}){translatedData[language][1]}
                   </h2>
                   <div className="h-[60%] w-full flex  font-bold">
                     <div className="h-hull w-[33%] px-2">

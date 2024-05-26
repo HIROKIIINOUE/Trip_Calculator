@@ -5,6 +5,7 @@ import { useAppSelector } from "../../app/storeType";
 import { auth } from "../../firebase";
 import LanguageOption from "./LanguageOption";
 import { useNavigate } from "react-router-dom";
+import { headerDescription } from "../../data/translatedDescriptionData";
 
 const Header = () => {
   const user = useAppSelector((state) => state.user.user);
@@ -12,14 +13,10 @@ const Header = () => {
   const [languageOptionPage, setLanguageOptionPage] = useState<boolean>(false);
 
   const language = useAppSelector((state) => state.language.language);
-  const translatedData: any = {
-    japanese: ["ログアウト"],
-    english: ["logout"],
-    french: ["Deconnectez"],
-  };
+  const translatedData: any = headerDescription;
 
   const logout = (): void => {
-    if (!window.confirm("ログアウトしますか？")) {
+    if (!window.confirm(`${translatedData[language][1]}`)) {
       return;
     }
     auth.signOut();

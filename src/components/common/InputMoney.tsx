@@ -1,5 +1,7 @@
 import { TextField } from "@mui/material";
 import React from "react";
+import { useAppSelector } from "../../app/storeType";
+import { newTripSetUpPageDescription } from "../../data/translatedDescriptionData";
 
 type Props = {
   titleRef: React.RefObject<HTMLInputElement>;
@@ -17,6 +19,8 @@ const InputMoney = (props: Props) => {
     startDayRef,
     setButtonDisabled,
   } = props;
+  const language = useAppSelector((state) => state.language.language);
+  const translatedData: any = newTripSetUpPageDescription;
 
   const formatBudget = (value: string) => {
     const numericValue = value.replace(/,/g, "");
@@ -41,7 +45,7 @@ const InputMoney = (props: Props) => {
       <TextField
         sx={{ width: "100%" }}
         id="outlined-basic"
-        label="予算"
+        label={translatedData[language][3]}
         type="text"
         variant="outlined"
         inputRef={budgetRef}

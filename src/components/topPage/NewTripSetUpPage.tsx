@@ -7,6 +7,8 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import InputMoney from "../common/InputMoney";
 import InputCurrencyName from "../common/InputCurrencyName";
 import { useNavigate } from "react-router-dom";
+import { newTripSetUpPageDescription } from "../../data/translatedDescriptionData";
+import { useAppSelector } from "../../app/storeType";
 
 type Props = {
   setNewTripSetUpPage: React.Dispatch<React.SetStateAction<boolean>>;
@@ -16,11 +18,13 @@ type Props = {
 const NewTripSetUpPage = (props: Props) => {
   const { setNewTripSetUpPage, newTripSetUpPage } = props;
   const navigate = useNavigate();
+  const language = useAppSelector((state) => state.language.language);
   const titleRef = useRef<HTMLInputElement>(null);
   const yourCurrencyRef = useRef<HTMLInputElement>(null);
   const budgetRef = useRef<HTMLInputElement>(null);
   const startDayRef = useRef<HTMLInputElement>(null);
   const [buttonDisabled, setButtonDisabled] = useState<boolean>(true);
+  const translatedData: any = newTripSetUpPageDescription;
 
   const closeNewTripSetUpPage = (): void => {
     setNewTripSetUpPage(false);
@@ -62,7 +66,7 @@ const NewTripSetUpPage = (props: Props) => {
             <TextField
               sx={{ width: "100%" }}
               id="outlined-basic"
-              label="タイトル"
+              label={translatedData[language][0]}
               variant="outlined"
               inputRef={titleRef}
               onChange={() =>
@@ -96,7 +100,7 @@ const NewTripSetUpPage = (props: Props) => {
           <div className="w-full mt-4">
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DatePicker
-                label="開始日"
+                label={translatedData[language][4]}
                 sx={{ width: "100%" }}
                 inputRef={startDayRef}
                 onChange={(date) => {
@@ -118,7 +122,7 @@ const NewTripSetUpPage = (props: Props) => {
             onClick={handleCreateNewTrip}
             disabled={buttonDisabled}
           >
-            作成
+            {translatedData[language][5]}
           </Button>
         </div>
       </div>
