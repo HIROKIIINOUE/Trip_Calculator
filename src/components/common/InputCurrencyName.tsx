@@ -59,14 +59,16 @@ const InputCurrencyName = (props: Props) => {
           inputRef={yourCurrencyRef}
           renderValue={(selected) => {
             if (!selected) {
-              return <em>{translatedData[language][1]}</em>;
+              return (
+                <em className="not-italic">{translatedData[language][1]}</em>
+              );
             }
             return selected;
           }}
           inputProps={{ "aria-label": "Without label" }}
         >
           <MenuItem disabled value="">
-            <em>{translatedData[language][2]}</em>
+            <em className="not-italic">{translatedData[language][2]}</em>
           </MenuItem>
           {currencyNameList?.map((name) => (
             <MenuItem key={name} value={name}>
@@ -75,21 +77,6 @@ const InputCurrencyName = (props: Props) => {
           ))}
         </Select>
       </FormControl>
-      {/* <TextField
-        sx={{ width: "100%" }}
-        id="outlined-basic"
-        label="自国通貨"
-        variant="outlined"
-        inputRef={yourCurrencyRef}
-        onChange={() =>
-          setButtonDisabled(
-            !titleRef.current?.value ||
-              !yourCurrencyRef.current?.value ||
-              !budgetRef.current?.value ||
-              !startDayRef.current?.value
-          )
-        }
-      /> */}
     </>
   );
 };
