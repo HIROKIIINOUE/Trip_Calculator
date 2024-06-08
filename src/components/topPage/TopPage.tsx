@@ -10,7 +10,10 @@ import {
   DocumentData,
   addDoc,
   collection,
+  getDocs,
   onSnapshot,
+  query,
+  where,
 } from "firebase/firestore";
 import { db } from "../../firebase";
 import { CurrentUserInformationInDatabase } from "../../type/UserType";
@@ -21,6 +24,7 @@ import {
 } from "../../slices/currencySlice";
 import { topPageDescription } from "../../data/translatedDescriptionData";
 import ExampleTrip from "./ExampleTrip";
+import Trips from "./Trips";
 
 const TopPage = () => {
   const navigate = useNavigate();
@@ -50,7 +54,10 @@ const TopPage = () => {
     getExchangeRateData();
   }, []);
 
-  // 自分用：↓ポップアップ画面出現処理と同時にUser情報をdatabase上に作成。もし既にdatabase上にあればスキップ
+  // 自分用：onSnapshot()じゃなくてgetDoc()を使うことで毎回データベースと通信を行う
+  // →データベース上にuser情報があるかどうかを正しいタイミングでジャッジできる。
+  // →ページがリフレッシュされても重複したuser情報がデータベースに保存されなくなる。
+
   const toNewTripSetUpPage = async (): Promise<void> => {
     setNewTripSetUpPage(true);
 
@@ -58,34 +65,19 @@ const TopPage = () => {
       db,
       "dataList"
     );
-    // 自分用：↓databaseから既存のuser情報リストを取得
-    onSnapshot(collectionRef, (QuerySnapshot) => {
-      const results: CurrentUserInformationInDatabase[] = [];
-      QuerySnapshot.docs.forEach((doc) => {
-        results.push({
-          uid: doc.data().user?.uid,
-          ID: doc.id,
-        });
-      });
-      setUserInfoListInDatabase(results);
-    });
 
-    // 自分用：↓現在のログイン情報がdatabase上のuser情報リストにあるかどうかチェック
-    const judge: string[] = userInfoListInDatabase.map((userInfo) => {
-      if (userInfo.uid === user?.uid) {
-        return userInfo.uid;
-      }
-    });
+    const q = query(collectionRef, where("user.uid", "==", user?.uid));
+    const querySnapshot = await getDocs(q);
 
-    // 自分用：ログインしているuser情報がdatabase上に無い場合のみdatabaseに追加
-    if (!judge[0]) {
+    // 自分用：↓条件を絞って取得したドキュメントがなければ(emptyならば)、ドキュメントを追加する
+    if (querySnapshot.empty) {
       await addDoc(collectionRef, {
         user: user,
       });
     }
   };
 
-  return (git 
+  return (
     <>
       <Header />
       <div className="h-screen bg-orange-300">
@@ -114,6 +106,7 @@ const TopPage = () => {
               />
             </Box>
             <ExampleTrip />
+            <Trips />
           </div>
         </div>
       </div>
