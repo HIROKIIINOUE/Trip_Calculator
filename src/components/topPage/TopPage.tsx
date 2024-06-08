@@ -11,18 +11,15 @@ import {
   addDoc,
   collection,
   getDocs,
-  onSnapshot,
   query,
   where,
 } from "firebase/firestore";
 import { db } from "../../firebase";
-import { CurrentUserInformationInDatabase } from "../../type/UserType";
 import { fetchData } from "../../api/exchangeRateAPI";
 import {
   setCurrencyNameList,
   setCurrencyRateList,
 } from "../../slices/currencySlice";
-import { topPageDescription } from "../../data/translatedDescriptionData";
 import ExampleTrip from "./ExampleTrip";
 import Trips from "./Trips";
 
@@ -30,11 +27,7 @@ const TopPage = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.user.user);
-
   const [newTripSetUpPage, setNewTripSetUpPage] = useState<boolean>(false);
-  const [userInfoListInDatabase, setUserInfoListInDatabase] = useState<any[]>(
-    []
-  );
 
   useEffect(() => {
     if (!user) {
