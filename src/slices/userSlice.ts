@@ -1,9 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { UserInformation } from "../type/UserType";
 
-
 const userInformation: UserInformation = {
   user: null,
+  userDocumentID: null,
 };
 
 export const userSlice = createSlice({
@@ -15,9 +15,13 @@ export const userSlice = createSlice({
     },
     logout: (state) => {
       state.user = null;
+      state.userDocumentID = null;
+    },
+    attachDocumentID: (state, action) => {
+      state.userDocumentID = action.payload;
     },
   },
 });
 
 export default userSlice.reducer;
-export const { login, logout } = userSlice.actions;
+export const { login, logout, attachDocumentID } = userSlice.actions;

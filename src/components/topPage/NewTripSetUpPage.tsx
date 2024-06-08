@@ -25,6 +25,7 @@ const NewTripSetUpPage = (props: Props) => {
   const startDayRef = useRef<HTMLInputElement>(null);
   const [buttonDisabled, setButtonDisabled] = useState<boolean>(true);
   const translatedData: any = newTripSetUpPageDescription;
+  const userDocumentID = useAppSelector((state) => state.user.userDocumentID);
 
   const closeNewTripSetUpPage = (): void => {
     setNewTripSetUpPage(false);
@@ -36,7 +37,7 @@ const NewTripSetUpPage = (props: Props) => {
     const budget = budgetRef.current?.value;
     const startDay = startDayRef.current?.value;
 
-    console.log(title, yourCurrency, budget, startDay);
+    console.log(title, yourCurrency, budget, startDay, userDocumentID);
 
     setButtonDisabled(true);
     setNewTripSetUpPage(false);
