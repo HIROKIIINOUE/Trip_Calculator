@@ -8,9 +8,7 @@ import NewTripSetUpPage from "./NewTripSetUpPage";
 import {
   CollectionReference,
   DocumentData,
-  addDoc,
   collection,
-  getDoc,
   getDocs,
   query,
   where,
@@ -33,7 +31,7 @@ const TopPage = () => {
   const userDocumentID = useAppSelector((state) => state.user.userDocumentID);
   const [newTripSetUpPage, setNewTripSetUpPage] = useState<boolean>(false);
 
-  // ログインしているuser情報のfirebase上にあるドキュメントIDを取得し、reduxで管理
+  // ↓↓ログインしているuser情報のfirebase上にあるドキュメントIDを取得し、reduxで管理↓↓
   const attachUserDocumentID = async () => {
     const collectionRef: CollectionReference<DocumentData, DocumentData> =
       collection(db, "dataList");
@@ -48,6 +46,7 @@ const TopPage = () => {
       dispatch(attachDocumentID(doc.id));
     });
   };
+  // ↑↑ここまで↑↑
 
   useEffect(() => {
     if (!user) {

@@ -9,6 +9,8 @@ import InputCurrencyName from "../common/InputCurrencyName";
 import { useNavigate } from "react-router-dom";
 import { newTripSetUpPageDescription } from "../../data/translatedDescriptionData";
 import { useAppSelector } from "../../app/storeType";
+import { addDoc, collection } from "firebase/firestore";
+import { db } from "../../firebase";
 
 type Props = {
   setNewTripSetUpPage: React.Dispatch<React.SetStateAction<boolean>>;
@@ -31,13 +33,26 @@ const NewTripSetUpPage = (props: Props) => {
     setNewTripSetUpPage(false);
   };
 
-  const handleCreateNewTrip = () => {
+  // 自分用：新しい旅行情報の追加
+  const handleCreateNewTrip = async () => {
     const title = titleRef.current?.value;
     const yourCurrency = yourCurrencyRef.current?.value;
     const budget = budgetRef.current?.value;
     const startDay = startDayRef.current?.value;
 
-    console.log(title, yourCurrency, budget, startDay, userDocumentID);
+    const collectionRef = collection(
+      db,
+      "dataList",
+      String(userDocumentID),
+      "tripList"
+    );
+
+    await addDoc(collectionRef, {
+      title: title,
+      yourCurrency: yourCurrency,
+      budget: budget,
+      startDay: startDay,
+    });
 
     setButtonDisabled(true);
     setNewTripSetUpPage(false);
