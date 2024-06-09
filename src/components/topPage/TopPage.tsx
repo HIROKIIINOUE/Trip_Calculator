@@ -11,6 +11,7 @@ import {
   collection,
   getDocs,
   onSnapshot,
+  orderBy,
   query,
   where,
 } from "firebase/firestore";
@@ -52,8 +53,6 @@ const TopPage = () => {
   };
   // ↑↑ここまで↑↑
 
-  // 次回ココから
-  // →tripデータを開始日の速い順でソートしたい
   useEffect(() => {
     if (!user) {
       navigate("/");
@@ -80,7 +79,13 @@ const TopPage = () => {
     String(userDocumentID),
     "tripList"
   );
-  onSnapshot(collectionRef, (querySnapshot) => {
+  // 自分用：tripデータを日付の新しい順に上からソートする処理(古い順の場合は"asc")
+  const collectionRefOrderBy = query(
+    collectionRef,
+    orderBy("startDay", "desc")
+  );
+
+  onSnapshot(collectionRefOrderBy, (querySnapshot) => {
     const results: TripType[] = [];
     querySnapshot.docs.forEach((doc) => {
       results.push({
