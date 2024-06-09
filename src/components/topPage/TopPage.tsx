@@ -51,6 +51,7 @@ const TopPage = () => {
       dispatch(attachDocumentID(doc.id));
     });
   };
+
   // ↑↑ここまで↑↑
 
   useEffect(() => {

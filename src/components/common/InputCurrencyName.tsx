@@ -66,6 +66,7 @@ const InputCurrencyName = (props: Props) => {
             return selected;
           }}
           inputProps={{ "aria-label": "Without label" }}
+          defaultValue=""
         >
           <MenuItem disabled value="">
             <em className="not-italic">{translatedData[language][2]}</em>

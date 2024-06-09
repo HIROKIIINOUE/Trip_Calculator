@@ -1,3 +1,5 @@
+// 次回ココから：Tripコンポーネントの横に削除マークを設置し、削除機能の実装。map展開しているコンポーネントにkeyプロップスを追加しコンソールのエラーメッセージを削除
+
 import { Box } from "@mui/material";
 import React from "react";
 import { TripType } from "../../type/TripType";

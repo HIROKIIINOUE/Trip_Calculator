@@ -1,5 +1,3 @@
-// 次回ココから：自国通貨と予算のinput box を修正 → 入力項目をデータベースに追加
-
 import { Button, TextField } from "@mui/material";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import React, { useRef, useState } from "react";
