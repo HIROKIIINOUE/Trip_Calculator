@@ -10,6 +10,7 @@ import {
   DocumentData,
   collection,
   getDocs,
+  onSnapshot,
   query,
   where,
 } from "firebase/firestore";
@@ -20,9 +21,10 @@ import {
   setCurrencyRateList,
 } from "../../slices/currencySlice";
 import ExampleTrip from "./ExampleTrip";
-import Trips from "./Trips";
 import { attachDocumentID } from "../../slices/userSlice";
 import GetStarted from "./GetStarted";
+import { TripType } from "../../type/TripType";
+import Trip from "./Trip";
 
 const TopPage = () => {
   const navigate = useNavigate();
@@ -30,6 +32,8 @@ const TopPage = () => {
   const user = useAppSelector((state) => state.user.user);
   const userDocumentID = useAppSelector((state) => state.user.userDocumentID);
   const [newTripSetUpPage, setNewTripSetUpPage] = useState<boolean>(false);
+  const [tripList, setTripList] = useState<any[]>([]);
+  const [exampleTrip, setExampleTrip] = useState<boolean>(true);
 
   // ↓↓ログインしているuser情報のfirebase上にあるドキュメントIDを取得し、reduxで管理↓↓
   const attachUserDocumentID = async () => {
@@ -48,6 +52,8 @@ const TopPage = () => {
   };
   // ↑↑ここまで↑↑
 
+  // 次回ココから
+  // →tripデータを開始日の速い順でソートしたい
   useEffect(() => {
     if (!user) {
       navigate("/");
@@ -56,7 +62,7 @@ const TopPage = () => {
 
     attachUserDocumentID();
 
-    // 自分用:api/exchangeRateAPI.ts からAPI関数を叩く
+    // 自分用:api/exchangeRa  teAPI.ts からAPI関数を叩く
     // →「通貨レートデータ」と「通貨名リストデータ」をreduxで保存
     const getExchangeRateData = async (): Promise<void> => {
       const data = await fetchData();
@@ -67,6 +73,31 @@ const TopPage = () => {
     };
     getExchangeRateData();
   }, []);
+
+  const collectionRef = collection(
+    db,
+    "dataList",
+    String(userDocumentID),
+    "tripList"
+  );
+  onSnapshot(collectionRef, (querySnapshot) => {
+    const results: TripType[] = [];
+    querySnapshot.docs.forEach((doc) => {
+      results.push({
+        title: doc.data().title,
+        yourCurrency: doc.data().yourCurrency,
+        budget: doc.data().budget,
+        startDay: doc.data().startDay,
+        id: doc.id,
+      });
+      setTripList(results);
+      if (!results.length) {
+        setExampleTrip(true);
+      } else {
+        setExampleTrip(false);
+      }
+    });
+  });
 
   const toNewTripSetUpPage = () => {
     setNewTripSetUpPage(true);
@@ -102,8 +133,10 @@ const TopPage = () => {
                     style={{ fontSize: "32px", color: "rgb(194 65 12)" }}
                   />
                 </Box>
-                <ExampleTrip />
-                <Trips />
+                {exampleTrip && <ExampleTrip />}
+                {tripList.map((trip) => (
+                  <Trip trip={trip} />
+                ))}
               </div>
             </div>
           </div>

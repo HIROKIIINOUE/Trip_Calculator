@@ -1,7 +1,19 @@
 import { Box } from "@mui/material";
 import React from "react";
+import { TripType } from "../../type/TripType";
+import { useAppSelector } from "../../app/storeType";
+import { topPageDescription } from "../../data/translatedDescriptionData";
 
-const Trips = () => {
+type Props = {
+  trip: TripType;
+};
+
+const Trip = (props: Props) => {
+  const { trip } = props;
+
+  const language = useAppSelector((state) => state.language.language);
+  const translatedData: any = topPageDescription;
+
   return (
     <div className="mt-8">
       <Box
@@ -24,31 +36,31 @@ const Trips = () => {
       >
         <div className="h-full w-full">
           <h2 className="h-[40%] w-full text-[24px] bg-orange-100 text-center rounded-xl">
-            aaaaaaa
+            {trip.title}
           </h2>
           <div className="h-[60%] w-full flex  font-bold">
             <div className="h-hull w-[33%] px-2">
               <p className="h-[50%] flex items-center justify-center border-b-2 border-orange-400">
-                bbbbbbbbbbbb
+                {translatedData[language][2]}
               </p>
               <p className="h-[50%] flex items-center justify-center">
-                tttttttttttttt
+                {trip.yourCurrency}
               </p>
             </div>
             <div className="h-hull w-[34%] px-2">
               <p className="h-[50%] flex items-center justify-center border-b-2 border-orange-400">
-                tttttttttttttt
+                {translatedData[language][4]}
               </p>
               <p className="h-[50%] flex items-center justify-center">
-                nnnnnnnn
+                {trip.budget}
               </p>
             </div>
             <div className="h-hull w-[33%] px-2">
               <p className="h-[50%] flex items-center justify-center border-b-2 border-orange-400">
-                nnnnnnnn
+                {translatedData[language][6]}
               </p>
               <p className="h-[50%] flex items-center justify-center">
-                nnnnnnnn
+                {trip.startDay}
               </p>
             </div>
           </div>
@@ -58,4 +70,4 @@ const Trips = () => {
   );
 };
 
-export default Trips;
+export default Trip;
