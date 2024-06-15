@@ -5,7 +5,7 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import InputMoney from "../common/InputMoney";
 import InputCurrencyName from "../common/InputCurrencyName";
 import { useNavigate } from "react-router-dom";
-import { newTripSetUpPageDescription } from "../../data/translatedDescriptionData";
+import { newTripSetUpPageDescription } from "../../localData/translatedDescriptionData";
 import { useAppSelector } from "../../app/storeType";
 import { addDoc, collection } from "firebase/firestore";
 import { db } from "../../firebase";

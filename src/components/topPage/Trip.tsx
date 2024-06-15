@@ -1,10 +1,16 @@
-// 次回ココから：Tripコンポーネントの横に削除マークを設置し、削除機能の実装。map展開しているコンポーネントにkeyプロップスを追加しコンソールのエラーメッセージを削除
-
 import { Box } from "@mui/material";
 import React from "react";
 import { TripType } from "../../type/TripType";
 import { useAppSelector } from "../../app/storeType";
-import { topPageDescription } from "../../data/translatedDescriptionData";
+import { topPageDescription } from "../../localData/translatedDescriptionData";
+import DeleteIcon from "@mui/icons-material/Delete";
+import {
+  DocumentData,
+  DocumentReference,
+  deleteDoc,
+  doc,
+} from "firebase/firestore";
+import { db } from "../../firebase";
 
 type Props = {
   trip: TripType;
@@ -12,12 +18,27 @@ type Props = {
 
 const Trip = (props: Props) => {
   const { trip } = props;
+  const userDocumentID = useAppSelector((state) => state.user.userDocumentID);
 
   const language = useAppSelector((state) => state.language.language);
   const translatedData: any = topPageDescription;
 
+  const deleteTrip = async () => {
+    if (!window.confirm(`${trip.title} : ${translatedData[language][8]}`)) {
+      return;
+    }
+    const documentRef: DocumentReference<DocumentData> = doc(
+      db,
+      "dataList",
+      String(userDocumentID),
+      "tripList",
+      String(trip.id)
+    );
+    await deleteDoc(documentRef);
+  };
+
   return (
-    <div className="mt-8">
+    <div className="mt-8 flex">
       <Box
         sx={{
           display: "flex",
@@ -25,11 +46,11 @@ const Trip = (props: Props) => {
           justifyContent: "center",
           alignItems: "center",
           height: "100px",
+          width: "95%",
           borderRadius: "8px",
           border: "solid 2px",
           borderColor: "rgb(251 146 60)",
           cursor: "pointer",
-          marginBottom: "18px",
           boxShadow: "4px 4px 15px -5px #777777",
           "&:hover": {
             opacity: "0.7",
@@ -68,6 +89,12 @@ const Trip = (props: Props) => {
           </div>
         </div>
       </Box>
+      <div className="width-[5%] flex items-center justify-center ml-2">
+        <DeleteIcon
+          className="hover:cursor-pointer hover:opacity-40"
+          onClick={deleteTrip}
+        />
+      </div>
     </div>
   );
 };

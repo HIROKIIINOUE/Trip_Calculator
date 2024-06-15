@@ -5,7 +5,7 @@ import { useAppSelector } from "../../app/storeType";
 import { auth } from "../../firebase";
 import LanguageOption from "./LanguageOption";
 import { useNavigate } from "react-router-dom";
-import { headerDescription } from "../../data/translatedDescriptionData";
+import { headerDescription } from "../../localData/translatedDescriptionData";
 
 const Header = () => {
   const user = useAppSelector((state) => state.user.user);

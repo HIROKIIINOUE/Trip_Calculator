@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
 import React from "react";
 import { useAppSelector } from "../../app/storeType";
-import { topPageDescription } from "../../data/translatedDescriptionData";
+import { topPageDescription } from "../../localData/translatedDescriptionData";
 
 const ExampleTrip = () => {
   const language = useAppSelector((state) => state.language.language);

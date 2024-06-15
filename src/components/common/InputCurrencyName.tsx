@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 import React from "react";
 import { useAppSelector } from "../../app/storeType";
-import { newTripSetUpPageDescription } from "../../data/translatedDescriptionData";
+import { newTripSetUpPageDescription } from "../../localData/translatedDescriptionData";
 
 type Props = {
   titleRef: React.RefObject<HTMLInputElement>;

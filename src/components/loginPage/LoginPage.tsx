@@ -7,8 +7,7 @@ import { useAppDispatch, useAppSelector } from "../../app/storeType";
 import { login, logout } from "../../slices/userSlice";
 import { useNavigate } from "react-router";
 import LoadingPage from "../common/LoadingPage";
-import { loginPageDescription } from "../../data/translatedDescriptionData";
-import { TranslationType } from "../../type/LanguageType";
+import { loginPageDescription } from "../../localData/translatedDescriptionData";
 
 function LoginPage() {
   const navigate = useNavigate();

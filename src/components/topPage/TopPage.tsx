@@ -1,3 +1,7 @@
+// 次回ココから：onSnapshotのエラー修正完了したが、理解が追い付いていない。
+// →以下のコードの修正ごと修正前を比較しながら理解する
+// →理解が完了してから次に進むこと(useEffectの第二引数の理解も必ずすること)
+
 import React, { useEffect, useState } from "react";
 import Header from "../common/Header";
 import { useNavigate } from "react-router";
@@ -26,6 +30,7 @@ import { attachDocumentID } from "../../slices/userSlice";
 import GetStarted from "./GetStarted";
 import { TripType } from "../../type/TripType";
 import Trip from "./Trip";
+import ReorderIcon from "@mui/icons-material/Reorder";
 
 const TopPage = () => {
   const navigate = useNavigate();
@@ -51,7 +56,6 @@ const TopPage = () => {
       dispatch(attachDocumentID(doc.id));
     });
   };
-
   // ↑↑ここまで↑↑
 
   useEffect(() => {
@@ -62,7 +66,7 @@ const TopPage = () => {
 
     attachUserDocumentID();
 
-    // 自分用:api/exchangeRa  teAPI.ts からAPI関数を叩く
+    // 自分用:api/exchangeRateAPI.ts からAPI関数を叩く
     // →「通貨レートデータ」と「通貨名リストデータ」をreduxで保存
     const getExchangeRateData = async (): Promise<void> => {
       const data = await fetchData();
@@ -74,36 +78,47 @@ const TopPage = () => {
     getExchangeRateData();
   }, []);
 
-  const collectionRef = collection(
-    db,
-    "dataList",
-    String(userDocumentID),
-    "tripList"
-  );
-  // 自分用：tripデータを日付の新しい順に上からソートする処理(古い順の場合は"asc")
-  const collectionRefOrderBy = query(
-    collectionRef,
-    orderBy("startDay", "desc")
-  );
+  // ===========↓after=================
+  useEffect(() => {
+    if (userDocumentID) {
+      const collectionRef = collection(
+        db,
+        "dataList",
+        String(userDocumentID),
+        "tripList"
+      );
+      const collectionRefOrderBy = query(
+        collectionRef,
+        orderBy("startDay", "desc")
+      );
 
-  onSnapshot(collectionRefOrderBy, (querySnapshot) => {
-    const results: TripType[] = [];
-    querySnapshot.docs.forEach((doc) => {
-      results.push({
-        title: doc.data().title,
-        yourCurrency: doc.data().yourCurrency,
-        budget: doc.data().budget,
-        startDay: doc.data().startDay,
-        id: doc.id,
-      });
-      setTripList(results);
-      if (!results.length) {
-        setExampleTrip(true);
-      } else {
-        setExampleTrip(false);
-      }
-    });
-  });
+      const getTripDataListFromDatabase = onSnapshot(
+        collectionRefOrderBy,
+        (querySnapshot) => {
+          const results: TripType[] = [];
+          querySnapshot.docs.forEach((doc) => {
+            results.push({
+              title: doc.data().title,
+              yourCurrency: doc.data().yourCurrency,
+              budget: doc.data().budget,
+              startDay: doc.data().startDay,
+              id: doc.id,
+            });
+          });
+          setTripList(results);
+          if (!results.length) {
+            setExampleTrip(true);
+          } else {
+            setExampleTrip(false);
+          }
+        }
+      );
+
+      // クリーンアップ関数を返すことで、コンポーネントのアンマウント時にリスナーを解除
+      return () => getTripDataListFromDatabase();
+    }
+  }, [userDocumentID]);
+  // ===========↑after=================
 
   const toNewTripSetUpPage = () => {
     setNewTripSetUpPage(true);
@@ -117,31 +132,37 @@ const TopPage = () => {
           <div className="h-screen bg-orange-300">
             <div className="bg-orange-300 py-10 h-auto">
               <div className="h-full sm:w-[60%] w-[95%] mx-auto">
-                <Box
-                  sx={{
-                    display: "flex",
-                    backgroundColor: "rgb(255 237 213)",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    height: "60px",
-                    borderRadius: "8px",
-                    border: "solid",
-                    borderColor: "rgb(251 146 60)",
-                    cursor: "pointer",
-                    boxShadow: "4px 4px 15px -5px #777777",
-                    "&:hover": {
-                      opacity: "0.7",
-                    },
-                  }}
-                  onClick={toNewTripSetUpPage}
-                >
-                  <AddCircleOutlineIcon
-                    style={{ fontSize: "32px", color: "rgb(194 65 12)" }}
-                  />
-                </Box>
+                <div className="flex">
+                  <Box
+                    sx={{
+                      display: "flex",
+                      backgroundColor: "rgb(255 237 213)",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      height: "60px",
+                      width: "95%",
+                      borderRadius: "8px",
+                      border: "solid",
+                      borderColor: "rgb(251 146 60)",
+                      cursor: "pointer",
+                      boxShadow: "4px 4px 15px -5px #777777",
+                      "&:hover": {
+                        opacity: "0.7",
+                      },
+                    }}
+                    onClick={toNewTripSetUpPage}
+                  >
+                    <AddCircleOutlineIcon
+                      style={{ fontSize: "32px", color: "rgb(194 65 12)" }}
+                    />
+                  </Box>
+                  <div className="width-[5%] flex items-center justify-center ml-2">
+                    <ReorderIcon className="hover:cursor-pointer hover:opacity-40" />
+                  </div>
+                </div>
                 {exampleTrip && <ExampleTrip />}
                 {tripList.map((trip) => (
-                  <Trip trip={trip} />
+                  <Trip trip={trip} key={trip.id} />
                 ))}
               </div>
             </div>

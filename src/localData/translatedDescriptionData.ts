@@ -10,7 +10,7 @@ export const headerDescription: TranslationType = {
   japanese: ["ログアウト", "ログアウトしますか？"],
   english: ["logout", "Are you sure?"],
   french: ["Deconnectez", "Es-tu sur?"],
-}
+};
 
 export const topPageDescription: TranslationType = {
   japanese: [
@@ -22,6 +22,7 @@ export const topPageDescription: TranslationType = {
     "50,000",
     "開始日",
     "2024/04/29",
+    "本当に削除しますか？",
   ],
   english: [
     "ex",
@@ -32,6 +33,7 @@ export const topPageDescription: TranslationType = {
     "50,000",
     "start",
     "29/04/2024",
+    "Are you sure to delete?",
   ],
   french: [
     "ex",
@@ -42,6 +44,7 @@ export const topPageDescription: TranslationType = {
     "50,000",
     "commence",
     "29/04/2024",
+    "Es-tu sur de supprimer?",
   ],
 };
 
@@ -50,4 +53,4 @@ export const newTripSetUpPageDescription: TranslationType = {
   japanese: ["タイトル", "選択", "通貨", "予算", "開始日", "作成"],
   english: ["title", "option", "currency", "budget", "start day", "create"],
   french: ["title", "option", "currency", "budget", "start day", "create"],
-}
+};
