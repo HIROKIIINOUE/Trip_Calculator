@@ -1,6 +1,4 @@
-// 次回ココから：onSnapshotのエラー修正完了したが、理解が追い付いていない。
-// →以下のコードの修正ごと修正前を比較しながら理解する
-// →理解が完了してから次に進むこと(useEffectの第二引数の理解も必ずすること)
+// 【次回ココから】各Tripリストのテーブルページのデザインを作成。
 
 import React, { useEffect, useState } from "react";
 import Header from "../common/Header";
