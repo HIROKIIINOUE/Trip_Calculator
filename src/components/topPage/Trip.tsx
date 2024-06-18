@@ -11,6 +11,7 @@ import {
   doc,
 } from "firebase/firestore";
 import { db } from "../../firebase";
+import { useNavigate } from "react-router-dom";
 
 type Props = {
   trip: TripType;
@@ -22,6 +23,8 @@ const Trip = (props: Props) => {
 
   const language = useAppSelector((state) => state.language.language);
   const translatedData: any = topPageDescription;
+  const navigate = useNavigate();
+  const user = useAppSelector((state) => state.user.user);
 
   const deleteTrip = async () => {
     if (!window.confirm(`${trip.title} : ${translatedData[language][8]}`)) {
@@ -35,6 +38,10 @@ const Trip = (props: Props) => {
       String(trip.id)
     );
     await deleteDoc(documentRef);
+  };
+
+  const toSecondPage = () => {
+    navigate(`/user=${user?.displayName}/id=${trip.id}`);
   };
 
   return (
@@ -56,6 +63,7 @@ const Trip = (props: Props) => {
             opacity: "0.7",
           },
         }}
+        onClick={toSecondPage}
       >
         <div className="h-full w-full">
           <h2 className="h-[40%] w-full text-[24px] bg-orange-100 text-center rounded-xl">

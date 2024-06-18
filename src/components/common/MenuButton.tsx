@@ -13,7 +13,7 @@ const MenuButton = () => {
   };
 
   return (
-    <div className="">
+    <div>
       <Button
         id="basic-button"
         aria-controls={open ? "basic-menu" : undefined}

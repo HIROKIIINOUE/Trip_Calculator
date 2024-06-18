@@ -4,6 +4,8 @@ import MenuIcon from "@mui/icons-material/Menu";
 import MenuButton from "../common/MenuButton";
 
 const Table = () => {
+
+  
   return (
     <div className="h-[50px] flex items-center justify-center my-2">
       {/* <MenuIcon className="cursor-pointer hover:opacity-60" /> */}

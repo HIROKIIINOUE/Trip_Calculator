@@ -11,7 +11,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<LoginPage />}></Route>
         <Route path="/:userName" element={<TopPage />} />
-        <Route path="/:userName/testForNow" element={<SecondPage />} />
+        <Route path="/:userName/:tripId" element={<SecondPage />} />
         <Route path="*" element={<NoPage />} />
       </Routes>
     </Router>

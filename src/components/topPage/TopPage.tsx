@@ -1,4 +1,4 @@
-// 【次回ココから】各Tripリストのテーブルページのデザインを作成。
+// 【次回ココから】secondPageに遷移する際にrouterを使用してURL作成
 
 import React, { useEffect, useState } from "react";
 import Header from "../common/Header";

@@ -15,7 +15,7 @@ const Header = () => {
   const language = useAppSelector((state) => state.language.language);
   const translatedData: any = headerDescription;
 
-  const logout = (): void => {
+  const handleLogout = (): void => {
     if (!window.confirm(`${translatedData[language][1]}`)) {
       return;
     }
@@ -50,7 +50,7 @@ const Header = () => {
       <div className="lg:w-[25%] sm:w-[35%] w-full h-full flex items-center">
         {user ? (
           <div
-            onClick={logout}
+            onClick={handleLogout}
             className="w-[50%] h-full gap-1 flex items-center justify-center hover:bg-orange-300 cursor-pointer duration-700"
           >
             <LogoutIcon />

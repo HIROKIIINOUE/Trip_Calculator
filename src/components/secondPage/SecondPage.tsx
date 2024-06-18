@@ -1,16 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Header from "../common/Header";
-import { useAppSelector } from "../../app/storeType";
 import { Box } from "@mui/material";
 import TableHeader from "./TableHeader";
 import Table from "./Table";
 
 const SecondPage = () => {
-  const user = useAppSelector((state) => state.user.user);
 
   return (
     <>
-    <Header />
       <div className="h-screen bg-orange-300 md:p-3 p-1">
         <div className="bg-orange-300 pb-8 h-auto">
           <div className="md:flex mb-6">
