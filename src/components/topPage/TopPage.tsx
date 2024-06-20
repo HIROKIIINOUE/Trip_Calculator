@@ -162,7 +162,7 @@ const TopPage = () => {
                 {/* ↓ココ修正：tripの型anyを正しい形に */}
                 {tripList?.map((trip: any) => (
                   // ↓ココ修正：ユニークkeyをreact-uidを使って生成
-                  <Trip trip={trip} key={trip} />
+                  <Trip trip={trip} key={trip.id} />
                 ))}
               </div>
             </div>
