@@ -1,9 +1,25 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { UserInformation } from "../type/UserType";
 
+// 自分用：ローカルストレージを使用した初期値(userデータ)の設定。ページを更新してもデータが保持されるように設定。
+const getUserLocalStorageValue = (key: string, initialValue: null) => {
+  const item = localStorage.getItem(key);
+
+  return item ? JSON.parse(item) : initialValue;
+};
+// 自分用：ローカルストレージを使用した初期値(userDocumentIDデータ)の設定。ページを更新してもデータが保持されるように設定。
+const getUserDocumentIDLocalStorageValue = (
+  key: string,
+  initialValue: null
+) => {
+  const item = localStorage.getItem(key);
+
+  return item ? item : initialValue;
+};
+
 const userInformation: UserInformation = {
-  user: null,
-  userDocumentID: null,
+  user: getUserLocalStorageValue("user", null),
+  userDocumentID: getUserDocumentIDLocalStorageValue("userDocumentID", null),
 };
 
 export const userSlice = createSlice({

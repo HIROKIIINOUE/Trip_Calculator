@@ -41,7 +41,7 @@ const Trip = (props: Props) => {
   };
 
   const toSecondPage = () => {
-    navigate(`/user=${user?.displayName}/id=${trip.id}`);
+    navigate(`/user=${user?.displayName}/${trip.id}`);
   };
 
   return (

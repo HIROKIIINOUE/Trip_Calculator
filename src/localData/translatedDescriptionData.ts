@@ -54,3 +54,10 @@ export const newTripSetUpPageDescription: TranslationType = {
   english: ["title", "option", "currency", "budget", "start day", "create"],
   french: ["title", "option", "currency", "budget", "start day", "create"],
 };
+
+// ↓ココは仮置き
+export const secondPageDescription: TranslationType = {
+  japanese: ["タイトル", "選択", "通貨", "予算", "開始日", "作成"],
+  english: ["title", "option", "currency", "budget", "start day", "create"],
+  french: ["title", "option", "currency", "budget", "start day", "create"],
+};

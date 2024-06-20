@@ -20,6 +20,7 @@ const Header = () => {
       return;
     }
     auth.signOut();
+    localStorage.removeItem("user");
     navigate("/");
   };
 

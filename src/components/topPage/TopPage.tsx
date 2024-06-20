@@ -1,5 +1,3 @@
-// 【次回ココから】secondPageに遷移する際にrouterを使用してURL作成
-
 import React, { useEffect, useState } from "react";
 import Header from "../common/Header";
 import { useNavigate } from "react-router";
@@ -29,14 +27,15 @@ import GetStarted from "./GetStarted";
 import { TripType } from "../../type/TripType";
 import Trip from "./Trip";
 import ReorderIcon from "@mui/icons-material/Reorder";
+import { getTripList } from "../../slices/tripSlice";
 
 const TopPage = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.user.user);
   const userDocumentID = useAppSelector((state) => state.user.userDocumentID);
+  const tripList = useAppSelector((state) => state.trip.trip);
   const [newTripSetUpPage, setNewTripSetUpPage] = useState<boolean>(false);
-  const [tripList, setTripList] = useState<any[]>([]);
   const [exampleTrip, setExampleTrip] = useState<boolean>(true);
 
   // ↓↓ログインしているuser情報のfirebase上にあるドキュメントIDを取得し、reduxで管理↓↓
@@ -52,6 +51,7 @@ const TopPage = () => {
 
     querySnapshot.docs.forEach((doc) => {
       dispatch(attachDocumentID(doc.id));
+      localStorage.setItem("userDocumentID", doc.id);
     });
   };
   // ↑↑ここまで↑↑
@@ -103,7 +103,7 @@ const TopPage = () => {
               id: doc.id,
             });
           });
-          setTripList(results);
+          dispatch(getTripList(results));
           if (!results.length) {
             setExampleTrip(true);
           } else {
@@ -159,8 +159,10 @@ const TopPage = () => {
                   </div>
                 </div>
                 {exampleTrip && <ExampleTrip />}
-                {tripList.map((trip) => (
-                  <Trip trip={trip} key={trip.id} />
+                {/* ↓ココ修正：tripの型anyを正しい形に */}
+                {tripList?.map((trip: any) => (
+                  // ↓ココ修正：ユニークkeyをreact-uidを使って生成
+                  <Trip trip={trip} key={trip} />
                 ))}
               </div>
             </div>
