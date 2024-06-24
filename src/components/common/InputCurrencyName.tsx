@@ -1,5 +1,3 @@
-// ココから：「作成」ボタン押下時に選択通貨を空欄に戻す。
-
 import {
   FormControl,
   MenuItem,
@@ -11,12 +9,13 @@ import React from "react";
 import { useAppSelector } from "../../app/storeType";
 import { newTripSetUpPageDescription } from "../../localData/translatedDescriptionData";
 
+// 自分用：共通コンポーネントでは受け渡されるプロップスが異なるので型指定にオプショナルプロップス 「末尾に?マーク」 を使用する
 type Props = {
-  titleRef: React.RefObject<HTMLInputElement>;
-  yourCurrencyRef: React.RefObject<HTMLInputElement>;
-  budgetRef: React.RefObject<HTMLInputElement>;
-  startDayRef: React.RefObject<HTMLInputElement>;
-  setButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
+  titleRef?: React.RefObject<HTMLInputElement>;
+  yourCurrencyRef?: React.RefObject<HTMLInputElement>;
+  budgetRef?: React.RefObject<HTMLInputElement>;
+  startDayRef?: React.RefObject<HTMLInputElement>;
+  setButtonDisabled?: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 const InputCurrencyName = (props: Props) => {
@@ -38,20 +37,20 @@ const InputCurrencyName = (props: Props) => {
     const {
       target: { value },
     } = event;
-    if (yourCurrencyRef.current) {
+    if (yourCurrencyRef?.current) {
       yourCurrencyRef.current.value = value;
     }
-    setButtonDisabled(
-      !titleRef.current?.value ||
-        !yourCurrencyRef.current?.value ||
-        !budgetRef.current?.value ||
-        !startDayRef.current?.value
+    setButtonDisabled!(
+      !titleRef?.current?.value ||
+        !yourCurrencyRef?.current?.value ||
+        !budgetRef?.current?.value ||
+        !startDayRef?.current?.value
     );
   };
 
   return (
     <>
-      <FormControl className="w-full">
+      <FormControl className="w-full text-left">
         <Select
           displayEmpty
           onChange={handleChange}
@@ -60,7 +59,9 @@ const InputCurrencyName = (props: Props) => {
           renderValue={(selected) => {
             if (!selected) {
               return (
-                <em className="not-italic">{translatedData[language][1]}</em>
+                <em className="not-italic tex">
+                  {translatedData[language][1]}
+                </em>
               );
             }
             return selected;

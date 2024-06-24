@@ -1,5 +1,4 @@
 // 次回ココから：secondPageのプラスボタンを押したらテーブル作成ページが出現するように作成。
-// →secondPageの固定descriptionも３言語対応可能に変更
 
 import React, { useEffect, useState } from "react";
 import { Box } from "@mui/material";
@@ -16,6 +15,7 @@ import {
 import { db } from "../../firebase";
 import { useParams } from "react-router-dom";
 import { secondPageDescription } from "../../localData/translatedDescriptionData";
+import NewTableSetUpPage from "./NewTableSetUpPage";
 
 const SecondPage = () => {
   const { tripId } = useParams();
@@ -24,6 +24,7 @@ const SecondPage = () => {
   const [tripID, setTripID] = useState<string>("");
   const language = useAppSelector((state) => state.language.language);
   const translatedData: any = secondPageDescription;
+  const [newTableSetUpPage, setNewTableSetUpPage] = useState<boolean>(true);
 
   // 自分用：URLパラメータと一致する1つのtripデータを取得する。
   useEffect(() => {
@@ -124,13 +125,19 @@ const SecondPage = () => {
               </div>
             </div>
           </div>
-          <TableHeader />
+          <TableHeader setNewTableSetUpPage={setNewTableSetUpPage} />
           <Table />
           <Table />
           <Table />
           <Table />
         </div>
       </div>
+      {newTableSetUpPage && (
+        <NewTableSetUpPage
+          newTableSetUpPage={newTableSetUpPage}
+          setNewTableSetUpPage={setNewTableSetUpPage}
+        />
+      )}
     </>
   );
 };

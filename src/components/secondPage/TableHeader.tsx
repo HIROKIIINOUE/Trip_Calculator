@@ -4,13 +4,25 @@ import AddCircleTwoToneIcon from "@mui/icons-material/AddCircleTwoTone";
 import { useAppSelector } from "../../app/storeType";
 import { secondPageDescription } from "../../localData/translatedDescriptionData";
 
-const TableHeader = () => {
+type Props = {
+  setNewTableSetUpPage: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+const TableHeader = (props: Props) => {
+  const { setNewTableSetUpPage } = props;
   const language = useAppSelector((state) => state.language.language);
   const translatedData: any = secondPageDescription;
 
+  const toNewTableSetUpPage = () => {
+    setNewTableSetUpPage(true);
+  };
+
   return (
     <div className="h-[50px] flex items-center justify-center">
-      <AddCircleTwoToneIcon className="cursor-pointer hover:opacity-60" />
+      <AddCircleTwoToneIcon
+        className="cursor-pointer hover:opacity-60"
+        onClick={toNewTableSetUpPage}
+      />
       <Box
         sx={{
           width: "25%",
