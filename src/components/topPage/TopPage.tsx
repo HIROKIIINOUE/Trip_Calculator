@@ -72,6 +72,9 @@ const TopPage = () => {
       const currencyNameList = Object.keys(currencyRateList);
       dispatch(setCurrencyRateList(currencyRateList));
       dispatch(setCurrencyNameList(currencyNameList));
+      // ↓currencyNameListをローカルストレージに保存
+      const JSONCurrencyNameList = JSON.stringify(currencyNameList);
+      localStorage.setItem("currencyNameList", JSONCurrencyNameList);
     };
     getExchangeRateData();
   }, []);

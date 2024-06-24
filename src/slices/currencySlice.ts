@@ -1,10 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { CurrencyType } from "../type/currencyType";
 
+const getLocalStorageValue = (key: string, initialValue: null) => {
+  const item = localStorage.getItem(key);
+  return item ? JSON.parse(item) : initialValue;
+};
+
 const currencyInformation: CurrencyType = {
   currencyRateList: null,
   currentCurrency: null,
-  currencyNameList: null,
+  currencyNameList: getLocalStorageValue("currencyNameList", null),
   currentCountryName: null,
 };
 
