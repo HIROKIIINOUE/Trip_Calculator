@@ -1,4 +1,5 @@
 // 次回ココから：secondPageのプラスボタンを押したらテーブル作成ページが出現するように作成。
+// →secondPageの固定descriptionも３言語対応可能に変更
 
 import React, { useEffect, useState } from "react";
 import { Box } from "@mui/material";
@@ -14,12 +15,15 @@ import {
 } from "firebase/firestore";
 import { db } from "../../firebase";
 import { useParams } from "react-router-dom";
+import { secondPageDescription } from "../../localData/translatedDescriptionData";
 
 const SecondPage = () => {
   const { tripId } = useParams();
   const userDocumentID = useAppSelector((state) => state.user.userDocumentID);
   const [tripData, setTripData] = useState<any>([]);
   const [tripID, setTripID] = useState<string>("");
+  const language = useAppSelector((state) => state.language.language);
+  const translatedData: any = secondPageDescription;
 
   // 自分用：URLパラメータと一致する1つのtripデータを取得する。
   useEffect(() => {
@@ -46,7 +50,7 @@ const SecondPage = () => {
         <div className="bg-orange-300 pb-8 h-auto">
           <div className="md:flex mb-6">
             <div className="md:w-[46%] w-full">
-              <p>タイトル</p>
+              <p>{translatedData[language][0]}</p>
               <Box
                 sx={{
                   display: "flex",
@@ -65,7 +69,7 @@ const SecondPage = () => {
             </div>
             <div className="md:w-[56%] w-full flex">
               <div className="w-[33%]">
-                <p>予算</p>
+                <p>{translatedData[language][1]}</p>
                 <Box
                   sx={{
                     display: "flex",
@@ -83,7 +87,7 @@ const SecondPage = () => {
                 </Box>
               </div>
               <div className="w-[33%]">
-                <p>合計</p>
+                <p>{translatedData[language][2]}</p>
                 <Box
                   sx={{
                     display: "flex",
@@ -101,7 +105,7 @@ const SecondPage = () => {
                 </Box>
               </div>
               <div className="w-[33%]">
-                <p>差分</p>
+                <p>{translatedData[language][3]}</p>
                 <Box
                   sx={{
                     display: "flex",

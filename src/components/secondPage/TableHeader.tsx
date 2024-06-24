@@ -1,8 +1,13 @@
 import { Box } from "@mui/material";
 import React from "react";
 import AddCircleTwoToneIcon from "@mui/icons-material/AddCircleTwoTone";
+import { useAppSelector } from "../../app/storeType";
+import { secondPageDescription } from "../../localData/translatedDescriptionData";
 
 const TableHeader = () => {
+  const language = useAppSelector((state) => state.language.language);
+  const translatedData: any = secondPageDescription;
+
   return (
     <div className="h-[50px] flex items-center justify-center">
       <AddCircleTwoToneIcon className="cursor-pointer hover:opacity-60" />
@@ -20,7 +25,7 @@ const TableHeader = () => {
           justifyContent: "center",
         }}
       >
-        日付
+        {translatedData[language][4]}
       </Box>
       <Box
         sx={{
@@ -36,7 +41,7 @@ const TableHeader = () => {
           justifyContent: "center",
         }}
       >
-        金額
+        {translatedData[language][5]}
       </Box>
       <Box
         sx={{
@@ -52,7 +57,7 @@ const TableHeader = () => {
           justifyContent: "center",
         }}
       >
-        通貨
+        {translatedData[language][6]}
       </Box>
       <Box
         sx={{
@@ -68,7 +73,7 @@ const TableHeader = () => {
           justifyContent: "center",
         }}
       >
-        円
+        (仮)円
       </Box>
     </div>
   );

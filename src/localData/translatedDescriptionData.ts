@@ -52,12 +52,28 @@ export const topPageDescription: TranslationType = {
 export const newTripSetUpPageDescription: TranslationType = {
   japanese: ["タイトル", "選択", "通貨", "予算", "開始日", "作成"],
   english: ["title", "option", "currency", "budget", "start day", "create"],
-  french: ["title", "option", "currency", "budget", "start day", "create"],
+  french: ["titre", "option", "currency", "budget", "start day", "create"],
 };
 
-// ↓ココは仮置き
+// 【修正】ココの翻訳は現段階では適当
 export const secondPageDescription: TranslationType = {
-  japanese: ["タイトル", "選択", "通貨", "予算", "開始日", "作成"],
-  english: ["title", "option", "currency", "budget", "start day", "create"],
-  french: ["title", "option", "currency", "budget", "start day", "create"],
+  japanese: ["タイトル", "予算", "合計", "差分", "日付", "金額", "通貨"],
+  english: [
+    "title",
+    "budget",
+    "sum",
+    "difference",
+    "date",
+    "money",
+    "currency",
+  ],
+  french: [
+    "titre",
+    "option",
+    "currency",
+    "budget",
+    "start day",
+    "create",
+    "currency",
+  ],
 };
