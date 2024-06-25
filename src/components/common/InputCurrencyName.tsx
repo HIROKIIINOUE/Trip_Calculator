@@ -16,6 +16,7 @@ type Props = {
   budgetRef?: React.RefObject<HTMLInputElement>;
   startDayRef?: React.RefObject<HTMLInputElement>;
   setButtonDisabled?: React.Dispatch<React.SetStateAction<boolean>>;
+  setCurrency?: React.Dispatch<React.SetStateAction<string>>;
 };
 
 const InputCurrencyName = (props: Props) => {
@@ -25,6 +26,7 @@ const InputCurrencyName = (props: Props) => {
     budgetRef,
     startDayRef,
     setButtonDisabled,
+    setCurrency,
   } = props;
 
   const currencyNameList = useAppSelector(
@@ -48,12 +50,16 @@ const InputCurrencyName = (props: Props) => {
     );
   };
 
+  const handleChange2 = (e: SelectChangeEvent<string>) => {
+    setCurrency!(e.target.value);
+  };
+
   return (
     <>
       <FormControl className="w-full text-left">
         <Select
           displayEmpty
-          onChange={handleChange}
+          onChange={setButtonDisabled ? handleChange : (e) => handleChange2(e)}
           input={<OutlinedInput />}
           inputRef={yourCurrencyRef}
           renderValue={(selected) => {

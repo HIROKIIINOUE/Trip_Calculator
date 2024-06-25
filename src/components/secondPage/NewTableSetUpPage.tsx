@@ -1,17 +1,33 @@
 import { Box, Button, TextField } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import CurrencyExchangeIcon from "@mui/icons-material/CurrencyExchange";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import InputCurrencyName from "../common/InputCurrencyName";
+import dayjs from "dayjs";
+import { useAppSelector } from "../../app/storeType";
+import { calculationMoney } from "../../util/calculationMoney";
 
 type Props = {
   newTableSetUpPage: boolean;
   setNewTableSetUpPage: React.Dispatch<React.SetStateAction<boolean>>;
+  tripId: string | undefined;
 };
 
+// 勉強のためテーブルのsetupポップアップはuseStateで状態管理。
+// ※tripのsetupポップアップはuseRefで状態を管理している。
+
 const NewTableSetUpPage = (props: Props) => {
-  const { newTableSetUpPage, setNewTableSetUpPage } = props;
+  const { newTableSetUpPage, setNewTableSetUpPage, tripId } = props;
+  const [date, setDate] = useState<dayjs.Dayjs | null>(null);
+  const [money, setMoney] = useState<number>(0);
+  const [currency, setCurrency] = useState<string>("");
+  const [moneyResult, setMoneyResult] = useState<number>(0);
+  const [detail, setDetail] = useState<string>("");
+  const userDocumentID = useAppSelector((state) => state.user.userDocumentID);
+  const currencyRateList = useAppSelector(
+    (state) => state.currency.currencyRateList
+  );
 
   const backToSecondPage = () => {
     setNewTableSetUpPage(false);
@@ -53,6 +69,7 @@ const NewTableSetUpPage = (props: Props) => {
                   borderRadius: 2,
                   border: "4px double rgb(251 146 60)",
                 }}
+                onChange={(e: dayjs.Dayjs | null) => setDate(e)}
               />
             </LocalizationProvider>
           </Box>
@@ -70,6 +87,7 @@ const NewTableSetUpPage = (props: Props) => {
             }}
           >
             <TextField
+              type="number"
               sx={{
                 width: "100%",
                 backgroundColor: "#F3FFD8",
@@ -79,14 +97,10 @@ const NewTableSetUpPage = (props: Props) => {
               id="outlined-basic"
               label="お金"
               variant="outlined"
-              // onChange={() =>
-              //   setButtonDisabled(
-              //     !titleRef.current?.value ||
-              //       !yourCurrencyRef.current?.value ||
-              //       !budgetRef.current?.value ||
-              //       !startDayRef.current?.value
-              //   )
-              // }
+              value={money}
+              onChange={(
+                e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+              ) => setMoney(Number(e.target.value))}
             />
           </Box>
 
@@ -105,7 +119,7 @@ const NewTableSetUpPage = (props: Props) => {
               marginBottom: "8px",
             }}
           >
-            <InputCurrencyName />
+            <InputCurrencyName setCurrency={setCurrency} />
           </Box>
 
           <Box
@@ -125,13 +139,22 @@ const NewTableSetUpPage = (props: Props) => {
               marginBottom: "8px",
             }}
           >
-            <p className="bg-transparent w-full text-center">
-              {/* {Math.round(yenMoney).toLocaleString()} */}
+            <p className="bg-transparent w-full text-left pl-3">
+              {!moneyResult ? 0 : Math.round(moneyResult).toLocaleString()}
             </p>
             <CurrencyExchangeIcon
               className="mr-2 cursor-pointer hover:opacity-60 flex items-center"
               fontSize="large"
-              // onClick={() => calculateToYen()}
+              onClick={() =>
+                calculationMoney(
+                  userDocumentID,
+                  tripId,
+                  currency,
+                  currencyRateList,
+                  money,
+                  setMoneyResult
+                )
+              }
             />
           </Box>
 
@@ -157,14 +180,9 @@ const NewTableSetUpPage = (props: Props) => {
               id="outlined-basic"
               label="詳細"
               variant="outlined"
-              // onChange={() =>
-              //   setButtonDisabled(
-              //     !titleRef.current?.value ||
-              //       !yourCurrencyRef.current?.value ||
-              //       !budgetRef.current?.value ||
-              //       !startDayRef.current?.value
-              //   )
-              // }
+              onChange={(
+                e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+              ) => setDetail(e.target.value)}
             />
           </Box>
         </div>

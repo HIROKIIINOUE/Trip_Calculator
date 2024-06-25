@@ -1,16 +1,33 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { CurrencyType } from "../type/currencyType";
 
-const getLocalStorageValue = (key: string, initialValue: null) => {
+// 自分用：currencyRateListの初期値をローカルデータで保持する
+const getCurrencyRateListFromLocalStorageValue = (
+  key: string,
+  initialValue: null
+) => {
+  const item = localStorage.getItem(key);
+  return item ? JSON.parse(item) : initialValue;
+};
+
+// 自分用：currencyNameListの初期値をローカルデータで保持する
+const getCurrencyNameListLocalStorageValue = (
+  key: string,
+  initialValue: null
+) => {
   const item = localStorage.getItem(key);
   return item ? JSON.parse(item) : initialValue;
 };
 
 const currencyInformation: CurrencyType = {
-  currencyRateList: null,
-  currentCurrency: null,
-  currencyNameList: getLocalStorageValue("currencyNameList", null),
-  currentCountryName: null,
+  currencyRateList: getCurrencyRateListFromLocalStorageValue(
+    "currencyRateList",
+    null
+  ),
+  currencyNameList: getCurrencyNameListLocalStorageValue(
+    "currencyNameList",
+    null
+  ),
 };
 
 export const currencySlice = createSlice({
@@ -23,19 +40,9 @@ export const currencySlice = createSlice({
     setCurrencyNameList: (state, action) => {
       state.currencyNameList = action.payload;
     },
-    setCurrentCurrency: (state, action) => {
-      state.currentCurrency = action.payload;
-    },
-    setCurrentCountryName: (state, action) => {
-      state.currentCountryName = action.payload;
-    },
   },
 });
 
 export default currencySlice.reducer;
-export const {
-  setCurrencyRateList,
-  setCurrencyNameList,
-  setCurrentCurrency,
-  setCurrentCountryName,
-} = currencySlice.actions;
+export const { setCurrencyRateList, setCurrencyNameList } =
+  currencySlice.actions;

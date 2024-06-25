@@ -75,6 +75,9 @@ const TopPage = () => {
       // ↓currencyNameListをローカルストレージに保存
       const JSONCurrencyNameList = JSON.stringify(currencyNameList);
       localStorage.setItem("currencyNameList", JSONCurrencyNameList);
+
+      const JSONCurrencyRateList = JSON.stringify(currencyRateList);
+      localStorage.setItem("currencyRateList", JSONCurrencyRateList);
     };
     getExchangeRateData();
   }, []);

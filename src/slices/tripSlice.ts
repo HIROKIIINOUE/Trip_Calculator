@@ -1,10 +1,4 @@
-// 次回ココから：ページが更新されてもtripデータが保持されるようにローカルストレージを使用。
-// ローカルストレージを使用したsolutionをgithubのissueに記載することを忘れない。
-// →参考リンク https://qiita.com/tronicboy/items/171c6d437fef2a881cac
-// →参考リンク https://developer.mozilla.org/ja/docs/Web/API/Storage/removeItem
-
 import { createSlice } from "@reduxjs/toolkit";
-import { TripType } from "../type/TripType";
 
 const initialTripList = {
   trip: [],

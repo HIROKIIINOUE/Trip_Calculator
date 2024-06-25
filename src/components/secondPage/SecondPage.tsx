@@ -1,4 +1,4 @@
-// 次回ココから：secondPageのプラスボタンを押したらテーブル作成ページが出現するように作成。
+// 【修正】なぜかtripIdをtripIDに置き換えるとエラーになる。確認して全てをtripIDに置き換えること。
 
 import React, { useEffect, useState } from "react";
 import { Box } from "@mui/material";
@@ -21,7 +21,6 @@ const SecondPage = () => {
   const { tripId } = useParams();
   const userDocumentID = useAppSelector((state) => state.user.userDocumentID);
   const [tripData, setTripData] = useState<any>([]);
-  const [tripID, setTripID] = useState<string>("");
   const language = useAppSelector((state) => state.language.language);
   const translatedData: any = secondPageDescription;
   const [newTableSetUpPage, setNewTableSetUpPage] = useState<boolean>(true);
@@ -38,7 +37,6 @@ const SecondPage = () => {
 
     const getTripDataFromDatabase = onSnapshot(collectionRef, (doc) => {
       setTripData(doc.data());
-      setTripID(doc.id);
     });
 
     return () => getTripDataFromDatabase();
@@ -136,6 +134,7 @@ const SecondPage = () => {
         <NewTableSetUpPage
           newTableSetUpPage={newTableSetUpPage}
           setNewTableSetUpPage={setNewTableSetUpPage}
+          tripId={tripId}
         />
       )}
     </>

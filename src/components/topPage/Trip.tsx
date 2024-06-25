@@ -44,6 +44,8 @@ const Trip = (props: Props) => {
     navigate(`/user=${user?.displayName}/${trip.id}`);
   };
 
+  
+
   return (
     <div className="mt-8 flex">
       <Box
