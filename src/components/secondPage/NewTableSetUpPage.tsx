@@ -9,28 +9,30 @@ import { useAppSelector } from "../../app/storeType";
 import { calculationMoney } from "../../util/calculationMoney";
 
 type Props = {
-  newTableSetUpPage: boolean;
   setNewTableSetUpPage: React.Dispatch<React.SetStateAction<boolean>>;
-  tripId: string | undefined;
+  yourCurrency: string;
 };
 
 // 勉強のためテーブルのsetupポップアップはuseStateで状態管理。
 // ※tripのsetupポップアップはuseRefで状態を管理している。
 
 const NewTableSetUpPage = (props: Props) => {
-  const { newTableSetUpPage, setNewTableSetUpPage, tripId } = props;
+  const { setNewTableSetUpPage, yourCurrency } = props;
   const [date, setDate] = useState<dayjs.Dayjs | null>(null);
   const [money, setMoney] = useState<number>(0);
   const [currency, setCurrency] = useState<string>("");
   const [moneyResult, setMoneyResult] = useState<number>(0);
   const [detail, setDetail] = useState<string>("");
-  const userDocumentID = useAppSelector((state) => state.user.userDocumentID);
   const currencyRateList = useAppSelector(
     (state) => state.currency.currencyRateList
   );
 
   const backToSecondPage = () => {
     setNewTableSetUpPage(false);
+  };
+
+  const submit = () => {
+    console.log(date, money, currency, moneyResult, detail, yourCurrency);
   };
 
   return (
@@ -140,15 +142,14 @@ const NewTableSetUpPage = (props: Props) => {
             }}
           >
             <p className="bg-transparent w-full text-left pl-3">
-              {!moneyResult ? 0 : Math.round(moneyResult).toLocaleString()}
+              {!moneyResult ? 0 : Math.ceil(moneyResult).toLocaleString()}
             </p>
             <CurrencyExchangeIcon
               className="mr-2 cursor-pointer hover:opacity-60 flex items-center"
               fontSize="large"
               onClick={() =>
                 calculationMoney(
-                  userDocumentID,
-                  tripId,
+                  yourCurrency,
                   currency,
                   currencyRateList,
                   money,
@@ -201,11 +202,11 @@ const NewTableSetUpPage = (props: Props) => {
             className="w-full h-full"
             color="warning"
             // disabled={
-            //   date !== "" && money !== 0 && yenMoney !== 0 && detail !== ""
+            //   date !== null && money !== 0 && yenMoney !== 0 && detail !== ""
             //     ? false
             //     : true
             // }
-            // onClick={() => submit()}
+            onClick={() => submit()}
           >
             <span className="text-2xl">追加</span>
           </Button>

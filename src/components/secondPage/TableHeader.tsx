@@ -6,10 +6,11 @@ import { secondPageDescription } from "../../localData/translatedDescriptionData
 
 type Props = {
   setNewTableSetUpPage: React.Dispatch<React.SetStateAction<boolean>>;
+  yourCurrency: string;
 };
 
 const TableHeader = (props: Props) => {
-  const { setNewTableSetUpPage } = props;
+  const { setNewTableSetUpPage, yourCurrency } = props;
   const language = useAppSelector((state) => state.language.language);
   const translatedData: any = secondPageDescription;
 
@@ -85,7 +86,7 @@ const TableHeader = (props: Props) => {
           justifyContent: "center",
         }}
       >
-        (仮)円
+        {yourCurrency}
       </Box>
     </div>
   );

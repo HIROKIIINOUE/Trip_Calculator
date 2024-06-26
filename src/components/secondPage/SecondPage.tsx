@@ -1,4 +1,5 @@
 // 【修正】なぜかtripIdをtripIDに置き換えるとエラーになる。確認して全てをtripIDに置き換えること。
+// 次回ココから：（仮）円の表示をyourCurrencyを使って書き直す。リファクトリングしたcalculationMoneyに不備がない確認
 
 import React, { useEffect, useState } from "react";
 import { Box } from "@mui/material";
@@ -10,6 +11,7 @@ import {
   DocumentData,
   DocumentReference,
   doc,
+  getDoc,
   onSnapshot,
 } from "firebase/firestore";
 import { db } from "../../firebase";
@@ -21,11 +23,13 @@ const SecondPage = () => {
   const { tripId } = useParams();
   const userDocumentID = useAppSelector((state) => state.user.userDocumentID);
   const [tripData, setTripData] = useState<any>([]);
+  const [yourCurrency, setYourCurrency] = useState<string>("");
   const language = useAppSelector((state) => state.language.language);
   const translatedData: any = secondPageDescription;
-  const [newTableSetUpPage, setNewTableSetUpPage] = useState<boolean>(true);
+  const [newTableSetUpPage, setNewTableSetUpPage] = useState<boolean>(false);
 
   // 自分用：URLパラメータと一致する1つのtripデータを取得する。
+  // 自分用：yourCurrencyのデータを取得する
   useEffect(() => {
     const collectionRef: DocumentReference<DocumentData, DocumentData> = doc(
       db,
@@ -34,6 +38,12 @@ const SecondPage = () => {
       "tripList",
       String(tripId)
     );
+
+    const getYourCurrency = async () => {
+      const querySnapshot = await getDoc(collectionRef);
+      setYourCurrency(querySnapshot.data()!.yourCurrency);
+    };
+    getYourCurrency();
 
     const getTripDataFromDatabase = onSnapshot(collectionRef, (doc) => {
       setTripData(doc.data());
@@ -123,7 +133,10 @@ const SecondPage = () => {
               </div>
             </div>
           </div>
-          <TableHeader setNewTableSetUpPage={setNewTableSetUpPage} />
+          <TableHeader
+            setNewTableSetUpPage={setNewTableSetUpPage}
+            yourCurrency={yourCurrency}
+          />
           <Table />
           <Table />
           <Table />
@@ -132,9 +145,8 @@ const SecondPage = () => {
       </div>
       {newTableSetUpPage && (
         <NewTableSetUpPage
-          newTableSetUpPage={newTableSetUpPage}
           setNewTableSetUpPage={setNewTableSetUpPage}
-          tripId={tripId}
+          yourCurrency={yourCurrency}
         />
       )}
     </>
