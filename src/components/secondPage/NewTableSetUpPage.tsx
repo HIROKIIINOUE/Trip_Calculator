@@ -201,11 +201,15 @@ const NewTableSetUpPage = (props: Props) => {
             variant="contained"
             className="w-full h-full"
             color="warning"
-            // disabled={
-            //   date !== null && money !== 0 && yenMoney !== 0 && detail !== ""
-            //     ? false
-            //     : true
-            // }
+            disabled={
+              date !== null &&
+              money !== 0 &&
+              yourCurrency !== null &&
+              moneyResult !== 0 &&
+              detail !== ""
+                ? false
+                : true
+            }
             onClick={() => submit()}
           >
             <span className="text-2xl">追加</span>
