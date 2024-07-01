@@ -2,7 +2,13 @@ import React from "react";
 import { Box } from "@mui/material";
 import MenuButton from "../common/MenuButton";
 
-const Table = () => {
+type Props = {
+  tableData: any;
+};
+
+const Table = (props: Props) => {
+  const { tableData } = props;
+
   return (
     <div className="h-[50px] flex items-center justify-center my-2">
       <MenuButton />
@@ -20,7 +26,7 @@ const Table = () => {
         }}
       >
         <span className="max-[500px]:text-[12px] max-[390px]:text-[8px]">
-          テストテスト
+          {tableData.date}
         </span>
       </Box>
       <Box
@@ -37,7 +43,7 @@ const Table = () => {
         }}
       >
         <span className="max-[500px]:text-[12px] max-[390px]:text-[12px]">
-          テストテスト
+          {tableData.money.toLocaleString()}
         </span>
       </Box>
       <Box
@@ -54,7 +60,7 @@ const Table = () => {
         }}
       >
         <span className="max-[500px]:text-[12px] max-[390px]:text-[16px]">
-          テストテスト
+          {tableData.currency}
         </span>
       </Box>
       <Box
@@ -71,7 +77,7 @@ const Table = () => {
         }}
       >
         <span className="max-[500px]:text-[12px] max-[390px]:text-[12px]">
-          テストテスト
+          {tableData.moneyResult.toLocaleString()}
         </span>
       </Box>
     </div>

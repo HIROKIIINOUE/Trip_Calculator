@@ -7,6 +7,14 @@ import InputCurrencyName from "../common/InputCurrencyName";
 import dayjs from "dayjs";
 import { useAppSelector } from "../../app/storeType";
 import { calculationMoney } from "../../util/calculationMoney";
+import {
+  CollectionReference,
+  DocumentData,
+  addDoc,
+  collection,
+} from "firebase/firestore";
+import { db } from "../../firebase";
+import { useParams } from "react-router-dom";
 
 type Props = {
   setNewTableSetUpPage: React.Dispatch<React.SetStateAction<boolean>>;
@@ -18,7 +26,7 @@ type Props = {
 
 const NewTableSetUpPage = (props: Props) => {
   const { setNewTableSetUpPage, yourCurrency } = props;
-  const [date, setDate] = useState<dayjs.Dayjs | null>(null);
+  const [date, setDate] = useState<any>(null);
   const [money, setMoney] = useState<number>(0);
   const [currency, setCurrency] = useState<string>("");
   const [moneyResult, setMoneyResult] = useState<number>(0);
@@ -26,13 +34,32 @@ const NewTableSetUpPage = (props: Props) => {
   const currencyRateList = useAppSelector(
     (state) => state.currency.currencyRateList
   );
+  const userDocumentID = useAppSelector((state) => state.user.userDocumentID);
+  const { tripId } = useParams();
 
   const backToSecondPage = () => {
     setNewTableSetUpPage(false);
   };
 
-  const submit = () => {
-    console.log(date, money, currency, moneyResult, detail, yourCurrency);
+  const submit = async () => {
+    const collectionRef: CollectionReference<DocumentData, DocumentData> =
+      collection(
+        db,
+        "dataList",
+        String(userDocumentID),
+        "tripList",
+        String(tripId),
+        "tableList"
+      );
+    await addDoc(collectionRef, {
+      date: date,
+      money: money,
+      currency: currency,
+      moneyResult: Math.ceil(moneyResult),
+      detail: detail,
+    });
+
+    setNewTableSetUpPage(false);
   };
 
   return (
@@ -71,7 +98,10 @@ const NewTableSetUpPage = (props: Props) => {
                   borderRadius: 2,
                   border: "4px double rgb(251 146 60)",
                 }}
-                onChange={(e: dayjs.Dayjs | null) => setDate(e)}
+                //↓自分用：日付データのイベント引数は以下のように変換すること
+                onChange={(date: dayjs.Dayjs | null) =>
+                  setDate(date?.toISOString().split("T")[0])
+                }
               />
             </LocalizationProvider>
           </Box>

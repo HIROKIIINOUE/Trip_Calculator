@@ -8,11 +8,15 @@ import Table from "./Table";
 import { useAppSelector } from "../../app/storeType";
 import Header from "../common/Header";
 import {
+  CollectionReference,
   DocumentData,
   DocumentReference,
+  collection,
   doc,
   getDoc,
   onSnapshot,
+  orderBy,
+  query,
 } from "firebase/firestore";
 import { db } from "../../firebase";
 import { useParams } from "react-router-dom";
@@ -22,11 +26,14 @@ import NewTableSetUpPage from "./NewTableSetUpPage";
 const SecondPage = () => {
   const { tripId } = useParams();
   const userDocumentID = useAppSelector((state) => state.user.userDocumentID);
+  // ココ修正：any型
   const [tripData, setTripData] = useState<any>([]);
   const [yourCurrency, setYourCurrency] = useState<string>("");
   const language = useAppSelector((state) => state.language.language);
   const translatedData: any = secondPageDescription;
   const [newTableSetUpPage, setNewTableSetUpPage] = useState<boolean>(false);
+  // ココ修正：any型
+  const [tableList, setTableList] = useState<any[]>([]);
 
   // 自分用：URLパラメータと一致する1つのtripデータを取得する。
   // 自分用：yourCurrencyのデータを取得する
@@ -50,6 +57,40 @@ const SecondPage = () => {
     });
 
     return () => getTripDataFromDatabase();
+  }, []);
+
+  useEffect(() => {
+    const collectionRef: CollectionReference<DocumentData, DocumentData> =
+      collection(
+        db,
+        "dataList",
+        String(userDocumentID),
+        "tripList",
+        String(tripId),
+        "tableList"
+      );
+    const collectionRefOrderBy = query(collectionRef, orderBy("date", "desc"));
+
+    const getTableDataListFromDatabase = onSnapshot(
+      collectionRefOrderBy,
+      (querySnapshot) => {
+        // ココ修正：any型
+        const results: any = [];
+        querySnapshot.docs.forEach((doc) => {
+          results.push({
+            date: doc.data().date,
+            currency: doc.data().currency,
+            money: doc.data().money,
+            moneyResult: doc.data().moneyResult,
+            detail: doc.data().detail,
+            id: doc.id,
+          });
+          setTableList(results);
+        });
+      }
+    );
+
+    return () => getTableDataListFromDatabase();
   }, []);
 
   return (
@@ -137,10 +178,9 @@ const SecondPage = () => {
             setNewTableSetUpPage={setNewTableSetUpPage}
             yourCurrency={yourCurrency}
           />
-          <Table />
-          <Table />
-          <Table />
-          <Table />
+          {tableList.map((tableData) => (
+            <Table tableData={tableData} />
+          ))}
         </div>
       </div>
       {newTableSetUpPage && (
