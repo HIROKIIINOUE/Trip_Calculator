@@ -6,6 +6,7 @@ import { auth } from "../../firebase";
 import LanguageOption from "./LanguageOption";
 import { headerDescription } from "../../localData/translatedDescriptionData";
 import { logout } from "../../slices/userSlice";
+import { cleanUpLocalStorageExceptLanguage } from "../../util/cleanUpLocalstorage";
 
 const Header = () => {
   const user = useAppSelector((state) => state.user.user);
@@ -19,7 +20,9 @@ const Header = () => {
     }
     auth.signOut();
     logout();
-    localStorage.clear();
+    cleanUpLocalStorageExceptLanguage();
+    window.location.reload(); //←必要かどうか微妙。
+    // →useNavigate()は使わないこと！  issue#22 を確認。
   };
 
   const toLanguageOption = () => {

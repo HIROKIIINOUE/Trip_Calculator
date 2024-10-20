@@ -8,6 +8,7 @@ import { login, logout } from "../../slices/userSlice";
 import { useNavigate } from "react-router";
 import LoadingPage from "../common/LoadingPage";
 import { loginPageDescription } from "../../localData/translatedDescriptionData";
+import { cleanUpLocalStorageExceptLanguage } from "../../util/cleanUpLocalstorage";
 
 function LoginPage() {
   const navigate = useNavigate();
@@ -18,7 +19,7 @@ function LoginPage() {
   const translatedData: any = loginPageDescription;
 
   const logIn = async () => {
-    localStorage.clear();
+    cleanUpLocalStorageExceptLanguage();
     setLoadingPage(true);
     try {
       await signInWithPopup(auth, provider);
@@ -30,8 +31,7 @@ function LoginPage() {
   };
 
   useEffect(() => {
-    localStorage.clear();
-
+    cleanUpLocalStorageExceptLanguage();
     auth.onAuthStateChanged((loginUser) => {
       if (loginUser) {
         dispatch(
@@ -43,7 +43,6 @@ function LoginPage() {
           })
         );
         const JSONloginUser = JSON.stringify(loginUser);
-        localStorage.clear();
         localStorage.setItem("user", JSONloginUser);
         navigate(`/user=${loginUser.email}`);
       } else {
