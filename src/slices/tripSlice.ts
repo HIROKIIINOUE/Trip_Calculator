@@ -1,7 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+const getLocalStorageValue = (key: string, initialValue: []) => {
+  const item = localStorage.getItem(key);
+
+  return item ? JSON.parse(item) : initialValue;
+};
+
 const initialTripList = {
-  trip: [],
+  trip: getLocalStorageValue("tripList", []),
 };
 
 const tripSlice = createSlice({

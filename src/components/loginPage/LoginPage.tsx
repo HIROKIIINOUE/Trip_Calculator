@@ -42,8 +42,8 @@ function LoginPage() {
             displayName: loginUser.displayName,
           })
         );
-        const JSONloginUser = JSON.stringify(loginUser);
-        localStorage.setItem("user", JSONloginUser);
+        const JSONLoginUser = JSON.stringify(loginUser);
+        localStorage.setItem("user", JSONLoginUser);
         navigate(`/user=${loginUser.email}`);
       } else {
         dispatch(logout());

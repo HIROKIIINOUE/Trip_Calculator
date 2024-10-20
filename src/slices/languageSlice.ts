@@ -2,10 +2,10 @@ import { createSlice } from "@reduxjs/toolkit";
 import { LanguageType } from "../type/LanguageType";
 
 // 自分用：ローカルストレージを使用した初期値の設定。ページを更新してもデータが保持されるように設定。
-const getLocalStorageValue = (key: string, initValue: string) => {
+const getLocalStorageValue = (key: string, initialValue: string) => {
   const item = localStorage.getItem(key);
 
-  return item ? item : initValue;
+  return item ? item : initialValue;
 };
 const initialLanguage: LanguageType = {
   language: getLocalStorageValue("language", "japanese"),

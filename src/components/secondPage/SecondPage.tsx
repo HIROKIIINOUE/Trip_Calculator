@@ -36,6 +36,7 @@ const SecondPage = () => {
   const [tableList, setTableList] = useState<any[]>([]);
   const user = useAppSelector((state) => state.user.user);
   const navigate = useNavigate();
+  const tripList = useAppSelector((state) => state.trip.trip);
 
   // 自分用：URLパラメータと一致する1つのtripデータを取得する。
   // 自分用：yourCurrencyのデータを取得する
@@ -44,6 +45,19 @@ const SecondPage = () => {
       navigate("/");
       return;
     }
+
+    // =========================
+    // 自分用：secondPage用のURLを手書きで変更した時、変更後のURLが既にデータベース上にあるtripデータのどのIDとも一致しない時、トップページに自動的に遷移する処理。
+    // (さもないとURLから取得したパラムがデータベースのどれとも一致しないことでエラーが発生してしまう)
+    // ↓ココany型修正
+    const judgeTripExist = tripList.filter((trip: any) => {
+      return trip.id === tripId;
+    });
+    if (judgeTripExist.length === 0) {
+      navigate("/");
+      return;
+    }
+    // =========================
 
     const collectionRef: DocumentReference<DocumentData, DocumentData> = doc(
       db,

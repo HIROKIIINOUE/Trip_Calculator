@@ -120,6 +120,9 @@ const TopPage = () => {
             });
           });
           dispatch(getTripList(results));
+          const JSONTripList = JSON.stringify(results);
+          localStorage.setItem("tripList", JSONTripList);
+
           if (!results.length) {
             setExampleTrip(true);
           } else {
