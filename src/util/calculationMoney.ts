@@ -11,6 +11,7 @@ export const calculationMoney = async (
 
   if (currency === "") {
     alert("現地の通貨を入力してください");
+    return;
   }
 
   const result = (money / tripCurrencyRate) * yourCurrencyRate;

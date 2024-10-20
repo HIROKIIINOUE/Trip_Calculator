@@ -1,5 +1,5 @@
 import { Box, Button, TextField } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import CurrencyExchangeIcon from "@mui/icons-material/CurrencyExchange";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -61,6 +61,10 @@ const NewTableSetUpPage = (props: Props) => {
 
     setNewTableSetUpPage(false);
   };
+
+  useEffect(() => {
+    setMoneyResult(0)
+  }, [money])
 
   return (
     <div>

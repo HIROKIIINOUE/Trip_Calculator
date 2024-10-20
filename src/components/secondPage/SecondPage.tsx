@@ -33,10 +33,12 @@ const SecondPage = () => {
   const translatedData: any = secondPageDescription;
   const [newTableSetUpPage, setNewTableSetUpPage] = useState<boolean>(false);
   // ココ修正：any型
-  const [tableList, setTableList] = useState<any[]>([]);
   const user = useAppSelector((state) => state.user.user);
   const navigate = useNavigate();
   const tripList = useAppSelector((state) => state.trip.trip);
+  const [tableList, setTableList] = useState<any[]>([]);
+  const [sum, setSum] = useState<number>(0);
+  const [upToBudget, setUpToBudget] = useState<number>(0);
 
   // 自分用：URLパラメータと一致する1つのtripデータを取得する。
   // 自分用：yourCurrencyのデータを取得する
@@ -200,7 +202,8 @@ const SecondPage = () => {
             yourCurrency={yourCurrency}
           />
           {tableList.map((tableData) => (
-            <Table tableData={tableData} />
+            // ↓keyを正しい値に直すこと（もしかしたらuuid?）
+            <Table tableData={tableData} key={tableData.id} />
           ))}
         </div>
       </div>
