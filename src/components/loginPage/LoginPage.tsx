@@ -18,6 +18,7 @@ function LoginPage() {
   const translatedData: any = loginPageDescription;
 
   const logIn = async () => {
+    localStorage.clear();
     setLoadingPage(true);
     try {
       await signInWithPopup(auth, provider);
@@ -29,6 +30,8 @@ function LoginPage() {
   };
 
   useEffect(() => {
+    localStorage.clear();
+
     auth.onAuthStateChanged((loginUser) => {
       if (loginUser) {
         dispatch(
@@ -40,8 +43,9 @@ function LoginPage() {
           })
         );
         const JSONloginUser = JSON.stringify(loginUser);
+        localStorage.clear();
         localStorage.setItem("user", JSONloginUser);
-        navigate(`/user=${loginUser.displayName}`);
+        navigate(`/user=${loginUser.email}`);
       } else {
         dispatch(logout());
         navigate("/");

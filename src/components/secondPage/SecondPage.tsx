@@ -19,7 +19,7 @@ import {
   query,
 } from "firebase/firestore";
 import { db } from "../../firebase";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { secondPageDescription } from "../../localData/translatedDescriptionData";
 import NewTableSetUpPage from "./NewTableSetUpPage";
 
@@ -34,10 +34,17 @@ const SecondPage = () => {
   const [newTableSetUpPage, setNewTableSetUpPage] = useState<boolean>(false);
   // ココ修正：any型
   const [tableList, setTableList] = useState<any[]>([]);
+  const user = useAppSelector((state) => state.user.user);
+  const navigate = useNavigate();
 
   // 自分用：URLパラメータと一致する1つのtripデータを取得する。
   // 自分用：yourCurrencyのデータを取得する
   useEffect(() => {
+    if (!user) {
+      navigate("/");
+      return;
+    }
+
     const collectionRef: DocumentReference<DocumentData, DocumentData> = doc(
       db,
       "dataList",

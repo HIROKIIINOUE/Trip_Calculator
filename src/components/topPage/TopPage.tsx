@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Header from "../common/Header";
-import { useNavigate } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { useAppDispatch, useAppSelector } from "../../app/storeType";
 import { Box } from "@mui/material";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
@@ -29,6 +29,7 @@ import Trip from "./Trip";
 import ReorderIcon from "@mui/icons-material/Reorder";
 import { getTripList } from "../../slices/tripSlice";
 
+// 10/19ここにReact.memo使ったらどうなる？
 const TopPage = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
@@ -37,6 +38,7 @@ const TopPage = () => {
   const tripList = useAppSelector((state) => state.trip.trip);
   const [newTripSetUpPage, setNewTripSetUpPage] = useState<boolean>(false);
   const [exampleTrip, setExampleTrip] = useState<boolean>(true);
+  const { userName } = useParams();
 
   // ↓↓ログインしているuser情報のfirebase上にあるドキュメントIDを取得し、reduxで管理↓↓
   const attachUserDocumentID = async () => {
@@ -57,7 +59,15 @@ const TopPage = () => {
   // ↑↑ここまで↑↑
 
   useEffect(() => {
+    //  ↓まずユーザーがログインしてない場合はログイン画面へ遷移
     if (!user) {
+      navigate("/");
+      return;
+    }
+
+    // ↓ログイン情報とURLパラメータが正しく一致しないとき、ログイン画面へ遷移
+    //   ※ログインしている場合は「ログイン画面→トップページ」へと順に遷移する
+    if (userName !== `user=${user.email}`) {
       navigate("/");
       return;
     }
