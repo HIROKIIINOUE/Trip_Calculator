@@ -4,13 +4,11 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import { useAppSelector } from "../../app/storeType";
 import { auth } from "../../firebase";
 import LanguageOption from "./LanguageOption";
-import { useNavigate } from "react-router-dom";
 import { headerDescription } from "../../localData/translatedDescriptionData";
 import { logout } from "../../slices/userSlice";
 
 const Header = () => {
   const user = useAppSelector((state) => state.user.user);
-  const navigate = useNavigate();
   const [languageOptionPage, setLanguageOptionPage] = useState<boolean>(false);
   const language = useAppSelector((state) => state.language.language);
   const translatedData: any = headerDescription;
@@ -22,7 +20,6 @@ const Header = () => {
     auth.signOut();
     logout();
     localStorage.clear();
-    navigate("/");
   };
 
   const toLanguageOption = () => {
