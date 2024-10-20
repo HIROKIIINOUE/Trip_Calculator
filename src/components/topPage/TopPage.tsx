@@ -29,7 +29,6 @@ import Trip from "./Trip";
 import ReorderIcon from "@mui/icons-material/Reorder";
 import { getTripList } from "../../slices/tripSlice";
 
-// 10/19ここにReact.memo使ったらどうなる？
 const TopPage = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
@@ -41,6 +40,7 @@ const TopPage = () => {
   const { userName } = useParams();
 
   // ↓↓ログインしているuser情報のfirebase上にあるドキュメントIDを取得し、reduxで管理↓↓
+  // ※firebaseデータベース上にログイン情報が無ければuserDocumentIDがnullになり、GetStarted.tsxが表示される
   const attachUserDocumentID = async () => {
     const collectionRef: CollectionReference<DocumentData, DocumentData> =
       collection(db, "dataList");
@@ -177,7 +177,6 @@ const TopPage = () => {
                 {exampleTrip && <ExampleTrip />}
                 {/* ↓ココ修正：tripの型anyを正しい形に */}
                 {tripList?.map((trip: any) => (
-                  // ↓ココ修正：ユニークkeyをreact-uidを使って生成
                   <Trip trip={trip} key={trip.id} />
                 ))}
               </div>

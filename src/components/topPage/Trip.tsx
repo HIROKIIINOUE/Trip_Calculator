@@ -20,11 +20,10 @@ type Props = {
 const Trip = (props: Props) => {
   const { trip } = props;
   const userDocumentID = useAppSelector((state) => state.user.userDocumentID);
-
   const language = useAppSelector((state) => state.language.language);
+  const user = useAppSelector((state) => state.user.user);
   const translatedData: any = topPageDescription;
   const navigate = useNavigate();
-  const user = useAppSelector((state) => state.user.user);
 
   const deleteTrip = async () => {
     if (!window.confirm(`${trip.title} : ${translatedData[language][8]}`)) {
@@ -43,8 +42,6 @@ const Trip = (props: Props) => {
   const toSecondPage = () => {
     navigate(`/user=${user?.displayName}/${trip.id}`);
   };
-
-  
 
   return (
     <div className="mt-8 flex">
