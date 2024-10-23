@@ -1,4 +1,4 @@
-export const calculationMoney = async (
+export const calculationToYourCurrency = async (
   yourCurrency: string,
   currency: string,
   // ↓【修正】ココのany修正

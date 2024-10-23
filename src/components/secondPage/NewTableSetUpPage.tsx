@@ -6,7 +6,7 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import InputCurrencyName from "../common/InputCurrencyName";
 import dayjs from "dayjs";
 import { useAppSelector } from "../../app/storeType";
-import { calculationMoney } from "../../util/calculationMoney";
+import { calculationToYourCurrency } from "../../util/calculationMoney";
 import {
   CollectionReference,
   DocumentData,
@@ -182,7 +182,7 @@ const NewTableSetUpPage = (props: Props) => {
               className="mr-2 cursor-pointer hover:opacity-60 flex items-center"
               fontSize="large"
               onClick={() =>
-                calculationMoney(
+                calculationToYourCurrency(
                   yourCurrency,
                   currency,
                   currencyRateList,

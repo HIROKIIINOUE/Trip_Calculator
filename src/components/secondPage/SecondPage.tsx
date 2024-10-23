@@ -116,6 +116,16 @@ const SecondPage = () => {
     return () => getTableDataListFromDatabase();
   }, []);
 
+  // ↓リファクトリング対象
+  // ↓自分用：自国通貨へ変換後の合計金額
+  useEffect(() => {
+    let sumUp: number = 0;
+    tableList.forEach((table: any) => {
+      sumUp += table.moneyResult;
+    });
+    setSum(sumUp);
+  }, [tableList]);
+
   return (
     <>
       <Header />
@@ -174,7 +184,7 @@ const SecondPage = () => {
                     borderColor: "rgb(154 52 18)",
                   }}
                 >
-                  (仮)58,400
+                  {sum} ({yourCurrency})
                 </Box>
               </div>
               <div className="w-[33%]">
