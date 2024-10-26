@@ -82,6 +82,7 @@ const SecondPage = () => {
     return () => getTripDataFromDatabase();
   }, []);
 
+  // 自分用：テーブルデータ(各行のインプットデータ)を取得
   useEffect(() => {
     const collectionRef: CollectionReference<DocumentData, DocumentData> =
       collection(
@@ -125,6 +126,20 @@ const SecondPage = () => {
     });
     setSum(sumUp);
   }, [tableList]);
+
+  // tripデータから取得した「予算」から、tableListから取得した「使用合計金額」を差し引いた「差額」を算出
+  useEffect(() => {
+    // 自分用：tripデータから予算を取得(↓必ず文字列型になってしまう)
+    const stringBudget = tripData.budget;
+    let budget: string = "";
+    if (stringBudget) {
+      // 自分用：文字列型データからカンマを削除
+      budget = stringBudget.replaceAll(",", "");
+    }
+    // 自分用：文字列型から数値型に変換
+    const difference: number = Number(budget) - sum;
+    setUpToBudget(difference);
+  }, [tripData, sum]);
 
   return (
     <>
@@ -202,7 +217,7 @@ const SecondPage = () => {
                     borderColor: "rgb(154 52 18)",
                   }}
                 >
-                  (仮)80,000
+                  {upToBudget}
                 </Box>
               </div>
             </div>

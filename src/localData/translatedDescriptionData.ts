@@ -16,7 +16,7 @@ export const topPageDescription: TranslationType = {
   japanese: [
     "例",
     "日本旅行",
-    "z通貨",
+    "通貨",
     "YEN",
     "予算",
     "50,000",
