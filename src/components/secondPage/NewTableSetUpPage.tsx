@@ -63,15 +63,13 @@ const NewTableSetUpPage = (props: Props) => {
   };
 
   useEffect(() => {
-    setMoneyResult(0)
-  }, [money])
+    setMoneyResult(0);
+  }, [money, currency]);
 
   return (
     <div>
       <div
-        className={
-          "fixed top-0 bottom-0 right-0 left-0 bg-slate-300 opacity-80"
-        }
+        className={"fixed inset-0 bg-slate-300 opacity-80"}
         onClick={backToSecondPage}
       ></div>
       <div
@@ -200,7 +198,6 @@ const NewTableSetUpPage = (props: Props) => {
                 width: "100%",
               },
               height: 60,
-
               textAlign: "center",
               fontSize: "24px",
             }}
@@ -213,8 +210,9 @@ const NewTableSetUpPage = (props: Props) => {
                 borderRadius: 2,
               }}
               id="outlined-basic"
-              label="詳細"
+              label="詳細(70文字以内)"
               variant="outlined"
+              inputProps={{ maxLength: 70 }}
               onChange={(
                 e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
               ) => setDetail(e.target.value)}

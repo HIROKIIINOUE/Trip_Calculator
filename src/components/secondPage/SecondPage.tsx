@@ -228,7 +228,7 @@ const SecondPage = () => {
           />
           {tableList.map((tableData) => (
             // ↓keyを正しい値に直すこと（もしかしたらuuid?）
-            <Table tableData={tableData} key={tableData.id} />
+            <Table tableData={tableData} key={tableData.id} tripId={tripId} />
           ))}
         </div>
       </div>

@@ -1,17 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 import { Box } from "@mui/material";
 import MenuButton from "../common/MenuButton";
+import Detail from "./Detail";
 
 type Props = {
+  // ココany型修正
   tableData: any;
+  tripId: string | undefined;
 };
 
 const Table = (props: Props) => {
-  const { tableData } = props;
+  const { tableData, tripId } = props;
+  const [displayDetail, setDisplayDetail] = useState<boolean>(false);
 
   return (
     <div className="h-[50px] flex items-center justify-center my-2">
-      <MenuButton />
+      <MenuButton
+        setDisplayDetail={setDisplayDetail}
+        tableData={tableData}
+        tripId={tripId}
+      />
       <Box
         sx={{
           width: "25%",
@@ -80,6 +88,9 @@ const Table = (props: Props) => {
           {tableData.moneyResult.toLocaleString()}
         </span>
       </Box>
+      {displayDetail && (
+        <Detail setDisplayDetail={setDisplayDetail} tableData={tableData} />
+      )}
     </div>
   );
 };
