@@ -179,7 +179,7 @@ const NewTableSetUpPage = (props: Props) => {
               {!moneyResult ? 0 : Math.ceil(moneyResult).toLocaleString()}
             </p>
             {guideClick && (
-              <p className="text-[#333333] opacity-60 pr-2">click→</p>
+              <p className="text-[#333333] opacity-60 pr-2 select-none">click→</p>
             )}
             <CurrencyExchangeIcon
               className="mr-2 cursor-pointer hover:opacity-60 flex items-center"

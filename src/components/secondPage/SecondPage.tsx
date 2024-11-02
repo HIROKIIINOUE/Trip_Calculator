@@ -179,9 +179,10 @@ const SecondPage = () => {
                     borderRadius: "8px",
                     border: "double",
                     borderColor: "rgb(154 52 18)",
+                    padding: "4px",
                   }}
                 >
-                  {tripData.budget}
+                  {tripData.budget} ({yourCurrency})
                 </Box>
               </div>
               <div className="w-[33%]">
@@ -197,9 +198,10 @@ const SecondPage = () => {
                     borderRadius: "8px",
                     border: "double",
                     borderColor: "rgb(154 52 18)",
+                    padding: "4px",
                   }}
                 >
-                  {sum} ({yourCurrency})
+                  {sum.toLocaleString()} ({yourCurrency})
                 </Box>
               </div>
               <div className="w-[33%]">
@@ -215,9 +217,10 @@ const SecondPage = () => {
                     borderRadius: "8px",
                     border: "double",
                     borderColor: "rgb(154 52 18)",
+                    padding: "4px",
                   }}
                 >
-                  {upToBudget}
+                  {upToBudget.toLocaleString()} ({yourCurrency})
                 </Box>
               </div>
             </div>
