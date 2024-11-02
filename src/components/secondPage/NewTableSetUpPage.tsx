@@ -30,6 +30,7 @@ const NewTableSetUpPage = (props: Props) => {
   const [money, setMoney] = useState<number>(0);
   const [currency, setCurrency] = useState<string>("");
   const [moneyResult, setMoneyResult] = useState<number>(0);
+  const [guideClick, setGuideClick] = useState<boolean>(true);
   const [detail, setDetail] = useState<string>("");
   const currencyRateList = useAppSelector(
     (state) => state.currency.currencyRateList
@@ -64,6 +65,7 @@ const NewTableSetUpPage = (props: Props) => {
 
   useEffect(() => {
     setMoneyResult(0);
+    setGuideClick(true);
   }, [money, currency]);
 
   return (
@@ -176,6 +178,9 @@ const NewTableSetUpPage = (props: Props) => {
             <p className="bg-transparent w-full text-left pl-3">
               {!moneyResult ? 0 : Math.ceil(moneyResult).toLocaleString()}
             </p>
+            {guideClick && (
+              <p className="text-[#333333] opacity-60 pr-2">click→</p>
+            )}
             <CurrencyExchangeIcon
               className="mr-2 cursor-pointer hover:opacity-60 flex items-center"
               fontSize="large"
@@ -185,7 +190,8 @@ const NewTableSetUpPage = (props: Props) => {
                   currency,
                   currencyRateList,
                   money,
-                  setMoneyResult
+                  setMoneyResult,
+                  setGuideClick
                 )
               }
             />

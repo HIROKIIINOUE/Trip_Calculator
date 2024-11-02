@@ -4,7 +4,8 @@ export const calculationToYourCurrency = async (
   // ↓【修正】ココのany修正
   currencyRateList: any,
   money: number,
-  setMoneyResult: React.Dispatch<React.SetStateAction<number>>
+  setMoneyResult: React.Dispatch<React.SetStateAction<number>>,
+  setGuideClick: React.Dispatch<React.SetStateAction<boolean>>
 ) => {
   const yourCurrencyRate = currencyRateList[yourCurrency];
   const tripCurrencyRate = currencyRateList[currency];
@@ -16,4 +17,5 @@ export const calculationToYourCurrency = async (
 
   const result = (money / tripCurrencyRate) * yourCurrencyRate;
   setMoneyResult(result);
+  setGuideClick(false);
 };
