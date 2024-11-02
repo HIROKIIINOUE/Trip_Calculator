@@ -52,8 +52,11 @@ const MenuButton = (props: Props) => {
       String(tableData.id)
     );
     await deleteDoc(documentRef);
-    // ココ修正
-    // window.location.reload()
+    // ↓【要検討】テーブルを消すたびに毎回ページがリロードされる
+    //    →最後1つのテーブルを消してもページ上に残ってしまうエラーの対策
+    //    →理想は最後のテーブルを消した時のみページをリロードする仕様にしたい。
+    //    ★useSWRで解決できるかも？（毎度リロードは避けられないがリロードにかかる時間を削減する）
+    window.location.reload();
   };
 
   return (
