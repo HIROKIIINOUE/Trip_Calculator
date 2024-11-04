@@ -57,7 +57,6 @@ const Table = (props: Props) => {
           </span>
         </span>
       </Box>
-
       <Box
         sx={{
           width: "30%",

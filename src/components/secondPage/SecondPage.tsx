@@ -165,8 +165,8 @@ const SecondPage = () => {
                 {tripData.title}
               </Box>
             </div>
-            <div className="md:w-[56%] w-full flex">
-              <div className="w-[33%]">
+            <div className="md:w-[56%] w-full md:flex">
+              <div className="md:w-[33%] w-full">
                 <p>{translatedData[language][1]}</p>
                 <Box
                   sx={{
@@ -185,43 +185,45 @@ const SecondPage = () => {
                   {tripData.budget} ({yourCurrency})
                 </Box>
               </div>
-              <div className="w-[33%]">
-                <p>{translatedData[language][2]}</p>
-                <Box
-                  sx={{
-                    display: "flex",
-                    backgroundColor: "rgb(255 237 213)",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    height: 50,
-                    width: "100%",
-                    borderRadius: "8px",
-                    border: "double",
-                    borderColor: "rgb(154 52 18)",
-                    padding: "4px",
-                  }}
-                >
-                  {sum.toLocaleString()} ({yourCurrency})
-                </Box>
-              </div>
-              <div className="w-[33%]">
-                <p>{translatedData[language][3]}</p>
-                <Box
-                  sx={{
-                    display: "flex",
-                    backgroundColor: "rgb(255 237 213)",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    height: 50,
-                    width: "100%",
-                    borderRadius: "8px",
-                    border: "double",
-                    borderColor: "rgb(154 52 18)",
-                    padding: "4px",
-                  }}
-                >
-                  {upToBudget.toLocaleString()} ({yourCurrency})
-                </Box>
+              <div className="md:w-[64%] w-full flex">
+                <div className="w-[50%]">
+                  <p>{translatedData[language][2]}</p>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      backgroundColor: "rgb(255 237 213)",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      height: 50,
+                      width: "100%",
+                      borderRadius: "8px",
+                      border: "double",
+                      borderColor: "rgb(154 52 18)",
+                      padding: "4px",
+                    }}
+                  >
+                    {sum.toLocaleString()} ({yourCurrency})
+                  </Box>
+                </div>
+                <div className="w-[50%]">
+                  <p>{translatedData[language][3]}</p>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      backgroundColor: "rgb(255 237 213)",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      height: 50,
+                      width: "100%",
+                      borderRadius: "8px",
+                      border: "double",
+                      borderColor: "rgb(154 52 18)",
+                      padding: "4px",
+                    }}
+                  >
+                    {upToBudget.toLocaleString()} ({yourCurrency})
+                  </Box>
+                </div>
               </div>
             </div>
           </div>
