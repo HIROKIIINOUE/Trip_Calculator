@@ -22,24 +22,7 @@ const Table = (props: Props) => {
       />
       <Box
         sx={{
-          width: "25%",
-          height: "100%",
-          backgroundColor: "white",
-          border: "2px solid rgb(251 146 60)",
-          textAlign: "center",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          borderRadius: 2,
-        }}
-      >
-        <span className="max-[500px]:text-[12px] max-[390px]:text-[8px]">
-          {tableData.date}
-        </span>
-      </Box>
-      <Box
-        sx={{
-          width: "25%",
+          width: "30%",
           height: "100%",
           backgroundColor: "white",
           border: "2px solid rgb(251 146 60)",
@@ -51,12 +34,12 @@ const Table = (props: Props) => {
         }}
       >
         <span className="max-[500px]:text-[12px] max-[390px]:text-[12px]">
-          {tableData.money.toLocaleString()}
+          {tableData.date.replaceAll("-", "/")}
         </span>
       </Box>
       <Box
         sx={{
-          width: "25%",
+          width: "40%",
           height: "100%",
           backgroundColor: "white",
           border: "2px solid rgb(251 146 60)",
@@ -68,12 +51,16 @@ const Table = (props: Props) => {
         }}
       >
         <span className="max-[500px]:text-[12px] max-[390px]:text-[16px]">
-          {tableData.currency}
+          {tableData.money.toLocaleString()}
+          <span className="max-[500px]:text-[12px] max-[390px]:text-[16px] ml-1">
+            ({tableData.currency})
+          </span>
         </span>
       </Box>
+
       <Box
         sx={{
-          width: "25%",
+          width: "30%",
           height: "100%",
           backgroundColor: "white",
           border: "2px solid rgb(251 146 60)",
@@ -84,7 +71,7 @@ const Table = (props: Props) => {
           borderRadius: 2,
         }}
       >
-        <span className="max-[500px]:text-[12px] max-[390px]:text-[12px]">
+        <span className="max-[500px]:text-[12px] max-[390px]:text-[16px]">
           {tableData.moneyResult.toLocaleString()}
         </span>
       </Box>

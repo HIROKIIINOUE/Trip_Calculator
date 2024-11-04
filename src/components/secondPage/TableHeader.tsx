@@ -26,7 +26,7 @@ const TableHeader = (props: Props) => {
       />
       <Box
         sx={{
-          width: "25%",
+          width: "30%",
           height: "100%",
           backgroundColor: "#F3FFD8",
           border: "4px double rgb(251 146 60)",
@@ -42,7 +42,7 @@ const TableHeader = (props: Props) => {
       </Box>
       <Box
         sx={{
-          width: "25%",
+          width: "40%",
           height: "100%",
           backgroundColor: "#F3FFD8",
           border: "4px double rgb(251 146 60)",
@@ -54,27 +54,12 @@ const TableHeader = (props: Props) => {
           justifyContent: "center",
         }}
       >
-        {translatedData[language][5]}
+        {translatedData[language][5]} ({translatedData[language][6]})
       </Box>
+  
       <Box
         sx={{
-          width: "25%",
-          height: "100%",
-          backgroundColor: "#F3FFD8",
-          border: "4px double rgb(251 146 60)",
-          textAlign: "center",
-          fontSize: "20px",
-          borderRadius: 2,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        {translatedData[language][6]}
-      </Box>
-      <Box
-        sx={{
-          width: "25%",
+          width: "30%",
           height: "100%",
           backgroundColor: "#F3FFD8",
           border: "4px double rgb(251 146 60)",
