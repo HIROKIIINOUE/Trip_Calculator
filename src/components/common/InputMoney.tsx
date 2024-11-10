@@ -40,6 +40,21 @@ const InputMoney = (props: Props) => {
     );
   };
 
+  // 自分用：予算のデータで文字列を入力するとエラーになる処理
+  // =======
+  const checkCorrectBudgetValue = () => {
+    const budget = budgetRef.current?.value;
+    const budgetWithoutComma = budget?.replaceAll(",", "");
+    if (!Number(budgetWithoutComma)) {
+      alert("半角で数値を入力してください");
+      if (budgetRef.current) {
+        budgetRef.current.value = "";
+      }
+      return;
+    }
+  };
+  // =======
+
   return (
     <>
       <TextField
@@ -60,6 +75,7 @@ const InputMoney = (props: Props) => {
             { passive: false }
           )
         }
+        onBlur={checkCorrectBudgetValue}
       />
     </>
   );
