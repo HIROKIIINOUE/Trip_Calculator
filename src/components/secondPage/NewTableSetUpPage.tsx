@@ -131,12 +131,22 @@ const NewTableSetUpPage = (props: Props) => {
                 borderRadius: 2,
               }}
               id="outlined-basic"
+              placeholder="0"
               label="お金"
               variant="outlined"
-              value={money}
+              value={money === 0 ? "" : money}
               onChange={(
                 e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
               ) => setMoney(Number(e.target.value))}
+              onFocus={(e) =>
+                e.target.addEventListener(
+                  "wheel",
+                  function (e) {
+                    e.preventDefault();
+                  },
+                  { passive: false }
+                )
+              }
             />
           </Box>
 
@@ -179,7 +189,9 @@ const NewTableSetUpPage = (props: Props) => {
               {!moneyResult ? 0 : Math.ceil(moneyResult).toLocaleString()}
             </p>
             {guideClick && (
-              <p className="text-[#333333] opacity-60 pr-2 select-none">click→</p>
+              <p className="text-[#333333] opacity-60 pr-2 select-none">
+                click→
+              </p>
             )}
             <CurrencyExchangeIcon
               className="mr-2 cursor-pointer hover:opacity-60 flex items-center"
