@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import LanguageIcon from "@mui/icons-material/Language";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { useAppSelector } from "../../app/storeType";
@@ -7,12 +7,25 @@ import LanguageOption from "./LanguageOption";
 import { headerDescription } from "../../localData/translatedDescriptionData";
 import { logout } from "../../slices/userSlice";
 import { cleanUpLocalStorageExceptLanguage } from "../../util/cleanUpLocalstorage";
+import { useNavigate, useParams } from "react-router-dom";
+import UndoIcon from "@mui/icons-material/Undo";
 
 const Header = () => {
   const user = useAppSelector((state) => state.user.user);
   const [languageOptionPage, setLanguageOptionPage] = useState<boolean>(false);
   const language = useAppSelector((state) => state.language.language);
   const translatedData: any = headerDescription;
+  const [judgeSecondPage, setJudgeSecondPage] = useState<boolean>(false);
+  const { tripId } = useParams();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (tripId) {
+      setJudgeSecondPage(true);
+    } else {
+      setJudgeSecondPage(false);
+    }
+  }, [tripId]);
 
   const handleLogout = (): void => {
     if (!window.confirm(`${translatedData[language][1]}`)) {
@@ -23,6 +36,10 @@ const Header = () => {
     cleanUpLocalStorageExceptLanguage();
     window.location.reload(); //←必要かどうか微妙。
     // →useNavigate()は使わないこと！  issue#22 を確認。
+  };
+
+  const handleBackPage = () => {
+    navigate("/:userName");
   };
 
   const toLanguageOption = () => {
@@ -51,13 +68,25 @@ const Header = () => {
       )}
       <div className="lg:w-[25%] sm:w-[35%] w-full h-full flex items-center">
         {user ? (
-          <div
-            onClick={handleLogout}
-            className="w-[50%] h-full gap-1 flex items-center justify-center hover:bg-orange-300 cursor-pointer duration-700"
-          >
-            <LogoutIcon />
-            <p className="font-bold">{translatedData[language][0]}</p>
-          </div>
+          <>
+            {judgeSecondPage ? (
+              <div
+                onClick={handleBackPage}
+                className="w-[50%] h-full gap-1 flex items-center justify-center hover:bg-orange-300 cursor-pointer duration-700"
+              >
+                <UndoIcon />
+                <p className="font-bold pl-2">戻る</p>
+              </div>
+            ) : (
+              <div
+                onClick={handleLogout}
+                className="w-[50%] h-full gap-1 flex items-center justify-center hover:bg-orange-300 cursor-pointer duration-700"
+              >
+                <LogoutIcon />
+                <p className="font-bold">{translatedData[language][0]}</p>
+              </div>
+            )}
+          </>
         ) : (
           <p className="w-[50%] h-full"></p>
         )}

@@ -68,6 +68,22 @@ const NewTableSetUpPage = (props: Props) => {
     setGuideClick(true);
   }, [money, currency]);
 
+  const handleMoneyChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const inputValue = e.target.value;
+    const inputValueWithoutComma = inputValue.replaceAll(",", "");
+
+    if (
+      Number(inputValueWithoutComma) ||
+      Number(inputValueWithoutComma) === 0
+    ) {
+      setMoney(Number(inputValueWithoutComma));
+    } else {
+      alert("数値を入れてください");
+    }
+  };
+
   return (
     <div>
       <div
@@ -123,7 +139,7 @@ const NewTableSetUpPage = (props: Props) => {
             }}
           >
             <TextField
-              type="number"
+              type="text"
               sx={{
                 width: "100%",
                 backgroundColor: "#F3FFD8",
@@ -134,10 +150,8 @@ const NewTableSetUpPage = (props: Props) => {
               placeholder="0"
               label="お金"
               variant="outlined"
-              value={money === 0 ? "" : money}
-              onChange={(
-                e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-              ) => setMoney(Number(e.target.value))}
+              value={money === 0 ? "" : money.toLocaleString()}
+              onChange={(e) => handleMoneyChange(e)}
               onFocus={(e) =>
                 e.target.addEventListener(
                   "wheel",
