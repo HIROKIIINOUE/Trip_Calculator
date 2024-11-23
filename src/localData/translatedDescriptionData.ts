@@ -7,9 +7,15 @@ export const loginPageDescription: TranslationType = {
 };
 
 export const headerDescription: TranslationType = {
-  japanese: ["ログアウト", "ログアウトしますか？"],
-  english: ["logout", "Are you sure?"],
-  french: ["Deconnectez", "Es-tu sur?"],
+  japanese: ["ログアウト", "ログアウトしますか？", "戻る"],
+  english: ["logout", "Are you sure?", "return"],
+  french: ["Deconnectez", "Es-tu sur?", "retour"],
+};
+
+export const getStartedDescription: TranslationType = {
+  japanese: ["始めましょう！"],
+  english: ["Get Started!!"],
+  french: ["Commencer!!"],
 };
 
 export const topPageDescription: TranslationType = {
@@ -50,14 +56,32 @@ export const topPageDescription: TranslationType = {
 
 // 【修正】ココの翻訳は現段階では適当
 export const newTripSetUpPageDescription: TranslationType = {
-  japanese: ["タイトル", "選択", "通貨", "予算", "開始日", "作成"],
-  english: ["title", "option", "currency", "budget", "start day", "create"],
-  french: ["titre", "option", "currency", "budget", "start day", "create"],
+  japanese: ["タイトル", "選択", "自国通貨", "予算", "開始日", "作成"],
+  english: [
+    "title",
+    "option",
+    "your currency",
+    "budget",
+    "start day",
+    "create",
+  ],
+  french: ["titre", "option", "your currency", "budget", "start day", "create"],
 };
 
 // 【修正】ココの翻訳は現段階では適当
 export const secondPageDescription: TranslationType = {
-  japanese: ["タイトル", "予算", "合計", "差分", "日付", "金額", "通貨"],
+  japanese: [
+    "タイトル",
+    "予算",
+    "合計",
+    "差分",
+    "日付",
+    "金額",
+    "通貨",
+    "詳細",
+    "削除",
+    "を削除しますか",
+  ],
   english: [
     "title",
     "budget",
@@ -66,6 +90,9 @@ export const secondPageDescription: TranslationType = {
     "date",
     "money",
     "currency",
+    "detail",
+    "delete",
+    "make it deleted",
   ],
   french: [
     "titre",
@@ -75,5 +102,45 @@ export const secondPageDescription: TranslationType = {
     "start day",
     "create",
     "currency",
+    "detail",
+    "delete",
+    "make it deleted",
+  ],
+};
+
+// 【修正】ココの翻訳は現段階では適当
+export const newTableSetUpPageDescription: TranslationType = {
+  japanese: [
+    "日付",
+    "お金",
+    "選択",
+    "クリック",
+    "詳細(70文字以内)",
+    "戻る",
+    "追加",
+    "数値を入れてください",
+    "現地の通貨を入力してください",
+  ],
+  english: [
+    "date",
+    "money",
+    "option",
+    "click",
+    "detail (no more than 70 words)",
+    "return",
+    "add",
+    "input number",
+    "choose local currency",
+  ],
+  french: [
+    "date",
+    "money",
+    "option",
+    "click",
+    "detail (no more than 70 words)",
+    "return",
+    "add",
+    "input number",
+    "choose local currency",
   ],
 };

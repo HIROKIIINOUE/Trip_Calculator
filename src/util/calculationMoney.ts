@@ -5,13 +5,14 @@ export const calculationToYourCurrency = async (
   currencyRateList: any,
   money: number,
   setMoneyResult: React.Dispatch<React.SetStateAction<number>>,
-  setGuideClick: React.Dispatch<React.SetStateAction<boolean>>
+  setGuideClick: React.Dispatch<React.SetStateAction<boolean>>,
+  translatedData: string
 ) => {
   const yourCurrencyRate = currencyRateList[yourCurrency];
   const tripCurrencyRate = currencyRateList[currency];
 
   if (currency === "") {
-    alert("現地の通貨を入力してください");
+    alert(translatedData);
     return;
   }
 

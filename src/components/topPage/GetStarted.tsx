@@ -13,11 +13,14 @@ import { db } from "../../firebase";
 import { useAppSelector } from "../../app/storeType";
 import { useNavigate } from "react-router-dom";
 import LoadingPage from "../common/LoadingPage";
+import { getStartedDescription } from "../../localData/translatedDescriptionData";
 
 const GetStarted = () => {
   const [loadingPage, setLoadingPage] = useState<boolean>(false);
   const user = useAppSelector((state) => state.user.user);
   const navigate = useNavigate();
+  const language = useAppSelector((state) => state.language.language)
+  const translatedData:any = getStartedDescription;
 
   // 自分用：onSnapshot()じゃなくてgetDoc()を使うことで毎回データベースと通信を行う
   // →データベース上にuser情報があるかどうかを正しいタイミングでジャッジできる。
@@ -64,7 +67,7 @@ const GetStarted = () => {
               }}
               onClick={createDatabase}
             >
-              <p className="text-[40px] text-orange-600">Get Started !!</p>
+              <p className="text-[40px] text-orange-600">{translatedData[language][0]}</p>
             </Box>
           </div>
         </div>

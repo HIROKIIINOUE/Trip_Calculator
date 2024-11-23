@@ -15,6 +15,7 @@ import {
 } from "firebase/firestore";
 import { db } from "../../firebase";
 import { useParams } from "react-router-dom";
+import { newTableSetUpPageDescription } from "../../localData/translatedDescriptionData";
 
 type Props = {
   setNewTableSetUpPage: React.Dispatch<React.SetStateAction<boolean>>;
@@ -37,6 +38,8 @@ const NewTableSetUpPage = (props: Props) => {
   );
   const userDocumentID = useAppSelector((state) => state.user.userDocumentID);
   const { tripId } = useParams();
+  const language = useAppSelector((state) => state.language.language);
+  const translatedData: any = newTableSetUpPageDescription;
 
   const backToSecondPage = () => {
     setNewTableSetUpPage(false);
@@ -80,7 +83,7 @@ const NewTableSetUpPage = (props: Props) => {
     ) {
       setMoney(Number(inputValueWithoutComma));
     } else {
-      alert("数値を入れてください");
+      alert(translatedData[language][7]);
     }
   };
 
@@ -111,7 +114,7 @@ const NewTableSetUpPage = (props: Props) => {
           >
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DatePicker
-                label={"日付"}
+                label={translatedData[language][0]}
                 sx={{
                   width: "100%",
                   backgroundColor: "#F3FFD8",
@@ -148,7 +151,7 @@ const NewTableSetUpPage = (props: Props) => {
               }}
               id="outlined-basic"
               placeholder="0"
-              label="お金"
+              label={translatedData[language][1]}
               variant="outlined"
               value={money === 0 ? "" : money.toLocaleString()}
               onChange={(e) => handleMoneyChange(e)}
@@ -204,7 +207,7 @@ const NewTableSetUpPage = (props: Props) => {
             </p>
             {guideClick && (
               <p className="text-[#333333] opacity-60 pr-2 select-none">
-                click→
+                {translatedData[language][3]}→
               </p>
             )}
             <CurrencyExchangeIcon
@@ -217,7 +220,8 @@ const NewTableSetUpPage = (props: Props) => {
                   currencyRateList,
                   money,
                   setMoneyResult,
-                  setGuideClick
+                  setGuideClick,
+                  translatedData[language][8]
                 )
               }
             />
@@ -242,7 +246,7 @@ const NewTableSetUpPage = (props: Props) => {
                 borderRadius: 2,
               }}
               id="outlined-basic"
-              label="詳細(70文字以内)"
+              label={translatedData[language][4]}
               variant="outlined"
               inputProps={{ maxLength: 70 }}
               onChange={(
@@ -259,7 +263,7 @@ const NewTableSetUpPage = (props: Props) => {
             color="warning"
             onClick={backToSecondPage}
           >
-            <span className="text-2xl">戻る</span>
+            <span className="text-2xl">{translatedData[language][5]}</span>
           </Button>
           <Button
             variant="contained"
@@ -276,7 +280,7 @@ const NewTableSetUpPage = (props: Props) => {
             }
             onClick={() => submit()}
           >
-            <span className="text-2xl">追加</span>
+            <span className="text-2xl">{translatedData[language][6]}</span>
           </Button>
         </div>
       </div>

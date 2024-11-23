@@ -1,4 +1,6 @@
 import React from "react";
+import { useAppSelector } from "../../app/storeType";
+import { secondPageDescription } from "../../localData/translatedDescriptionData";
 
 type Props = {
   setDisplayDetail: React.Dispatch<React.SetStateAction<boolean>>;
@@ -7,6 +9,8 @@ type Props = {
 
 const Detail = (props: Props) => {
   const { setDisplayDetail, tableData } = props;
+  const language = useAppSelector((state) => state.language.language);
+  const translatedData: any = secondPageDescription;
 
   const handleClose = () => {
     setDisplayDetail(false);
@@ -24,7 +28,7 @@ const Detail = (props: Props) => {
         }
       >
         <h3 className="h-[20%] p-2 border-b-2  border-orange-400 text-center">
-          詳細
+          {translatedData[language][7]}
         </h3>
         <p className="h-[80%] p-2">{tableData.detail}</p>
       </div>

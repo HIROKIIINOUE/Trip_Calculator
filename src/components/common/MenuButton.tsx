@@ -4,6 +4,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { db } from "../../firebase";
 import { useAppSelector } from "../../app/storeType";
 import { deleteDoc, doc } from "firebase/firestore";
+import { secondPageDescription } from "../../localData/translatedDescriptionData";
 
 type Props = {
   setDisplayDetail: React.Dispatch<React.SetStateAction<boolean>>;
@@ -20,6 +21,8 @@ const MenuButton = (props: Props) => {
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
+  const language = useAppSelector((state) => state.language.language);
+  const translatedData: any = secondPageDescription;
 
   const handleClose = () => {
     setAnchorEl(null);
@@ -35,7 +38,7 @@ const MenuButton = (props: Props) => {
   const handleDelete = async () => {
     if (
       !window.confirm(
-        `${tableData.date}の${tableData.money}${tableData.currency}を削除しますか？`
+        `${tableData.date} / ${tableData.money}${tableData.currency}  ${translatedData[language][9]}？`
       )
     ) {
       setAnchorEl(null);
@@ -94,8 +97,12 @@ const MenuButton = (props: Props) => {
           "aria-labelledby": "basic-button",
         }}
       >
-        <MenuItem onClick={handleDetail}>詳細</MenuItem>
-        <MenuItem onClick={handleDelete}>削除</MenuItem>
+        <MenuItem onClick={handleDetail}>
+          {translatedData[language][7]}
+        </MenuItem>
+        <MenuItem onClick={handleDelete}>
+          {translatedData[language][8]}
+        </MenuItem>
       </Menu>
     </div>
   );

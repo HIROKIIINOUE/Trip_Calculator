@@ -75,7 +75,7 @@ const Header = () => {
                 className="w-[50%] h-full gap-1 flex items-center justify-center hover:bg-orange-300 cursor-pointer duration-700"
               >
                 <UndoIcon />
-                <p className="font-bold pl-2">戻る</p>
+                <p className="font-bold pl-2">{translatedData[language][2]}</p>
               </div>
             ) : (
               <div
