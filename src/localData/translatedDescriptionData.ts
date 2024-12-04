@@ -55,6 +55,37 @@ export const topPageDescription: TranslationType = {
 };
 
 // 【修正】ココの翻訳は現段階では適当
+export const menuButtonDescription: TranslationType = {
+  japanese: [
+    "旅行データ削除",
+    "アカウント削除",
+    "全てのデータを削除しますか？",
+    "ユーザーデータを削除しますか？",
+    "詳細",
+    "削除",
+    "を削除しますか",
+  ],
+  english: [
+    "delete all trip data",
+    "delete your account",
+    "Are you sure to delete all trip data?",
+    "Are you sure to delete your account data?",
+    "detail",
+    "delete",
+    "make it deleted",
+  ],
+  french: [
+    "FR delete all trip data",
+    "FR delete your account",
+    "FR Are you sure to delete all trip data?",
+    "FR Are you sure to delete your account data?",
+    "detail",
+    "delete",
+    "make it deleted",
+  ],
+};
+
+// 【修正】ココの翻訳は現段階では適当
 export const newTripSetUpPageDescription: TranslationType = {
   japanese: ["タイトル", "選択", "自国通貨", "予算", "開始日", "作成"],
   english: [
@@ -70,18 +101,7 @@ export const newTripSetUpPageDescription: TranslationType = {
 
 // 【修正】ココの翻訳は現段階では適当
 export const secondPageDescription: TranslationType = {
-  japanese: [
-    "タイトル",
-    "予算",
-    "合計",
-    "差分",
-    "日付",
-    "金額",
-    "通貨",
-    "詳細",
-    "削除",
-    "を削除しますか",
-  ],
+  japanese: ["タイトル", "予算", "合計", "差分", "日付", "金額", "通貨"],
   english: [
     "title",
     "budget",
@@ -90,9 +110,6 @@ export const secondPageDescription: TranslationType = {
     "date",
     "money",
     "currency",
-    "detail",
-    "delete",
-    "make it deleted",
   ],
   french: [
     "titre",
@@ -102,9 +119,6 @@ export const secondPageDescription: TranslationType = {
     "start day",
     "create",
     "currency",
-    "detail",
-    "delete",
-    "make it deleted",
   ],
 };
 

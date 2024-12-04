@@ -1,19 +1,34 @@
 import { Button, Menu, MenuItem } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import MenuIcon from "@mui/icons-material/Menu";
-import { db } from "../../firebase";
+import { auth, db } from "../../firebase";
 import { useAppSelector } from "../../app/storeType";
-import { deleteDoc, doc } from "firebase/firestore";
-import { secondPageDescription } from "../../localData/translatedDescriptionData";
+import {
+  collection,
+  CollectionReference,
+  deleteDoc,
+  doc,
+  DocumentData,
+  DocumentReference,
+  getDoc,
+  getDocs,
+} from "firebase/firestore";
+import {
+  menuButtonDescription,
+  secondPageDescription,
+} from "../../localData/translatedDescriptionData";
+import { logout } from "../../slices/userSlice";
+import { cleanUpLocalStorageExceptLanguage } from "../../util/cleanUpLocalstorage";
 
 type Props = {
-  setDisplayDetail: React.Dispatch<React.SetStateAction<boolean>>;
-  tableData: any; //←ココのany型修正
-  tripId: string | undefined;
+  setDisplayDetail?: React.Dispatch<React.SetStateAction<boolean>>;
+  tableData?: any; //←ココのany型修正
+  tripId?: string | undefined;
+  topPage: boolean;
 };
 
 const MenuButton = (props: Props) => {
-  const { tableData, tripId } = props;
+  const { tableData, tripId, topPage } = props;
   const userDocumentID = useAppSelector((state) => state.user.userDocumentID);
   const { setDisplayDetail } = props;
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -22,23 +37,71 @@ const MenuButton = (props: Props) => {
     setAnchorEl(event.currentTarget);
   };
   const language = useAppSelector((state) => state.language.language);
-  const translatedData: any = secondPageDescription;
+  const translatedData: any = menuButtonDescription;
 
   const handleClose = () => {
     setAnchorEl(null);
   };
 
-  // 自分用：テーブルの詳細情報を表示
-  const handleDetail = () => {
-    setDisplayDetail(true);
+  // 自分用：トップページ、旅行情報全削除
+  const handleDeleteAllTrip = async () => {
+    if (!window.confirm(translatedData[language][2])) {
+      setAnchorEl(null);
+      return;
+    }
+    const collectionRef: CollectionReference<DocumentData, DocumentData> =
+      collection(db, "dataList", String(userDocumentID), "tripList");
+    const querySnapshot = await getDocs(collectionRef);
+
+    // 自分用：↓querySnapshotで集めたdocumentデータの配列を非同期処理で1つずつ削除していく
+    // eslint-disable-next-line array-callback-return
+    const deletePromise = querySnapshot.docs.map((item) => {
+      const documentRef: DocumentReference<DocumentData, DocumentData> = doc(
+        db,
+        "dataList",
+        String(userDocumentID),
+        "tripList",
+        String(item.id)
+      );
+      deleteDoc(documentRef);
+    });
+
+    await Promise.all(deletePromise);
+
     setAnchorEl(null);
   };
 
-  // 自分用：テーブルデータをfirebaseデータベースから削除
+  // 自分用：トップページ、ユーザアカウント情報削除
+  const handleDeleteUserData = async () => {
+    if (!window.confirm(translatedData[language][3])) {
+      setAnchorEl(null);
+      return;
+    }
+    const documentRef: DocumentReference<DocumentData, DocumentData> = doc(
+      db,
+      "dataList",
+      String(userDocumentID)
+    );
+    await deleteDoc(documentRef);
+    auth.signOut();
+    logout();
+    setAnchorEl(null);
+    cleanUpLocalStorageExceptLanguage();
+  };
+
+  // 自分用：セカンドページ、指定したテーブルの詳細情報を表示
+  const handleDetail = () => {
+    if (setDisplayDetail) {
+      setDisplayDetail(true);
+    }
+    setAnchorEl(null);
+  };
+
+  // 自分用：セカンドページ、指定したテーブルデータをfirebaseデータベースから削除
   const handleDelete = async () => {
     if (
       !window.confirm(
-        `${tableData.date} / ${tableData.money}${tableData.currency}  ${translatedData[language][9]}？`
+        `${tableData.date} / ${tableData.money}${tableData.currency}  ${translatedData[language][6]}？`
       )
     ) {
       setAnchorEl(null);
@@ -88,22 +151,41 @@ const MenuButton = (props: Props) => {
           }}
         />
       </Button>
-      <Menu
-        id="basic-menu"
-        anchorEl={anchorEl}
-        open={open}
-        onClose={handleClose}
-        MenuListProps={{
-          "aria-labelledby": "basic-button",
-        }}
-      >
-        <MenuItem onClick={handleDetail}>
-          {translatedData[language][7]}
-        </MenuItem>
-        <MenuItem onClick={handleDelete}>
-          {translatedData[language][8]}
-        </MenuItem>
-      </Menu>
+      {topPage ? (
+        <Menu
+          id="basic-menu"
+          anchorEl={anchorEl}
+          open={open}
+          onClose={handleClose}
+          MenuListProps={{
+            "aria-labelledby": "basic-button",
+          }}
+        >
+          <MenuItem onClick={handleDeleteAllTrip}>
+            {translatedData[language][0]}
+          </MenuItem>
+          <MenuItem onClick={handleDeleteUserData}>
+            {translatedData[language][1]}
+          </MenuItem>
+        </Menu>
+      ) : (
+        <Menu
+          id="basic-menu"
+          anchorEl={anchorEl}
+          open={open}
+          onClose={handleClose}
+          MenuListProps={{
+            "aria-labelledby": "basic-button",
+          }}
+        >
+          <MenuItem onClick={handleDetail}>
+            {translatedData[language][4]}
+          </MenuItem>
+          <MenuItem onClick={handleDelete}>
+            {translatedData[language][5]}
+          </MenuItem>
+        </Menu>
+      )}
     </div>
   );
 };

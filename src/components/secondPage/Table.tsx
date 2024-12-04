@@ -19,6 +19,7 @@ const Table = (props: Props) => {
         setDisplayDetail={setDisplayDetail}
         tableData={tableData}
         tripId={tripId}
+        topPage={false}
       />
       <Box
         sx={{

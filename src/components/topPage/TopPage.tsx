@@ -28,6 +28,7 @@ import { TripType } from "../../type/TripType";
 import Trip from "./Trip";
 import ReorderIcon from "@mui/icons-material/Reorder";
 import { getTripList } from "../../slices/tripSlice";
+import MenuButton from "../common/MenuButton";
 
 const TopPage = () => {
   const navigate = useNavigate();
@@ -174,7 +175,8 @@ const TopPage = () => {
                     />
                   </Box>
                   <div className="width-[5%] flex items-center justify-center ml-2">
-                    <ReorderIcon className="hover:cursor-pointer hover:opacity-40" />
+                    <MenuButton topPage={true} />
+                    {/* <ReorderIcon className="hover:cursor-pointer hover:opacity-40" /> */}
                   </div>
                 </div>
                 {exampleTrip && <ExampleTrip />}
