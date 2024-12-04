@@ -146,7 +146,7 @@ const MenuButton = (props: Props) => {
           sx={{
             color: "black",
             "&:hover": {
-              opacity: "0.7",
+              opacity: "0.5",
             },
           }}
         />

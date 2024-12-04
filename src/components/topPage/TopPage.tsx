@@ -26,7 +26,6 @@ import { attachDocumentID } from "../../slices/userSlice";
 import GetStarted from "./GetStarted";
 import { TripType } from "../../type/TripType";
 import Trip from "./Trip";
-import ReorderIcon from "@mui/icons-material/Reorder";
 import { getTripList } from "../../slices/tripSlice";
 import MenuButton from "../common/MenuButton";
 

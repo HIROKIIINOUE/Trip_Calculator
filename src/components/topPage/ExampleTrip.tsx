@@ -2,13 +2,14 @@ import { Box } from "@mui/material";
 import React from "react";
 import { useAppSelector } from "../../app/storeType";
 import { topPageDescription } from "../../localData/translatedDescriptionData";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 const ExampleTrip = () => {
   const language = useAppSelector((state) => state.language.language);
   const translatedData: any = topPageDescription;
 
   return (
-    <div className="mt-8">
+    <div className="mt-8 flex">
       <Box
         sx={{
           display: "flex",
@@ -16,15 +17,12 @@ const ExampleTrip = () => {
           justifyContent: "center",
           alignItems: "center",
           height: "100px",
+          width: "95%",
           borderRadius: "8px",
           border: "solid 2px",
           borderColor: "rgb(251 146 60)",
-          cursor: "pointer",
           marginBottom: "18px",
           boxShadow: "4px 4px 15px -5px #777777",
-          "&:hover": {
-            opacity: "0.7",
-          },
         }}
       >
         <div className="h-full w-full">
@@ -59,6 +57,9 @@ const ExampleTrip = () => {
           </div>
         </div>
       </Box>
+      <div className="width-[5%] flex items-center justify-center ml-2">
+        <DeleteIcon />
+      </div>
     </div>
   );
 };
