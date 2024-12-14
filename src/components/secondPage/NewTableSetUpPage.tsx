@@ -87,6 +87,10 @@ const NewTableSetUpPage = (props: Props) => {
     }
   };
 
+  const datePickerWarning = () => {
+    console.log("kakuninn");
+  };
+
   return (
     <div>
       <div
@@ -114,6 +118,11 @@ const NewTableSetUpPage = (props: Props) => {
           >
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DatePicker
+                slotProps={{
+                  field: {
+                    readOnly: true,
+                  },
+                }}
                 label={translatedData[language][0]}
                 sx={{
                   width: "100%",

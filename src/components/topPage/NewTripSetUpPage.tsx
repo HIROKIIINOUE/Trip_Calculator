@@ -114,6 +114,11 @@ const NewTripSetUpPage = (props: Props) => {
           <div className="w-full mt-4">
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DatePicker
+                slotProps={{
+                  field: {
+                    readOnly: true,
+                  },
+                }}
                 label={translatedData[language][4]}
                 sx={{ width: "100%" }}
                 inputRef={startDayRef}
