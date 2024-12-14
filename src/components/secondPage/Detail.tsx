@@ -28,9 +28,9 @@ const Detail = (props: Props) => {
         }
       >
         <h3 className="h-[20%] p-2 border-b-2  border-orange-400 text-center">
-          {translatedData[language][7]}
+          {translatedData[language][6]}
         </h3>
-        <p className="h-[80%] p-2">{tableData.detail}</p>
+        <p className="h-[80%] p-2 break-words">{tableData.detail}</p>
       </div>
     </>
   );

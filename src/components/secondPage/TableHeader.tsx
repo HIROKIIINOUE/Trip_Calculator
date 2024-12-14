@@ -52,11 +52,12 @@ const TableHeader = (props: Props) => {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
+          wordWrap: "break-word",
         }}
       >
-        {translatedData[language][5]} ({translatedData[language][6]})
+        <p className="break-words">{translatedData[language][5]}</p>
       </Box>
-  
+
       <Box
         sx={{
           width: "30%",

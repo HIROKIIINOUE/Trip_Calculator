@@ -185,7 +185,7 @@ const SecondPage = () => {
                   {tripData.budget} ({yourCurrency})
                 </Box>
               </div>
-              <div className="md:w-[64%] w-full flex">
+              <div className="md:w-[64%] w-full flex break-words">
                 <div className="w-[50%]">
                   <p>{translatedData[language][2]}</p>
                   <Box

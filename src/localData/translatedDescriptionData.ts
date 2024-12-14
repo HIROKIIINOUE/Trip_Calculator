@@ -101,16 +101,8 @@ export const newTripSetUpPageDescription: TranslationType = {
 
 // 【修正】ココの翻訳は現段階では適当
 export const secondPageDescription: TranslationType = {
-  japanese: ["タイトル", "予算", "合計", "差分", "日付", "金額", "通貨"],
-  english: [
-    "title",
-    "budget",
-    "sum",
-    "difference",
-    "date",
-    "money",
-    "currency",
-  ],
+  japanese: ["タイトル", "予算", "合計", "差分", "日付", "金額", "詳細"],
+  english: ["title", "budget", "sum", "difference", "date", "money", "detail"],
   french: [
     "titre",
     "option",
@@ -118,7 +110,7 @@ export const secondPageDescription: TranslationType = {
     "budget",
     "start day",
     "create",
-    "currency",
+    "detail",
   ],
 };
 

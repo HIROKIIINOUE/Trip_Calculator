@@ -51,9 +51,9 @@ const Table = (props: Props) => {
           borderRadius: 2,
         }}
       >
-        <span className="max-[500px]:text-[12px] max-[390px]:text-[16px]">
+        <span className="max-[500px]:text-[12px] max-[390px]:text-[12px]">
           {tableData.money.toLocaleString()}
-          <span className="max-[500px]:text-[12px] max-[390px]:text-[16px] ml-1">
+          <span className="max-[500px]:text-[12px] max-[390px]:text-[12px] ml-1">
             ({tableData.currency})
           </span>
         </span>
@@ -71,7 +71,7 @@ const Table = (props: Props) => {
           borderRadius: 2,
         }}
       >
-        <span className="max-[500px]:text-[12px] max-[390px]:text-[16px]">
+        <span className="max-[500px]:text-[12px] max-[390px]:text-[12px]">
           {tableData.moneyResult.toLocaleString()}
         </span>
       </Box>
