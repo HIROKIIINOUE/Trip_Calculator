@@ -9,5 +9,44 @@
 
 
 【リファクタリング】
-LoginPage.tsx → Done
+<common>
 Header.tsx → Done
+InputCurrencyName.tsx
+InputMoney.tsx
+LanguageOption.tsx → Done
+LoadingPage.tsx
+MenuButton.tsx
+NoPage.tsx → Done
+
+<loginPage>
+LoginPage.tsx → Done
+
+<topPage>
+ExampleTrip.tsx
+GetStarted.tsxNewTripSetUpPage.tsx
+TopPage.tsx
+Trip.tsx
+
+<secondPage>
+Detail.tsx
+NewTableSetUpPage.tsx
+SecondPage.tsx
+Table.tsx
+TableHeader.tsx
+
+<slice>
+currencySlice.ts
+languageSlice.ts →Done
+tripSlice.ts
+userSlice.ts
+
+<type> ※ディレクトリ名を小文字に変更
+currencyType.ts
+LanguageType.ts
+TripType.ts
+UserType.ts
+
+
+<util>
+calculationMoney.ts
+cleanUpLocalstorage.ts
