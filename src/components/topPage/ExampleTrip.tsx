@@ -1,11 +1,12 @@
-import { Box } from "@mui/material";
 import React from "react";
+import { Box } from "@mui/material";
 import { useAppSelector } from "../../app/storeType";
 import { topPageDescription } from "../../localData/translatedDescriptionData";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 const ExampleTrip = () => {
   const language = useAppSelector((state) => state.language.language);
+  // 【any型】ココのany型直す
   const translatedData: any = topPageDescription;
 
   return (
