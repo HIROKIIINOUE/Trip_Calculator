@@ -31,7 +31,6 @@ function LoginPage() {
   };
 
   useEffect(() => {
-    cleanUpLocalStorageExceptLanguage();
     auth.onAuthStateChanged((loginUser) => {
       if (loginUser) {
         dispatch(
