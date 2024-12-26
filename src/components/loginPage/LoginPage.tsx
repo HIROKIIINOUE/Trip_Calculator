@@ -11,12 +11,12 @@ import { loginPageDescription } from "../../localData/translatedDescriptionData"
 import { cleanUpLocalStorageExceptLanguage } from "../../util/cleanUpLocalstorage";
 
 function LoginPage() {
+  // 【any】↓ここの型直し
+  const translatedData: any = loginPageDescription;
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const [loadingPage, setLoadingPage] = useState<boolean>(false);
   const language = useAppSelector((state) => state.language.language);
-  // 【any】↓ここの型直し
-  const translatedData: any = loginPageDescription;
 
   const logIn = async () => {
     cleanUpLocalStorageExceptLanguage();

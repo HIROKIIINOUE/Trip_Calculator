@@ -11,14 +11,15 @@ import { useNavigate, useParams } from "react-router-dom";
 import UndoIcon from "@mui/icons-material/Undo";
 
 const Header = () => {
-  const user = useAppSelector((state) => state.user.user);
-  const [languageOptionPage, setLanguageOptionPage] = useState<boolean>(false);
-  const language = useAppSelector((state) => state.language.language);
   const translatedData: any = headerDescription;
+  const user = useAppSelector((state) => state.user.user);
+  const language = useAppSelector((state) => state.language.language);
+  const [languageOptionPage, setLanguageOptionPage] = useState<boolean>(false);
   const [judgeSecondPage, setJudgeSecondPage] = useState<boolean>(false);
   const { tripId } = useParams();
   const navigate = useNavigate();
 
+  // URLが"/:userName/:tripId"の場合(SecondPageの場合)は「戻るボタン」、それ以外の場合は「ログアウトボタン」を表示。
   useEffect(() => {
     if (tripId) {
       setJudgeSecondPage(true);
@@ -34,7 +35,7 @@ const Header = () => {
     auth.signOut();
     logout();
     cleanUpLocalStorageExceptLanguage();
-    window.location.reload(); //←必要かどうか微妙。
+    // window.location.reload(); //←【リファクタリング】問題なければ決して
     // →useNavigate()は使わないこと！  issue#22 を確認。
   };
 

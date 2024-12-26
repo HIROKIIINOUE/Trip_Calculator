@@ -109,7 +109,7 @@ export const secondPageDescription: TranslationType = {
     "currency",
     "budget",
     "start day",
-    "create",
+    "money",
     "detail",
   ],
 };
