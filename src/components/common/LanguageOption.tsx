@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useAppDispatch, useAppSelector } from "../../app/storeType";
+import { useAppDispatch } from "../../app/storeType";
 import { selectLanguage } from "../../slices/languageSlice";
 
 type Props = {
@@ -11,7 +11,6 @@ const LanguageOption = (props: Props) => {
   const { setLanguageOptionPage, languageOptionPage } = props;
   const [fadeUp, setFadeUp] = useState<boolean>(false);
   const dispatch = useAppDispatch();
-  const currentLanguage = useAppSelector((state) => state.language.language);
 
   const closeLanguageOptionPage = () => {
     setLanguageOptionPage(false);
@@ -27,6 +26,8 @@ const LanguageOption = (props: Props) => {
   }
 
   const handleSelectLanguage = (language: string): void => {
+    // reduxを使用しないでlocalStorageだけで管理しようとするとタイムリーに言語変換できない。
+    // localStorageを使用しないでreduxだけで管理しようとするとwebページを更新する際に日本語(デフォルト値)に戻ってしまう
     dispatch(selectLanguage(language));
     localStorage.setItem("language", language);
     setLanguageOptionPage(false);

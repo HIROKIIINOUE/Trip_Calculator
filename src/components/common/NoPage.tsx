@@ -2,7 +2,7 @@ import React from 'react'
 
 const NoPage = () => {
   return (
-    <div>NoPageです</div>
+    <div>NoPage</div>
   )
 }
 
