@@ -5,6 +5,7 @@
 ・【とりあえずOK】削除機能エラー。最後の1つを削除すると画面に反映されない。(最後の1つだけページに残ってしまう。)
   →可能であれば最後のテーブルを削除した時のみページがリフレッシュされるようにしたい。MenuButton.tsxを参照。
 ・セキュリティ面の改善₍APIのgit ignore₎
+・APIが1月1500回しか叩けない問題
 
 
 
@@ -22,7 +23,7 @@ NoPage.tsx → Done
 LoginPage.tsx → Done
 
 <topPage>
-ExampleTrip.tsx
+ExampleTrip.tsx → Done
 GetStarted.tsxNewTripSetUpPage.tsx
 TopPage.tsx
 Trip.tsx

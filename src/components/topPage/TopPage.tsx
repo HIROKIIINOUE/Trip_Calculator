@@ -28,6 +28,8 @@ import { TripType } from "../../type/TripType";
 import Trip from "./Trip";
 import { getTripList } from "../../slices/tripSlice";
 import MenuButton from "../common/MenuButton";
+import { userLoginJudge } from "../../util/userLoginJudge";
+import { userURLJudge } from "../../util/userURLJudge";
 
 const TopPage = () => {
   const navigate = useNavigate();
@@ -59,24 +61,16 @@ const TopPage = () => {
   // ↑↑ここまで↑↑
 
   useEffect(() => {
-    //  ↓まずユーザーがログインしてない場合はログイン画面へ遷移
-    if (!user) {
-      navigate("/");
-      return;
-    }
-
-    // ↓ログイン情報とURLパラメータが正しく一致しないとき、ログイン画面へ遷移
-    //   ※ログインしている場合は「ログイン画面→トップページ」へと順に遷移する
-    if (userName !== `user=${user.email}`) {
-      navigate("/");
-      return;
-    }
-
+    userLoginJudge(user, navigate);
+    userURLJudge(user, navigate, userName);
     attachUserDocumentID();
 
     // 自分用:api/exchangeRateAPI.ts からAPI関数を叩く
     // →「通貨レートデータ」と「通貨名リストデータ」をreduxで保存
     const getExchangeRateData = async (): Promise<void> => {
+      // 【大改造①】currencyRateListとcurrencyNameListはローカルストレージ使用しなくていいのでは？
+      // 【大改造②】カスタムフックスの使用
+
       const data = await fetchData();
       const currencyRateList = data[0].conversion_rates;
       const currencyNameList = Object.keys(currencyRateList);
@@ -92,7 +86,7 @@ const TopPage = () => {
     getExchangeRateData();
   }, []);
 
-  // ===========↓after=================
+  // ===========【大改造③ 上のuseEffectと一緒にまとめられる？】=================
   useEffect(() => {
     if (userDocumentID) {
       const collectionRef = collection(
@@ -135,7 +129,7 @@ const TopPage = () => {
       return () => getTripDataListFromDatabase();
     }
   }, [userDocumentID]);
-  // ===========↑after=================
+  // ===========【ここまで大改造③】=================
 
   const toNewTripSetUpPage = () => {
     setNewTripSetUpPage(true);
@@ -175,12 +169,10 @@ const TopPage = () => {
                   </Box>
                   <div className="width-[5%] flex items-center justify-center ml-2">
                     <MenuButton topPage={true} />
-                    {/* <ReorderIcon className="hover:cursor-pointer hover:opacity-40" /> */}
                   </div>
                 </div>
                 {exampleTrip && <ExampleTrip />}
-                {/* ↓ココ修正：tripの型anyを正しい形に */}
-                {tripList?.map((trip: any) => (
+                {tripList?.map((trip: TripType) => (
                   <Trip trip={trip} key={trip.id} />
                 ))}
               </div>
