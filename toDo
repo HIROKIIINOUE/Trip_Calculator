@@ -15,14 +15,14 @@ Header.tsx → Done
 InputCurrencyName.tsx → 1/2 Done
 InputMoney.tsx → Done
 LanguageOption.tsx → Done
-LoadingPage.tsx
+LoadingPage.tsx → Done
 MenuButton.tsx → 1/2 Done
 NoPage.tsx → Done
 
 <loginPage>
 LoginPage.tsx → Done
 
-<topPage>
+<topPage> → Done
 ExampleTrip.tsx → Done
 GetStarted.tsx → Done
 NewTripSetUpPage.tsx → Done
