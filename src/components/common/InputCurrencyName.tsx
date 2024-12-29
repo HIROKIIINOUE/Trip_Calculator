@@ -28,12 +28,11 @@ const InputCurrencyName = (props: Props) => {
     setButtonDisabled,
     setCurrency,
   } = props;
-
+  const translatedData: any = newTripSetUpPageDescription;
+  const language = useAppSelector((state) => state.language.language);
   const currencyNameList = useAppSelector(
     (state) => state.currency.currencyNameList
   );
-  const language = useAppSelector((state) => state.language.language);
-  const translatedData: any = newTripSetUpPageDescription;
 
   const handleChange = (event: SelectChangeEvent<any>) => {
     const {
@@ -50,7 +49,7 @@ const InputCurrencyName = (props: Props) => {
     );
   };
 
-  const handleChange2 = (e: SelectChangeEvent<string>) => {
+  const handleChangeForSecondPage = (e: SelectChangeEvent<string>) => {
     setCurrency!(e.target.value);
   };
 
@@ -59,7 +58,11 @@ const InputCurrencyName = (props: Props) => {
       <FormControl className="w-full text-left">
         <Select
           displayEmpty
-          onChange={setButtonDisabled ? handleChange : (e) => handleChange2(e)}
+          onChange={
+            setButtonDisabled
+              ? handleChange
+              : (e) => handleChangeForSecondPage(e)
+          }
           input={<OutlinedInput />}
           inputRef={yourCurrencyRef}
           renderValue={(selected) => {

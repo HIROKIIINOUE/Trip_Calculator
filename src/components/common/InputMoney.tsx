@@ -19,8 +19,8 @@ const InputMoney = (props: Props) => {
     startDayRef,
     setButtonDisabled,
   } = props;
-  const language = useAppSelector((state) => state.language.language);
   const translatedData: any = newTripSetUpPageDescription;
+  const language = useAppSelector((state) => state.language.language);
 
   const formatBudget = (value: string) => {
     const numericValue = value.replace(/,/g, "");
@@ -40,20 +40,18 @@ const InputMoney = (props: Props) => {
     );
   };
 
-  // 自分用：予算のデータで文字列を入力するとエラーになる処理
-  // =======
+  // 予算のデータで文字列を入力するとエラーになる処理
   const checkCorrectBudgetValue = () => {
     const budget = budgetRef.current?.value;
     const budgetWithoutComma = budget?.replaceAll(",", "");
     if (!Number(budgetWithoutComma)) {
-      alert("半角で数値を入力してください");
+      alert(translatedData[language][6]);
       if (budgetRef.current) {
         budgetRef.current.value = "";
       }
       return;
     }
   };
-  // =======
 
   return (
     <>

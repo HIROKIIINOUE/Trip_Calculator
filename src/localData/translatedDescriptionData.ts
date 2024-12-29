@@ -87,7 +87,7 @@ export const menuButtonDescription: TranslationType = {
 
 // 【修正】ココの翻訳は現段階では適当
 export const newTripSetUpPageDescription: TranslationType = {
-  japanese: ["タイトル", "選択", "自国通貨", "予算", "開始日", "作成"],
+  japanese: ["タイトル", "選択", "自国通貨", "予算", "開始日", "作成", "半角で数値を入力してください"],
   english: [
     "title",
     "option",
@@ -95,8 +95,9 @@ export const newTripSetUpPageDescription: TranslationType = {
     "budget",
     "start day",
     "create",
+    "input number"
   ],
-  french: ["titre", "option", "your currency", "budget", "start day", "create"],
+  french: ["titre", "option", "your currency", "budget", "start day", "create", "input number"],
 };
 
 // 【修正】ココの翻訳は現段階では適当

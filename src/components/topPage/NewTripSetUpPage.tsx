@@ -17,21 +17,21 @@ type Props = {
 
 const NewTripSetUpPage = (props: Props) => {
   const { setNewTripSetUpPage, newTripSetUpPage } = props;
+  const translatedData: any = newTripSetUpPageDescription;
   const navigate = useNavigate();
   const language = useAppSelector((state) => state.language.language);
+  const userDocumentID = useAppSelector((state) => state.user.userDocumentID);
+  const [buttonDisabled, setButtonDisabled] = useState<boolean>(true);
   const titleRef = useRef<HTMLInputElement>(null);
   const yourCurrencyRef = useRef<HTMLInputElement>(null);
   const budgetRef = useRef<HTMLInputElement>(null);
   const startDayRef = useRef<HTMLInputElement>(null);
-  const [buttonDisabled, setButtonDisabled] = useState<boolean>(true);
-  const translatedData: any = newTripSetUpPageDescription;
-  const userDocumentID = useAppSelector((state) => state.user.userDocumentID);
 
   const closeNewTripSetUpPage = (): void => {
     setNewTripSetUpPage(false);
   };
 
-  // 自分用：新しい旅行情報の追加
+  // 新しい旅行情報の追加
   const handleCreateNewTrip = async () => {
     const title = titleRef.current?.value;
     const yourCurrency = yourCurrencyRef.current?.value;
@@ -57,7 +57,7 @@ const NewTripSetUpPage = (props: Props) => {
     navigate("/");
   };
 
-  // 自分用：↓ページ全体のデザイン
+  // ポップアップ要素のデザイン。画面上からフェードインしてくるアニメーション。
   const boxDesignBefore =
     "h-[500px] md:w-[50%] w-[80%] fixed top-12 bottom-0 right-0 left-0 mx-auto bg-orange-100 rounded shadow-lg translate-y-[-800px] duration-1000";
   const boxDesignAfter =
