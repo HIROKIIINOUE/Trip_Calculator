@@ -16,11 +16,12 @@ import LoadingPage from "../common/LoadingPage";
 import { getStartedDescription } from "../../localData/translatedDescriptionData";
 
 const GetStarted = () => {
+  // 【any型修正】
+  const translatedData: any = getStartedDescription;
   const [loadingPage, setLoadingPage] = useState<boolean>(false);
   const user = useAppSelector((state) => state.user.user);
+  const language = useAppSelector((state) => state.language.language);
   const navigate = useNavigate();
-  const language = useAppSelector((state) => state.language.language)
-  const translatedData:any = getStartedDescription;
 
   // 自分用：onSnapshot()じゃなくてgetDoc()を使うことで毎回データベースと通信を行う
   // →データベース上にuser情報があるかどうかを正しいタイミングでジャッジできる。
@@ -33,7 +34,7 @@ const GetStarted = () => {
     const q = query(collectionRef, where("user.uid", "==", user?.uid));
     const querySnapshot = await getDocs(q);
 
-    // 自分用：↓条件を絞って取得したドキュメントがなければ(emptyならば)、ドキュメントを追加する
+    // ログインしているユーザ情報がDB上に無ければ(emptyならば)、DBにドキュメントを追加する
     if (querySnapshot.empty) {
       await addDoc(collectionRef, {
         user: user,
@@ -67,7 +68,9 @@ const GetStarted = () => {
               }}
               onClick={createDatabase}
             >
-              <p className="text-[40px] text-orange-600">{translatedData[language][0]}</p>
+              <p className="text-[40px] text-orange-600">
+                {translatedData[language][0]}
+              </p>
             </Box>
           </div>
         </div>
