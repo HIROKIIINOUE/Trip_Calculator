@@ -1,5 +1,5 @@
-import { Box } from "@mui/material";
 import React from "react";
+import { Box } from "@mui/material";
 import { TripType } from "../../type/TripType";
 import { useAppSelector } from "../../app/storeType";
 import { topPageDescription } from "../../localData/translatedDescriptionData";
@@ -19,10 +19,10 @@ type Props = {
 
 const Trip = (props: Props) => {
   const { trip } = props;
-  const userDocumentID = useAppSelector((state) => state.user.userDocumentID);
-  const language = useAppSelector((state) => state.language.language);
-  const user = useAppSelector((state) => state.user.user);
   const translatedData: any = topPageDescription;
+  const userDocumentID = useAppSelector((state) => state.user.userDocumentID);
+  const user = useAppSelector((state) => state.user.user);
+  const language = useAppSelector((state) => state.language.language);
   const navigate = useNavigate();
 
   const deleteTrip = async () => {

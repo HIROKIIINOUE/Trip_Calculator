@@ -1,5 +1,5 @@
 import { Button, Menu, MenuItem } from "@mui/material";
-import React, { useState } from "react";
+import React from "react";
 import MenuIcon from "@mui/icons-material/Menu";
 import { auth, db } from "../../firebase";
 import { useAppSelector } from "../../app/storeType";
@@ -10,13 +10,9 @@ import {
   doc,
   DocumentData,
   DocumentReference,
-  getDoc,
   getDocs,
 } from "firebase/firestore";
-import {
-  menuButtonDescription,
-  secondPageDescription,
-} from "../../localData/translatedDescriptionData";
+import { menuButtonDescription } from "../../localData/translatedDescriptionData";
 import { logout } from "../../slices/userSlice";
 import { cleanUpLocalStorageExceptLanguage } from "../../util/cleanUpLocalstorage";
 
@@ -24,20 +20,19 @@ type Props = {
   setDisplayDetail?: React.Dispatch<React.SetStateAction<boolean>>;
   tableData?: any; //←ココのany型修正
   tripId?: string | undefined;
-  topPage: boolean;
+  topPage: boolean; //←トップページのメニューボタンかセカンドページのメニューボタンかを判断
 };
 
 const MenuButton = (props: Props) => {
-  const { tableData, tripId, topPage } = props;
+  const { setDisplayDetail, tableData, tripId, topPage } = props;
+  const translatedData: any = menuButtonDescription;
   const userDocumentID = useAppSelector((state) => state.user.userDocumentID);
-  const { setDisplayDetail } = props;
+  const language = useAppSelector((state) => state.language.language);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
-  const language = useAppSelector((state) => state.language.language);
-  const translatedData: any = menuButtonDescription;
 
   const handleClose = () => {
     setAnchorEl(null);
@@ -53,7 +48,7 @@ const MenuButton = (props: Props) => {
       collection(db, "dataList", String(userDocumentID), "tripList");
     const querySnapshot = await getDocs(collectionRef);
 
-    // 自分用：↓querySnapshotで集めたdocumentデータの配列を非同期処理で1つずつ削除していく
+    // querySnapshotで集めたdocumentデータの配列を非同期処理で1つずつ削除していく
     // eslint-disable-next-line array-callback-return
     const deletePromise = querySnapshot.docs.map((item) => {
       const documentRef: DocumentReference<DocumentData, DocumentData> = doc(
@@ -85,8 +80,8 @@ const MenuButton = (props: Props) => {
     await deleteDoc(documentRef);
     auth.signOut();
     logout();
-    setAnchorEl(null);
     cleanUpLocalStorageExceptLanguage();
+    setAnchorEl(null);
   };
 
   // 自分用：セカンドページ、指定したテーブルの詳細情報を表示
