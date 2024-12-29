@@ -10,6 +10,7 @@ const getUserLocalStorageValue = (key: string, initialValue: null) => {
   return item ? JSON.parse(item) : initialValue;
 };
 // 自分用：ローカルストレージを使用した初期値(userDocumentIDデータ)の設定。ページを更新してもデータが保持されるように設定。
+// LocalStorageを使用せずReduxのみでUser情報を管理すると、ページ更新時にuserDocumentデータが一瞬nullになり、Databaseからデータを引っ張る際にエラーになる。
 const getUserDocumentIDLocalStorageValue = (
   key: string,
   initialValue: null

@@ -24,7 +24,8 @@ LoginPage.tsx → Done
 
 <topPage>
 ExampleTrip.tsx → Done
-GetStarted.tsxNewTripSetUpPage.tsx
+GetStarted.tsx
+NewTripSetUpPage.tsx
 TopPage.tsx
 Trip.tsx
 
@@ -38,7 +39,7 @@ TableHeader.tsx
 <slice>
 currencySlice.ts
 languageSlice.ts →Done
-tripSlice.ts
+tripSlice.ts → Done
 userSlice.ts
 
 <type> ※ディレクトリ名を小文字に変更
@@ -47,7 +48,14 @@ LanguageType.ts
 TripType.ts
 UserType.ts
 
+<hooks>
+useFetchCurrency.ts → 要検討
+→currencyRateListとcurrencyNameListはローカルストレージ使用しなくていいのでは？
+→→【解答】しなくても良いが、しない場合はSecondPageないでもAPIを叩いてデータを取得する必要があり、通貨無料APIの上限を超えるのが怖い
 
 <util>
 calculationMoney.ts
 cleanUpLocalstorage.ts
+attachUserDocument.ts → Done
+userLoginJudge.ts → Done
+userURLJudge.ts → Done

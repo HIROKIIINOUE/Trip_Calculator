@@ -1,11 +1,8 @@
-// 【修正】なぜかtripIdをtripIDに置き換えるとエラーになる。確認して全てをtripIDに置き換えること。
-// 次回ココから：（仮）円の表示をyourCurrencyを使って書き直す。リファクトリングしたcalculationMoneyに不備がない確認
-
 import React, { useEffect, useState } from "react";
 import { Box } from "@mui/material";
 import TableHeader from "./TableHeader";
 import Table from "./Table";
-import { useAppSelector } from "../../app/storeType";
+import { useAppDispatch, useAppSelector } from "../../app/storeType";
 import Header from "../common/Header";
 import {
   CollectionReference,
@@ -22,6 +19,8 @@ import { db } from "../../firebase";
 import { useNavigate, useParams } from "react-router-dom";
 import { secondPageDescription } from "../../localData/translatedDescriptionData";
 import NewTableSetUpPage from "./NewTableSetUpPage";
+import { attachUserDocumentID } from "../../util/attachUserDocumentID";
+import { userLoginJudge } from "../../util/userLoginJudge";
 
 const SecondPage = () => {
   const { tripId } = useParams();
@@ -39,14 +38,16 @@ const SecondPage = () => {
   const [tableList, setTableList] = useState<any[]>([]);
   const [sum, setSum] = useState<number>(0);
   const [upToBudget, setUpToBudget] = useState<number>(0);
+  const dispatch = useAppDispatch();
 
   // 自分用：URLパラメータと一致する1つのtripデータを取得する。
   // 自分用：yourCurrencyのデータを取得する
   useEffect(() => {
-    if (!user) {
-      navigate("/");
+    const userJudge = userLoginJudge(user, navigate);
+    if (userJudge === false) {
       return;
     }
+    attachUserDocumentID(user, dispatch);
 
     // =========================
     // 自分用：secondPage用のURLを手書きで変更した時、変更後のURLが既にデータベース上にあるtripデータのどのIDとも一致しない時、トップページに自動的に遷移する処理。

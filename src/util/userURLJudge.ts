@@ -16,6 +16,7 @@ export const userURLJudge = (
 ) => {
   if (userNameInURL !== `user=${user?.email}`) {
     navigate("/");
-    return;
+    return false;
   }
+  return true
 };

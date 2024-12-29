@@ -5,24 +5,9 @@ import { useAppDispatch, useAppSelector } from "../../app/storeType";
 import { Box } from "@mui/material";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import NewTripSetUpPage from "./NewTripSetUpPage";
-import {
-  CollectionReference,
-  DocumentData,
-  collection,
-  getDocs,
-  onSnapshot,
-  orderBy,
-  query,
-  where,
-} from "firebase/firestore";
+import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
 import { db } from "../../firebase";
-import { fetchData } from "../../api/exchangeRateAPI";
-import {
-  setCurrencyNameList,
-  setCurrencyRateList,
-} from "../../slices/currencySlice";
 import ExampleTrip from "./ExampleTrip";
-import { attachDocumentID } from "../../slices/userSlice";
 import GetStarted from "./GetStarted";
 import { TripType } from "../../type/TripType";
 import Trip from "./Trip";
@@ -30,6 +15,8 @@ import { getTripList } from "../../slices/tripSlice";
 import MenuButton from "../common/MenuButton";
 import { userLoginJudge } from "../../util/userLoginJudge";
 import { userURLJudge } from "../../util/userURLJudge";
+import { attachUserDocumentID } from "../../util/attachUserDocumentID";
+import { useFetchCurrency } from "../../hooks/useFetchCurrency";
 
 const TopPage = () => {
   const navigate = useNavigate();
@@ -38,56 +25,23 @@ const TopPage = () => {
   const userDocumentID = useAppSelector((state) => state.user.userDocumentID);
   const tripList = useAppSelector((state) => state.trip.trip);
   const [newTripSetUpPage, setNewTripSetUpPage] = useState<boolean>(false);
-  const [exampleTrip, setExampleTrip] = useState<boolean>(true);
+  const [exampleTrip, setExampleTrip] = useState<boolean>(false);
   const { userName } = useParams();
 
-  // ↓↓ログインしているuser情報のfirebase上にあるドキュメントIDを取得し、reduxで管理↓↓
-  // ※firebaseデータベース上にログイン情報が無ければuserDocumentIDがnullになり、GetStarted.tsxが表示される
-  const attachUserDocumentID = async () => {
-    const collectionRef: CollectionReference<DocumentData, DocumentData> =
-      collection(db, "dataList");
-    const q = query(collectionRef, where("user.uid", "==", user?.uid));
-    const querySnapshot = await getDocs(q);
+  // APIを叩いて通貨レート情報を取得
+  useFetchCurrency(user, userName, navigate);
 
-    if (querySnapshot.empty) {
+  useEffect(() => {
+    // URLの「/:userName」を手打ちした時、「ログインしていない」もしくは「手打ちしたURLがログインしているユーザ情報と一致しない」時は自動でログイン画面に遷移され、attachUserDocumentID以降の処理は実行されない。(ログインしている場合はログイン画面→トップページへと遷移される)
+    const userJudge = userLoginJudge(user, navigate);
+    const URLJudge = userURLJudge(user, navigate, userName);
+    if (userJudge === false || URLJudge === false) {
       return;
     }
 
-    querySnapshot.docs.forEach((doc) => {
-      dispatch(attachDocumentID(doc.id));
-      localStorage.setItem("userDocumentID", doc.id);
-    });
-  };
-  // ↑↑ここまで↑↑
+    // URLが適正の場合以下から文末までを実行
+    attachUserDocumentID(user, dispatch);
 
-  useEffect(() => {
-    userLoginJudge(user, navigate);
-    userURLJudge(user, navigate, userName);
-    attachUserDocumentID();
-
-    // 自分用:api/exchangeRateAPI.ts からAPI関数を叩く
-    // →「通貨レートデータ」と「通貨名リストデータ」をreduxで保存
-    const getExchangeRateData = async (): Promise<void> => {
-      // 【大改造①】currencyRateListとcurrencyNameListはローカルストレージ使用しなくていいのでは？
-      // 【大改造②】カスタムフックスの使用
-
-      const data = await fetchData();
-      const currencyRateList = data[0].conversion_rates;
-      const currencyNameList = Object.keys(currencyRateList);
-      dispatch(setCurrencyRateList(currencyRateList));
-      dispatch(setCurrencyNameList(currencyNameList));
-      // ↓currencyNameListをローカルストレージに保存
-      const JSONCurrencyNameList = JSON.stringify(currencyNameList);
-      localStorage.setItem("currencyNameList", JSONCurrencyNameList);
-
-      const JSONCurrencyRateList = JSON.stringify(currencyRateList);
-      localStorage.setItem("currencyRateList", JSONCurrencyRateList);
-    };
-    getExchangeRateData();
-  }, []);
-
-  // ===========【大改造③ 上のuseEffectと一緒にまとめられる？】=================
-  useEffect(() => {
     if (userDocumentID) {
       const collectionRef = collection(
         db,
@@ -129,7 +83,6 @@ const TopPage = () => {
       return () => getTripDataListFromDatabase();
     }
   }, [userDocumentID]);
-  // ===========【ここまで大改造③】=================
 
   const toNewTripSetUpPage = () => {
     setNewTripSetUpPage(true);

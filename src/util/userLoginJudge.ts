@@ -11,6 +11,7 @@ type User = {
 export const userLoginJudge = (user: User, navigate: NavigateFunction) => {
   if (!user) {
     navigate("/");
-    return;
+    return false;
   }
+  return true;
 };
