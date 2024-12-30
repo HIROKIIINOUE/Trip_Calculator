@@ -6,7 +6,7 @@ import { secondPageDescription } from "../../localData/translatedDescriptionData
 
 type Props = {
   setNewTableSetUpPage: React.Dispatch<React.SetStateAction<boolean>>;
-  yourCurrency: string;
+  yourCurrency: string | undefined;
 };
 
 const TableHeader = (props: Props) => {

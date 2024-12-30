@@ -33,7 +33,7 @@ Trip.tsx → Done
 <secondPage>
 Detail.tsx
 NewTableSetUpPage.tsx
-SecondPage.tsx
+SecondPage.tsx → Done
 Table.tsx
 TableHeader.tsx
 
@@ -53,6 +53,8 @@ UserType.ts
 useFetchCurrency.ts → 要検討
 →currencyRateListとcurrencyNameListはローカルストレージ使用しなくていいのでは？
 →→【解答】しなくても良いが、しない場合はSecondPageないでもAPIを叩いてデータを取得する必要があり、通貨無料APIの上限を超えるのが怖い
+useGetTripData.ts → Done
+useGetTableData.ts → Done
 
 <util>
 calculationMoney.ts

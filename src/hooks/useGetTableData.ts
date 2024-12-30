@@ -8,12 +8,12 @@ import {
   query,
 } from "firebase/firestore";
 import { db } from "../firebase";
-import { TripType } from "../type/TripType";
+import { TableType } from "../type/TableType";
 
 export const useGetTableData = (
   tripId: string | undefined,
   userDocumentID: string | null,
-  setTableList: React.Dispatch<React.SetStateAction<TripType[]>>
+  setTableList: React.Dispatch<React.SetStateAction<TableType[]>>
 ) => {
   useEffect(() => {
     const collectionRef: CollectionReference<DocumentData, DocumentData> =
@@ -30,8 +30,7 @@ export const useGetTableData = (
     const getTableDataListFromDatabase = onSnapshot(
       collectionRefOrderBy,
       (querySnapshot) => {
-        // ココ修正：any型
-        const results: any = [];
+        const results: TableType[] = [];
         querySnapshot.docs.forEach((doc) => {
           results.push({
             date: doc.data().date,

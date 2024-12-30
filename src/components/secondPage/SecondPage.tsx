@@ -4,30 +4,16 @@ import TableHeader from "./TableHeader";
 import Table from "./Table";
 import { useAppSelector } from "../../app/storeType";
 import Header from "../common/Header";
-import {
-  CollectionReference,
-  DocumentData,
-  DocumentReference,
-  collection,
-  doc,
-  getDoc,
-  onSnapshot,
-  orderBy,
-  query,
-} from "firebase/firestore";
-import { db } from "../../firebase";
 import { useNavigate, useParams } from "react-router-dom";
 import { secondPageDescription } from "../../localData/translatedDescriptionData";
 import NewTableSetUpPage from "./NewTableSetUpPage";
-import { userLoginJudge } from "../../util/userLoginJudge";
-import { tripExistJudge } from "../../util/tripExistJudge";
-import { TripType } from "../../type/TripType";
-import { userURLJudge } from "../../util/userURLJudge";
 import { useGetTripData } from "../../hooks/useGetTripData";
 import { useGetTableData } from "../../hooks/useGetTableData";
+import { TableType } from "../../type/TableType";
 
 const SecondPage = () => {
   const { userName, tripId } = useParams();
+  // ココ修正：any型
   const translatedData: any = secondPageDescription;
   const language = useAppSelector((state) => state.language.language);
   const user = useAppSelector((state) => state.user.user);
@@ -36,12 +22,12 @@ const SecondPage = () => {
   // ココ修正：any型
   const [tripData, setTripData] = useState<any>([]);
   const [newTableSetUpPage, setNewTableSetUpPage] = useState<boolean>(false);
-  const [tableList, setTableList] = useState<TripType[]>([]);
+  const [tableList, setTableList] = useState<TableType[]>([]);
   const [sum, setSum] = useState<number>(0);
   const [upToBudget, setUpToBudget] = useState<number>(0);
   const navigate = useNavigate();
 
-  // トリップデータを取得
+  // トリップデータを取得(カスタムフックス)
   useGetTripData(
     user,
     navigate,
@@ -52,11 +38,10 @@ const SecondPage = () => {
     setTripData
   );
 
-  // 複数のテーブルデータを取得
+  // 複数のテーブルデータを取得(カスタムフックス)
   useGetTableData(tripId, userDocumentID, setTableList);
 
-  // ↓リファクトリング対象
-  // ↓自分用：自国通貨へ変換後の合計金額
+  // 自国通貨へ変換後の合計金額
   useEffect(() => {
     let sumUp: number = 0;
     tableList.forEach((table: any) => {
@@ -65,16 +50,15 @@ const SecondPage = () => {
     setSum(sumUp);
   }, [tableList]);
 
-  // tripデータから取得した「予算」から、tableListから取得した「使用合計金額」を差し引いた「差額」を算出
+  // tripデータから取得した「予算」から上で計算した「使用合計金額」を差し引いた「差額」を算出
   useEffect(() => {
-    // 自分用：tripデータから予算を取得(↓必ず文字列型になってしまう)
     const stringBudget = tripData.budget;
     let budget: string = "";
     if (stringBudget) {
-      // 自分用：文字列型データからカンマを削除
+      // 文字列型データからカンマを削除
       budget = stringBudget.replaceAll(",", "");
     }
-    // 自分用：文字列型から数値型に変換
+    // Number(budget)で文字列型から数値型に変換
     const difference: number = Number(budget) - sum;
     setUpToBudget(difference);
   }, [tripData, sum]);
@@ -170,7 +154,6 @@ const SecondPage = () => {
             yourCurrency={tripData.yourCurrency}
           />
           {tableList.map((tableData) => (
-            // ↓keyを正しい値に直すこと（もしかしたらuuid?）
             <Table tableData={tableData} key={tableData.id} tripId={tripId} />
           ))}
         </div>
