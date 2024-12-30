@@ -23,6 +23,8 @@ import { userLoginJudge } from "../../util/userLoginJudge";
 import { tripExistJudge } from "../../util/tripExistJudge";
 import { TripType } from "../../type/TripType";
 import { userURLJudge } from "../../util/userURLJudge";
+import { useGetTripData } from "../../hooks/useGetTripData";
+import { useGetTableData } from "../../hooks/useGetTableData";
 
 const SecondPage = () => {
   const { userName, tripId } = useParams();
@@ -40,63 +42,18 @@ const SecondPage = () => {
   const navigate = useNavigate();
 
   // トリップデータを取得
-  useEffect(() => {
-    const userJudge = userLoginJudge(user, navigate);
-    const URLJudge = userURLJudge(user, navigate, userName);
-    const tripJudge = tripExistJudge(tripList, tripId, navigate);
-    if (!userJudge || !URLJudge || !tripJudge) {
-      return;
-    }
+  useGetTripData(
+    user,
+    navigate,
+    userName,
+    tripList,
+    tripId,
+    userDocumentID,
+    setTripData
+  );
 
-    const documentRef: DocumentReference<DocumentData, DocumentData> = doc(
-      db,
-      "dataList",
-      String(userDocumentID),
-      "tripList",
-      String(tripId)
-    );
-
-    const getTripDataFromDatabase = onSnapshot(documentRef, (doc) => {
-      setTripData(doc.data());
-    });
-
-    return () => getTripDataFromDatabase();
-  }, []);
-
-  // 自分用：テーブルデータ(各行のインプットデータ)を取得
-  useEffect(() => {
-    const collectionRef: CollectionReference<DocumentData, DocumentData> =
-      collection(
-        db,
-        "dataList",
-        String(userDocumentID),
-        "tripList",
-        String(tripId),
-        "tableList"
-      );
-    const collectionRefOrderBy = query(collectionRef, orderBy("date", "desc"));
-
-    const getTableDataListFromDatabase = onSnapshot(
-      collectionRefOrderBy,
-      (querySnapshot) => {
-        // ココ修正：any型
-        const results: any = [];
-        querySnapshot.docs.forEach((doc) => {
-          results.push({
-            date: doc.data().date,
-            currency: doc.data().currency,
-            money: doc.data().money,
-            moneyResult: doc.data().moneyResult,
-            detail: doc.data().detail,
-            id: doc.id,
-          });
-          setTableList(results);
-        });
-      }
-    );
-
-    return () => getTableDataListFromDatabase();
-  }, []);
+  // 複数のテーブルデータを取得
+  useGetTableData(tripId, userDocumentID, setTableList);
 
   // ↓リファクトリング対象
   // ↓自分用：自国通貨へ変換後の合計金額

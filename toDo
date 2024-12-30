@@ -6,6 +6,7 @@
   →可能であれば最後のテーブルを削除した時のみページがリフレッシュされるようにしたい。MenuButton.tsxを参照。
 ・セキュリティ面の改善₍APIのgit ignore₎
 ・APIが1月1500回しか叩けない問題
+・UserのTypeをexportで一箇所に指定。userURLJudge.ts等を参照
 
 
 
