@@ -10,6 +10,7 @@ import NewTableSetUpPage from "./NewTableSetUpPage";
 import { useGetTripData } from "../../hooks/useGetTripData";
 import { useGetTableData } from "../../hooks/useGetTableData";
 import { TableType } from "../../type/TableType";
+import { TripType } from "../../type/TripType";
 
 const SecondPage = () => {
   const { userName, tripId } = useParams();
@@ -19,15 +20,14 @@ const SecondPage = () => {
   const user = useAppSelector((state) => state.user.user);
   const tripList = useAppSelector((state) => state.trip.trip);
   const userDocumentID = useAppSelector((state) => state.user.userDocumentID);
-  // ココ修正：any型
-  const [tripData, setTripData] = useState<any>([]);
+  const [tripData, setTripData] = useState<TripType>();
   const [newTableSetUpPage, setNewTableSetUpPage] = useState<boolean>(false);
   const [tableList, setTableList] = useState<TableType[]>([]);
   const [sum, setSum] = useState<number>(0);
   const [upToBudget, setUpToBudget] = useState<number>(0);
   const navigate = useNavigate();
 
-  // トリップデータを取得(カスタムフックス)
+  // トリップデータを取得
   useGetTripData(
     user,
     navigate,
@@ -38,7 +38,7 @@ const SecondPage = () => {
     setTripData
   );
 
-  // 複数のテーブルデータを取得(カスタムフックス)
+  // 複数のテーブルデータを取得
   useGetTableData(tripId, userDocumentID, setTableList);
 
   // 自国通貨へ変換後の合計金額
@@ -52,7 +52,7 @@ const SecondPage = () => {
 
   // tripデータから取得した「予算」から上で計算した「使用合計金額」を差し引いた「差額」を算出
   useEffect(() => {
-    const stringBudget = tripData.budget;
+    const stringBudget = tripData?.budget;
     let budget: string = "";
     if (stringBudget) {
       // 文字列型データからカンマを削除
@@ -84,7 +84,7 @@ const SecondPage = () => {
                   borderColor: "rgb(154 52 18)",
                 }}
               >
-                {tripData.title}
+                {tripData?.title}
               </Box>
             </div>
             <div className="md:w-[56%] w-full md:flex">
@@ -104,7 +104,7 @@ const SecondPage = () => {
                     padding: "4px",
                   }}
                 >
-                  {tripData.budget} ({tripData.yourCurrency})
+                  {tripData?.budget} ({tripData?.yourCurrency})
                 </Box>
               </div>
               <div className="md:w-[67%] w-full flex break-words">
@@ -124,7 +124,7 @@ const SecondPage = () => {
                       padding: "4px",
                     }}
                   >
-                    {sum.toLocaleString()} ({tripData.yourCurrency})
+                    {sum.toLocaleString()} ({tripData?.yourCurrency})
                   </Box>
                 </div>
                 <div className="w-[50%]">
@@ -143,7 +143,7 @@ const SecondPage = () => {
                       padding: "4px",
                     }}
                   >
-                    {upToBudget.toLocaleString()} ({tripData.yourCurrency})
+                    {upToBudget.toLocaleString()} ({tripData?.yourCurrency})
                   </Box>
                 </div>
               </div>
@@ -151,7 +151,7 @@ const SecondPage = () => {
           </div>
           <TableHeader
             setNewTableSetUpPage={setNewTableSetUpPage}
-            yourCurrency={tripData.yourCurrency}
+            yourCurrency={tripData?.yourCurrency}
           />
           {tableList.map((tableData) => (
             <Table tableData={tableData} key={tableData.id} tripId={tripId} />
@@ -161,7 +161,7 @@ const SecondPage = () => {
       {newTableSetUpPage && (
         <NewTableSetUpPage
           setNewTableSetUpPage={setNewTableSetUpPage}
-          yourCurrency={tripData.yourCurrency}
+          yourCurrency={tripData?.yourCurrency}
         />
       )}
     </>

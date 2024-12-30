@@ -1,14 +1,15 @@
 import React from "react";
 import { useAppSelector } from "../../app/storeType";
 import { secondPageDescription } from "../../localData/translatedDescriptionData";
+import { TableType } from "../../type/TableType";
 
 type Props = {
+  tableData: TableType;
   setDisplayDetail: React.Dispatch<React.SetStateAction<boolean>>;
-  tableData: any;
 };
 
 const Detail = (props: Props) => {
-  const { setDisplayDetail, tableData } = props;
+  const { tableData, setDisplayDetail } = props;
   const language = useAppSelector((state) => state.language.language);
   const translatedData: any = secondPageDescription;
 

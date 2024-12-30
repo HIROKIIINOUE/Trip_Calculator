@@ -4,5 +4,5 @@ export interface TripType {
   yourCurrency: string;
   budget: string;
   startDay: string;
-  id: string;
+  id?: string;
 }

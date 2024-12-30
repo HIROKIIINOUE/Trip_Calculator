@@ -19,7 +19,7 @@ import { newTableSetUpPageDescription } from "../../localData/translatedDescript
 
 type Props = {
   setNewTableSetUpPage: React.Dispatch<React.SetStateAction<boolean>>;
-  yourCurrency: string;
+  yourCurrency: string | undefined;
 };
 
 // 勉強のためテーブルのsetupポップアップはuseStateで状態管理。

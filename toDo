@@ -31,11 +31,11 @@ TopPage.tsx → Done
 Trip.tsx → Done
 
 <secondPage>
-Detail.tsx
+Detail.tsx → Done
 NewTableSetUpPage.tsx
 SecondPage.tsx → Done
 Table.tsx
-TableHeader.tsx
+TableHeader.tsx → Done
 
 <slice>
 currencySlice.ts

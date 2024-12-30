@@ -11,8 +11,8 @@ type Props = {
 
 const TableHeader = (props: Props) => {
   const { setNewTableSetUpPage, yourCurrency } = props;
-  const language = useAppSelector((state) => state.language.language);
   const translatedData: any = secondPageDescription;
+  const language = useAppSelector((state) => state.language.language);
 
   const toNewTableSetUpPage = () => {
     setNewTableSetUpPage(true);

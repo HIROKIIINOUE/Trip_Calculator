@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import { Box } from "@mui/material";
 import MenuButton from "../common/MenuButton";
 import Detail from "./Detail";
+import { TableType } from "../../type/TableType";
 
 type Props = {
-  // ココany型修正
-  tableData: any;
+  tableData: TableType;
   tripId: string | undefined;
 };
 
@@ -76,7 +76,7 @@ const Table = (props: Props) => {
         </span>
       </Box>
       {displayDetail && (
-        <Detail setDisplayDetail={setDisplayDetail} tableData={tableData} />
+        <Detail tableData={tableData} setDisplayDetail={setDisplayDetail} />
       )}
     </div>
   );
