@@ -55,7 +55,7 @@ useFetchCurrency.ts → 要検討
 
 <util>
 calculationMoney.ts
-cleanUpLocalstorage.ts
+cleanUpLocalstorage.ts → Done
 attachUserDocument.ts → Done
 userLoginJudge.ts → Done
 userURLJudge.ts → Done

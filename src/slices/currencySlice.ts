@@ -19,20 +19,15 @@ const getCurrencyNameListLocalStorageValue = (
   return item ? JSON.parse(item) : initialValue;
 };
 
-// const currencyInformation: CurrencyType = {
-//   currencyRateList: getCurrencyRateListFromLocalStorageValue(
-//     "currencyRateList",
-//     null
-//   ),
-//   currencyNameList: getCurrencyNameListLocalStorageValue(
-//     "currencyNameList",
-//     null
-//   ),
-// };
-
 const currencyInformation: CurrencyType = {
-  currencyRateList: null,
-  currencyNameList: null,
+  currencyRateList: getCurrencyRateListFromLocalStorageValue(
+    "currencyRateList",
+    null
+  ),
+  currencyNameList: getCurrencyNameListLocalStorageValue(
+    "currencyNameList",
+    null
+  ),
 };
 
 export const currencySlice = createSlice({

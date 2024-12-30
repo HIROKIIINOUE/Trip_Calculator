@@ -5,7 +5,14 @@ import { useAppDispatch, useAppSelector } from "../../app/storeType";
 import { Box } from "@mui/material";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import NewTripSetUpPage from "./NewTripSetUpPage";
-import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
+import {
+  collection,
+  CollectionReference,
+  DocumentData,
+  onSnapshot,
+  orderBy,
+  query,
+} from "firebase/firestore";
 import { db } from "../../firebase";
 import ExampleTrip from "./ExampleTrip";
 import GetStarted from "./GetStarted";
@@ -35,7 +42,7 @@ const TopPage = () => {
     // URLの「/:userName」を手打ちした時、「ログインしていない」もしくは「手打ちしたURLがログインしているユーザ情報と一致しない」時は自動でログイン画面に遷移され、attachUserDocumentID以降の処理は実行されない。(ログインしている場合はログイン画面→トップページへと遷移される)
     const userJudge = userLoginJudge(user, navigate);
     const URLJudge = userURLJudge(user, navigate, userName);
-    if (userJudge === false || URLJudge === false) {
+    if (!userJudge || !URLJudge) {
       return;
     }
 
@@ -43,12 +50,8 @@ const TopPage = () => {
     attachUserDocumentID(user, dispatch);
 
     if (userDocumentID) {
-      const collectionRef = collection(
-        db,
-        "dataList",
-        String(userDocumentID),
-        "tripList"
-      );
+      const collectionRef: CollectionReference<DocumentData, DocumentData> =
+        collection(db, "dataList", String(userDocumentID), "tripList");
       const collectionRefOrderBy = query(
         collectionRef,
         orderBy("startDay", "desc")

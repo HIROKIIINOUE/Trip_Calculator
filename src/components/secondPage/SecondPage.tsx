@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Box } from "@mui/material";
 import TableHeader from "./TableHeader";
 import Table from "./Table";
-import { useAppDispatch, useAppSelector } from "../../app/storeType";
+import { useAppSelector } from "../../app/storeType";
 import Header from "../common/Header";
 import {
   CollectionReference,
@@ -19,50 +19,36 @@ import { db } from "../../firebase";
 import { useNavigate, useParams } from "react-router-dom";
 import { secondPageDescription } from "../../localData/translatedDescriptionData";
 import NewTableSetUpPage from "./NewTableSetUpPage";
-import { attachUserDocumentID } from "../../util/attachUserDocumentID";
 import { userLoginJudge } from "../../util/userLoginJudge";
+import { tripExistJudge } from "../../util/tripExistJudge";
+import { TripType } from "../../type/TripType";
+import { userURLJudge } from "../../util/userURLJudge";
 
 const SecondPage = () => {
-  const { tripId } = useParams();
+  const { userName, tripId } = useParams();
+  const translatedData: any = secondPageDescription;
+  const language = useAppSelector((state) => state.language.language);
+  const user = useAppSelector((state) => state.user.user);
+  const tripList = useAppSelector((state) => state.trip.trip);
   const userDocumentID = useAppSelector((state) => state.user.userDocumentID);
   // ココ修正：any型
   const [tripData, setTripData] = useState<any>([]);
-  const [yourCurrency, setYourCurrency] = useState<string>("");
-  const language = useAppSelector((state) => state.language.language);
-  const translatedData: any = secondPageDescription;
   const [newTableSetUpPage, setNewTableSetUpPage] = useState<boolean>(false);
-  // ココ修正：any型
-  const user = useAppSelector((state) => state.user.user);
-  const navigate = useNavigate();
-  const tripList = useAppSelector((state) => state.trip.trip);
-  const [tableList, setTableList] = useState<any[]>([]);
+  const [tableList, setTableList] = useState<TripType[]>([]);
   const [sum, setSum] = useState<number>(0);
   const [upToBudget, setUpToBudget] = useState<number>(0);
-  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
-  // 自分用：URLパラメータと一致する1つのtripデータを取得する。
-  // 自分用：yourCurrencyのデータを取得する
+  // トリップデータを取得
   useEffect(() => {
     const userJudge = userLoginJudge(user, navigate);
-    if (userJudge === false) {
+    const URLJudge = userURLJudge(user, navigate, userName);
+    const tripJudge = tripExistJudge(tripList, tripId, navigate);
+    if (!userJudge || !URLJudge || !tripJudge) {
       return;
     }
-    attachUserDocumentID(user, dispatch);
 
-    // =========================
-    // 自分用：secondPage用のURLを手書きで変更した時、変更後のURLが既にデータベース上にあるtripデータのどのIDとも一致しない時、トップページに自動的に遷移する処理。
-    // (さもないとURLから取得したパラムがデータベースのどれとも一致しないことでエラーが発生してしまう)
-    // ↓ココany型修正
-    const judgeTripExist = tripList.filter((trip: any) => {
-      return trip.id === tripId;
-    });
-    if (judgeTripExist.length === 0) {
-      navigate("/");
-      return;
-    }
-    // =========================
-
-    const collectionRef: DocumentReference<DocumentData, DocumentData> = doc(
+    const documentRef: DocumentReference<DocumentData, DocumentData> = doc(
       db,
       "dataList",
       String(userDocumentID),
@@ -70,13 +56,7 @@ const SecondPage = () => {
       String(tripId)
     );
 
-    const getYourCurrency = async () => {
-      const querySnapshot = await getDoc(collectionRef);
-      setYourCurrency(querySnapshot.data()!.yourCurrency);
-    };
-    getYourCurrency();
-
-    const getTripDataFromDatabase = onSnapshot(collectionRef, (doc) => {
+    const getTripDataFromDatabase = onSnapshot(documentRef, (doc) => {
       setTripData(doc.data());
     });
 
@@ -183,10 +163,10 @@ const SecondPage = () => {
                     padding: "4px",
                   }}
                 >
-                  {tripData.budget} ({yourCurrency})
+                  {tripData.budget} ({tripData.yourCurrency})
                 </Box>
               </div>
-              <div className="md:w-[64%] w-full flex break-words">
+              <div className="md:w-[67%] w-full flex break-words">
                 <div className="w-[50%]">
                   <p>{translatedData[language][2]}</p>
                   <Box
@@ -203,7 +183,7 @@ const SecondPage = () => {
                       padding: "4px",
                     }}
                   >
-                    {sum.toLocaleString()} ({yourCurrency})
+                    {sum.toLocaleString()} ({tripData.yourCurrency})
                   </Box>
                 </div>
                 <div className="w-[50%]">
@@ -222,7 +202,7 @@ const SecondPage = () => {
                       padding: "4px",
                     }}
                   >
-                    {upToBudget.toLocaleString()} ({yourCurrency})
+                    {upToBudget.toLocaleString()} ({tripData.yourCurrency})
                   </Box>
                 </div>
               </div>
@@ -230,7 +210,7 @@ const SecondPage = () => {
           </div>
           <TableHeader
             setNewTableSetUpPage={setNewTableSetUpPage}
-            yourCurrency={yourCurrency}
+            yourCurrency={tripData.yourCurrency}
           />
           {tableList.map((tableData) => (
             // ↓keyを正しい値に直すこと（もしかしたらuuid?）
@@ -241,7 +221,7 @@ const SecondPage = () => {
       {newTableSetUpPage && (
         <NewTableSetUpPage
           setNewTableSetUpPage={setNewTableSetUpPage}
-          yourCurrency={yourCurrency}
+          yourCurrency={tripData.yourCurrency}
         />
       )}
     </>
