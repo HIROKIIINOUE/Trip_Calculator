@@ -12,35 +12,35 @@
 
 【リファクタリング】
 <common>
-Header.tsx → Done
+★Header.tsx → Done
 InputCurrencyName.tsx → 1/2 Done
-InputMoney.tsx → Done
-LanguageOption.tsx → Done
-LoadingPage.tsx → Done
-MenuButton.tsx → 1/2 Done
-NoPage.tsx → Done
+★InputMoney.tsx → Done
+★LanguageOption.tsx → Done
+★LoadingPage.tsx → Done
+★MenuButton.tsx → Done
+★NoPage.tsx → Done
 
-<loginPage>
-LoginPage.tsx → Done
+★<loginPage>
+★LoginPage.tsx → Done
 
-<topPage> → Done
-ExampleTrip.tsx → Done
-GetStarted.tsx → Done
-NewTripSetUpPage.tsx → Done
-TopPage.tsx → Done
-Trip.tsx → Done
+★<topPage> → Done
+★ExampleTrip.tsx → Done
+★GetStarted.tsx → Done
+★NewTripSetUpPage.tsx → Done
+★TopPage.tsx → Done
+★Trip.tsx → Done
 
 <secondPage>
-Detail.tsx → Done
+★Detail.tsx → Done
 NewTableSetUpPage.tsx
-SecondPage.tsx → Done
-Table.tsx
-TableHeader.tsx → Done
+★SecondPage.tsx → Done
+★Table.tsx → Done
+★TableHeader.tsx → Done
 
 <slice>
 currencySlice.ts
-languageSlice.ts →Done
-tripSlice.ts → Done
+★languageSlice.ts →Done
+★tripSlice.ts → Done
 userSlice.ts
 
 <type> ※ディレクトリ名を小文字に変更
@@ -53,12 +53,12 @@ UserType.ts
 useFetchCurrency.ts → 要検討
 →currencyRateListとcurrencyNameListはローカルストレージ使用しなくていいのでは？
 →→【解答】しなくても良いが、しない場合はSecondPageないでもAPIを叩いてデータを取得する必要があり、通貨無料APIの上限を超えるのが怖い
-useGetTripData.ts → Done
-useGetTableData.ts → Done
+★useGetTripData.ts → Done
+★useGetTableData.ts → Done
 
 <util>
 calculationMoney.ts
-cleanUpLocalstorage.ts → Done
-attachUserDocument.ts → Done
-userLoginJudge.ts → Done
-userURLJudge.ts → Done
+★cleanUpLocalstorage.ts → Done
+★attachUserDocument.ts → Done
+★userLoginJudge.ts → Done
+★userURLJudge.ts → Done

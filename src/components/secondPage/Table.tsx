@@ -6,11 +6,12 @@ import { TableType } from "../../type/TableType";
 
 type Props = {
   tableData: TableType;
+  tableList: TableType[];
   tripId: string | undefined;
 };
 
 const Table = (props: Props) => {
-  const { tableData, tripId } = props;
+  const { tableData, tableList, tripId } = props;
   const [displayDetail, setDisplayDetail] = useState<boolean>(false);
 
   return (
@@ -18,6 +19,7 @@ const Table = (props: Props) => {
       <MenuButton
         setDisplayDetail={setDisplayDetail}
         tableData={tableData}
+        tableList={tableList}
         tripId={tripId}
         topPage={false}
       />

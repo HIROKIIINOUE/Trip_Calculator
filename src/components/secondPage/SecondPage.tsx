@@ -154,7 +154,7 @@ const SecondPage = () => {
             yourCurrency={tripData?.yourCurrency}
           />
           {tableList.map((tableData) => (
-            <Table tableData={tableData} key={tableData.id} tripId={tripId} />
+            <Table tableData={tableData} tableList={tableList} key={tableData.id} tripId={tripId} />
           ))}
         </div>
       </div>

@@ -121,7 +121,7 @@ export const newTableSetUpPageDescription: TranslationType = {
     "日付",
     "お金",
     "選択",
-    "クリック",
+    "click",
     "詳細(70文字以内)",
     "戻る",
     "追加",

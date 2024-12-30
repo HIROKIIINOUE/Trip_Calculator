@@ -15,16 +15,18 @@ import {
 import { menuButtonDescription } from "../../localData/translatedDescriptionData";
 import { logout } from "../../slices/userSlice";
 import { cleanUpLocalStorageExceptLanguage } from "../../util/cleanUpLocalstorage";
+import { TableType } from "../../type/TableType";
 
 type Props = {
   setDisplayDetail?: React.Dispatch<React.SetStateAction<boolean>>;
-  tableData?: any; //←ココのany型修正
+  tableData?: TableType;
+  tableList?: TableType[];
   tripId?: string | undefined;
   topPage: boolean; //←トップページのメニューボタンかセカンドページのメニューボタンかを判断
 };
 
 const MenuButton = (props: Props) => {
-  const { setDisplayDetail, tableData, tripId, topPage } = props;
+  const { setDisplayDetail, tableData, tableList, tripId, topPage } = props;
   const translatedData: any = menuButtonDescription;
   const userDocumentID = useAppSelector((state) => state.user.userDocumentID);
   const language = useAppSelector((state) => state.language.language);
@@ -84,7 +86,7 @@ const MenuButton = (props: Props) => {
     setAnchorEl(null);
   };
 
-  // 自分用：セカンドページ、指定したテーブルの詳細情報を表示
+  // セカンドページ、指定したテーブルの詳細情報を表示
   const handleDetail = () => {
     if (setDisplayDetail) {
       setDisplayDetail(true);
@@ -92,11 +94,11 @@ const MenuButton = (props: Props) => {
     setAnchorEl(null);
   };
 
-  // 自分用：セカンドページ、指定したテーブルデータをfirebaseデータベースから削除
+  // セカンドページ、指定したテーブルデータをfirebaseデータベースから削除
   const handleDelete = async () => {
     if (
       !window.confirm(
-        `${tableData.date} / ${tableData.money}${tableData.currency}  ${translatedData[language][6]}？`
+        `${tableData?.date} / ${tableData?.money}${tableData?.currency}  ${translatedData[language][6]}？`
       )
     ) {
       setAnchorEl(null);
@@ -110,14 +112,15 @@ const MenuButton = (props: Props) => {
       "tripList",
       String(tripId),
       "tableList",
-      String(tableData.id)
+      String(tableData?.id)
     );
     await deleteDoc(documentRef);
-    // ↓【要検討】テーブルを消すたびに毎回ページがリロードされる
-    //    →最後1つのテーブルを消してもページ上に残ってしまうエラーの対策
-    //    →理想は最後のテーブルを消した時のみページをリロードする仕様にしたい。
-    //    ★useSWRで解決できるかも？（毎度リロードは避けられないがリロードにかかる時間を削減する）
-    window.location.reload();
+
+    // 最後1つのテーブルを削除した時のみ、削除後もテーブルがページ内に表示されてしまう。
+    // →最後のテーブル削除時のみ以下の処理を実行
+    if (tableList?.length === 1) {
+      window.location.reload();
+    }
   };
 
   return (
