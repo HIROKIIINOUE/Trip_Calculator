@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { CurrencyType } from "../type/currencyType";
+import { CurrencyType } from "../type/CurrencyType";
 
 // 自分用：currencyRateListの初期値をローカルデータで保持する
 const getCurrencyRateListFromLocalStorageValue = (
