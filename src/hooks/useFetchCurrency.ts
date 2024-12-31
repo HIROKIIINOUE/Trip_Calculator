@@ -37,10 +37,9 @@ export const useFetchCurrency = async (
       const currencyNameList = Object.keys(currencyRateList);
       dispatch(setCurrencyRateList(currencyRateList));
       dispatch(setCurrencyNameList(currencyNameList));
-      // 【ココ要検討】currencyNameListをローカルストレージに保存するか否か。詳細はtoDoを確認
+
       const JSONCurrencyNameList = JSON.stringify(currencyNameList);
       localStorage.setItem("currencyNameList", JSONCurrencyNameList);
-
       const JSONCurrencyRateList = JSON.stringify(currencyRateList);
       localStorage.setItem("currencyRateList", JSONCurrencyRateList);
     };

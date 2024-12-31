@@ -31,10 +31,10 @@
 ★TableHeader.tsx → Done
 
 <slice>
-currencySlice.ts
+★currencySlice.ts → Done
 ★languageSlice.ts →Done
 ★tripSlice.ts → Done
-userSlice.ts
+★userSlice.ts → Done
 
 <type> ※ディレクトリ名を小文字に変更
 currencyType.ts
@@ -43,9 +43,7 @@ TripType.ts
 UserType.ts
 
 <hooks>
-useFetchCurrency.ts → 要検討
-→currencyRateListとcurrencyNameListはローカルストレージ使用しなくていいのでは？
-→→【解答】しなくても良いが、しない場合はSecondPageないでもAPIを叩いてデータを取得する必要があり、通貨無料APIの上限を超えるのが怖い
+★useFetchCurrency.ts → Done
 ★useGetTripData.ts → Done
 ★useGetTableData.ts → Done
 

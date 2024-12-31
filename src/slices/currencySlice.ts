@@ -10,7 +10,8 @@ const getCurrencyRateListFromLocalStorageValue = (
   return item ? JSON.parse(item) : initialValue;
 };
 
-// 自分用：currencyNameListの初期値をローカルデータで保持する
+// ローカルストレージを使用せずReduxだけで管理すると２ページ目でも毎回レートのAPIを叩かなければならない。
+// →APIを叩く回数を減らすためローカルストレージを使用
 const getCurrencyNameListLocalStorageValue = (
   key: string,
   initialValue: null
