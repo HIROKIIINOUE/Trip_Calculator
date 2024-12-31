@@ -22,24 +22,24 @@ type Props = {
   yourCurrency: string | undefined;
 };
 
-// 勉強のためテーブルのsetupポップアップはuseStateで状態管理。
+// 【注釈】勉強のためテーブルのsetupポップアップはuseStateで状態管理。
 // ※tripのsetupポップアップはuseRefで状態を管理している。
 
 const NewTableSetUpPage = (props: Props) => {
   const { setNewTableSetUpPage, yourCurrency } = props;
-  const [date, setDate] = useState<any>(null);
+  const { tripId } = useParams();
+  const translatedData: any = newTableSetUpPageDescription;
+  const language = useAppSelector((state) => state.language.language);
+  const currencyRateList = useAppSelector(
+    (state) => state.currency.currencyRateList
+  );
+  const userDocumentID = useAppSelector((state) => state.user.userDocumentID);
+  const [date, setDate] = useState<string | undefined>();
   const [money, setMoney] = useState<number>(0);
   const [currency, setCurrency] = useState<string>("");
   const [moneyResult, setMoneyResult] = useState<number>(0);
   const [guideClick, setGuideClick] = useState<boolean>(true);
   const [detail, setDetail] = useState<string>("");
-  const currencyRateList = useAppSelector(
-    (state) => state.currency.currencyRateList
-  );
-  const userDocumentID = useAppSelector((state) => state.user.userDocumentID);
-  const { tripId } = useParams();
-  const language = useAppSelector((state) => state.language.language);
-  const translatedData: any = newTableSetUpPageDescription;
 
   const backToSecondPage = () => {
     setNewTableSetUpPage(false);
@@ -66,11 +66,13 @@ const NewTableSetUpPage = (props: Props) => {
     setNewTableSetUpPage(false);
   };
 
+  // インプット金額か通貨タイプを変更したら変換ボタンを再度ユーザーに押させる仕様
   useEffect(() => {
     setMoneyResult(0);
     setGuideClick(true);
   }, [money, currency]);
 
+  // 金額インプットの処理。
   const handleMoneyChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -85,10 +87,6 @@ const NewTableSetUpPage = (props: Props) => {
     } else {
       alert(translatedData[language][7]);
     }
-  };
-
-  const datePickerWarning = () => {
-    console.log("kakuninn");
   };
 
   return (
@@ -212,7 +210,7 @@ const NewTableSetUpPage = (props: Props) => {
             }}
           >
             <p className="bg-transparent w-full text-left pl-3">
-              {!moneyResult ? 0 : Math.ceil(moneyResult).toLocaleString()}
+              {moneyResult ? Math.ceil(moneyResult).toLocaleString() : 0}
             </p>
             {guideClick && (
               <p className="text-[#333333] opacity-60 pr-2 select-none">
