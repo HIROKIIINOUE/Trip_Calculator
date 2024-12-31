@@ -164,6 +164,7 @@ const NewTableSetUpPage = (props: Props) => {
               variant="outlined"
               value={money === 0 ? "" : money.toLocaleString()}
               inputProps={{ maxLength: 10 }}
+              inputMode="tel"
               onChange={(e) => handleMoneyChange(e)}
               onFocus={(e) =>
                 e.target.addEventListener(

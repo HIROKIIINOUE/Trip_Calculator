@@ -70,6 +70,7 @@ const InputMoney = (props: Props) => {
         variant="outlined"
         inputRef={budgetRef}
         inputProps={{ maxLength: 10 }}
+        inputMode="numeric"
         onChange={handleBudgetChange}
         // 自分用：スクロールしたらインプット項目が変化してしまうエラーの修正
         onFocus={(e) =>
