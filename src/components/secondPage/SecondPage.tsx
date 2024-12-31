@@ -25,6 +25,7 @@ const SecondPage = () => {
   const [tableList, setTableList] = useState<TableType[]>([]);
   const [sum, setSum] = useState<number>(0);
   const [upToBudget, setUpToBudget] = useState<number>(0);
+  const [exceedBudget, setExceedBudget] = useState<boolean>(false);
   const navigate = useNavigate();
 
   // トリップデータを取得
@@ -61,6 +62,13 @@ const SecondPage = () => {
     // Number(budget)で文字列型から数値型に変換
     const difference: number = Number(budget) - sum;
     setUpToBudget(difference);
+
+    // 実費が予算を上回ったら差額を赤字にする
+    if (difference < 0) {
+      setExceedBudget(true);
+    } else {
+      setExceedBudget(false);
+    }
   }, [tripData, sum]);
 
   return (
@@ -143,7 +151,18 @@ const SecondPage = () => {
                       padding: "4px",
                     }}
                   >
-                    {upToBudget.toLocaleString()} ({tripData?.yourCurrency})
+                    {exceedBudget ? (
+                      <>
+                        <span className="text-red-600">
+                          {upToBudget.toLocaleString()} (
+                          {tripData?.yourCurrency})
+                        </span>
+                      </>
+                    ) : (
+                      <>
+                        {upToBudget.toLocaleString()} ({tripData?.yourCurrency})
+                      </>
+                    )}
                   </Box>
                 </div>
               </div>

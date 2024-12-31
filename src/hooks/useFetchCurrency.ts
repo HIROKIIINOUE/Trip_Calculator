@@ -27,7 +27,7 @@ export const useFetchCurrency = async (
     const getExchangeRateData = async (): Promise<void> => {
       // api/exchangeRateAPI.ts からAPI関数を叩く
       const data = await fetchRateData();
-      const currencyRateList = data[0].conversion_rates;
+      const currencyRateList = data.conversion_rates;
       const currencyNameList = Object.keys(currencyRateList);
       dispatch(setCurrencyRateList(currencyRateList));
       dispatch(setCurrencyNameList(currencyNameList));

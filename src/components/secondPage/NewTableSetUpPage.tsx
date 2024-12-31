@@ -80,12 +80,14 @@ const NewTableSetUpPage = (props: Props) => {
     const inputValueWithoutComma = inputValue.replaceAll(",", "");
 
     if (
-      Number(inputValueWithoutComma) ||
-      Number(inputValueWithoutComma) === 0
+      (Number(inputValueWithoutComma) ||
+        Number(inputValueWithoutComma) === 0) &&
+      Number(inputValueWithoutComma.length < 10)
     ) {
       setMoney(Number(inputValueWithoutComma));
     } else {
       alert(translatedData[language][7]);
+      setMoney(0);
     }
   };
 

@@ -145,7 +145,7 @@ export const newTableSetUpPageDescription: TranslationType = {
     "詳細(70文字以内)",
     "戻る",
     "追加",
-    "数値を入れてください",
+    "正しい値を入れてください",
     "現地の通貨を入力してください",
   ],
   english: [
@@ -156,7 +156,7 @@ export const newTableSetUpPageDescription: TranslationType = {
     "Details (up to 70 characters)",
     "Back",
     "Add",
-    "Enter numbers",
+    "Enter numbers properly",
     "Enter local currency",
   ],
   french: [
@@ -167,7 +167,7 @@ export const newTableSetUpPageDescription: TranslationType = {
     "Détails (jusqu'à 70 caractères)",
     "Retour",
     "Ajouter",
-    "Entrez des chiffres",
+    "Entrez des nombre correctement",
     "Entrez la devise locale",
   ],
 };
