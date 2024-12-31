@@ -87,17 +87,33 @@ export const menuButtonDescription: TranslationType = {
 
 // 【修正】ココの翻訳は現段階では適当
 export const newTripSetUpPageDescription: TranslationType = {
-  japanese: ["タイトル", "選択", "自国通貨", "予算", "開始日", "作成", "半角で数値を入力してください"],
+  japanese: [
+    "タイトル(10文字以内)",
+    "選択",
+    "自国通貨",
+    "予算(8桁以内)",
+    "開始日",
+    "作成",
+    "半角で数値を入力してください",
+  ],
   english: [
-    "title",
+    "title(10 letters)",
     "option",
     "your currency",
-    "budget",
+    "budget(within 8 digits)",
     "start day",
     "create",
-    "input number"
+    "input number",
   ],
-  french: ["titre", "option", "your currency", "budget", "start day", "create", "input number"],
+  french: [
+    "titre(10 letters)",
+    "option",
+    "your currency",
+    "budget(within 8 digits)",
+    "start day",
+    "create",
+    "input number",
+  ],
 };
 
 // 【修正】ココの翻訳は現段階では適当
@@ -119,7 +135,7 @@ export const secondPageDescription: TranslationType = {
 export const newTableSetUpPageDescription: TranslationType = {
   japanese: [
     "日付",
-    "お金",
+    "お金(8桁以内)",
     "選択",
     "click",
     "詳細(70文字以内)",
@@ -130,7 +146,7 @@ export const newTableSetUpPageDescription: TranslationType = {
   ],
   english: [
     "date",
-    "money",
+    "money(within 8 digits)",
     "option",
     "click",
     "detail (no more than 70 words)",
@@ -141,7 +157,7 @@ export const newTableSetUpPageDescription: TranslationType = {
   ],
   french: [
     "date",
-    "money",
+    "money(within 8 digits)",
     "option",
     "click",
     "detail (no more than 70 words)",

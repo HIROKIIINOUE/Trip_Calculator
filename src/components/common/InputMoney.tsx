@@ -32,12 +32,6 @@ const InputMoney = (props: Props) => {
       const formattedValue = formatBudget(budgetRef.current.value);
       budgetRef.current.value = formattedValue;
     }
-    setButtonDisabled(
-      !titleRef.current?.value ||
-        !yourCurrencyRef.current?.value ||
-        !budgetRef.current?.value ||
-        !startDayRef.current?.value
-    );
   };
 
   // 予算のデータで文字列を入力するとエラーになる処理
@@ -49,8 +43,21 @@ const InputMoney = (props: Props) => {
       if (budgetRef.current) {
         budgetRef.current.value = "";
       }
+      setButtonDisabled(true);
       return;
     }
+    if (budgetRef.current && Number(budget?.length) > 10) {
+      budgetRef.current.value = "";
+      setButtonDisabled(true);
+      return;
+    }
+
+    setButtonDisabled(
+      !titleRef.current?.value ||
+        !yourCurrencyRef.current?.value ||
+        !budgetRef.current?.value ||
+        !startDayRef.current?.value
+    );
   };
 
   return (
@@ -62,6 +69,7 @@ const InputMoney = (props: Props) => {
         type="text"
         variant="outlined"
         inputRef={budgetRef}
+        inputProps={{ maxLength: 10 }}
         onChange={handleBudgetChange}
         // 自分用：スクロールしたらインプット項目が変化してしまうエラーの修正
         onFocus={(e) =>

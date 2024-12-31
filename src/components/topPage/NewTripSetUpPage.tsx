@@ -83,6 +83,7 @@ const NewTripSetUpPage = (props: Props) => {
               label={translatedData[language][0]}
               variant="outlined"
               inputRef={titleRef}
+              inputProps={{ maxLength: 10 }}
               onChange={() =>
                 setButtonDisabled(
                   !titleRef.current?.value ||

@@ -161,6 +161,7 @@ const NewTableSetUpPage = (props: Props) => {
               label={translatedData[language][1]}
               variant="outlined"
               value={money === 0 ? "" : money.toLocaleString()}
+              inputProps={{ maxLength: 10 }}
               onChange={(e) => handleMoneyChange(e)}
               onFocus={(e) =>
                 e.target.addEventListener(

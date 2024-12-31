@@ -1,5 +1,5 @@
-①デザイン
-②React.memoを使ってチューニングとリファクトリング。useSWRを使ったカスタムフックスでuserのフェッチ情報をキャッシュ化
+★ ①デザイン
+★ ②React.memoを使ってチューニングとリファクトリング。useSWRを使ったカスタムフックスでuserのフェッチ情報をキャッシュ化
 ③any型
  →UserのTypeをexportで一箇所に指定。userURLJudge.ts等を参照
 ==until 12:30==

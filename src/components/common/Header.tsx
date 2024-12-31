@@ -10,7 +10,7 @@ import { cleanUpLocalStorageExceptLanguage } from "../../util/cleanUpLocalstorag
 import { useNavigate, useParams } from "react-router-dom";
 import UndoIcon from "@mui/icons-material/Undo";
 
-const Header = () => {
+const Header = React.memo(() => {
   const translatedData: any = headerDescription;
   const user = useAppSelector((state) => state.user.user);
   const language = useAppSelector((state) => state.language.language);
@@ -107,6 +107,6 @@ const Header = () => {
       )}
     </div>
   );
-};
+});
 
 export default Header;

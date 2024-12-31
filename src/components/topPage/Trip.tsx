@@ -89,7 +89,7 @@ const Trip = (props: Props) => {
               <p className="h-[50%] flex items-center justify-center border-b-2 border-orange-400">
                 {translatedData[language][6]}
               </p>
-              <p className="h-[50%] flex items-center justify-center">
+              <p className="h-[50%] flex items-center justify-center text-[12px] min-[425px]:text-[16px]">
                 {trip.startDay}
               </p>
             </div>
