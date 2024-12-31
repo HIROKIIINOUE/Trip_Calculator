@@ -163,7 +163,11 @@ const NewTableSetUpPage = (props: Props) => {
               label={translatedData[language][1]}
               variant="outlined"
               value={money === 0 ? "" : money.toLocaleString()}
-              inputProps={{ maxLength: 10 }}
+              inputProps={{
+                maxLength: 10,
+                inputMode: "numeric", // 数値キーボードを表示
+                pattern: "[0-9]*", // 半角数値のみ許可
+              }}
               inputMode="tel"
               onChange={(e) => handleMoneyChange(e)}
               onFocus={(e) =>

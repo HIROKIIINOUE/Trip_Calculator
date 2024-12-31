@@ -69,8 +69,11 @@ const InputMoney = (props: Props) => {
         type="text"
         variant="outlined"
         inputRef={budgetRef}
-        inputProps={{ maxLength: 10 }}
-        inputMode="numeric"
+        inputProps={{
+          maxLength: 10,
+          inputMode: "numeric", // 数値キーボードを表示
+          pattern: "[0-9]*", // 半角数値のみ許可
+        }}
         onChange={handleBudgetChange}
         // 自分用：スクロールしたらインプット項目が変化してしまうエラーの修正
         onFocus={(e) =>

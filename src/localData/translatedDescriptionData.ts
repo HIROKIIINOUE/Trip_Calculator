@@ -105,7 +105,7 @@ export const newTripSetUpPageDescription: TranslationType = {
   ],
   french: [
     "Titre (à 10 caractères)",
-    "Sélectionner",
+    "Votre devise",
     "Votre devise",
     "Budget (à 8 chiffres)",
     "Date de début",
