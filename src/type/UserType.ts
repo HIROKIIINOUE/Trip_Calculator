@@ -1,3 +1,10 @@
+export type UserType = {
+  uid: string;
+  photo: string;
+  email: string;
+  displayName: string;
+} | null;
+
 export interface UserInformation {
   user: null | {
     uid: string;

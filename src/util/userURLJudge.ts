@@ -1,16 +1,10 @@
 import { NavigateFunction } from "react-router-dom";
-
-type User = {
-  uid: string;
-  photo: string;
-  email: string;
-  displayName: string;
-} | null;
+import { UserType } from "../type/UserType";
 
 // ↓ログイン情報とURLパラメータが正しく一致しないとき、ログイン画面へ遷移
 //   ※ログインしている場合は「ログイン画面→トップページ」へと順に遷移する
 export const userURLJudge = (
-  user: User,
+  user: UserType,
   navigate: NavigateFunction,
   userNameInURL: string | undefined
 ) => {
@@ -18,5 +12,5 @@ export const userURLJudge = (
     navigate("/");
     return false;
   }
-  return true
+  return true;
 };

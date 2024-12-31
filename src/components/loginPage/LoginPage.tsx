@@ -11,7 +11,6 @@ import { loginPageDescription } from "../../localData/translatedDescriptionData"
 import { cleanUpLocalStorageExceptLanguage } from "../../util/cleanUpLocalstorage";
 
 function LoginPage() {
-  // 【any】↓ここの型直し
   const translatedData: any = loginPageDescription;
   const navigate = useNavigate();
   const dispatch = useAppDispatch();

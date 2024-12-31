@@ -16,7 +16,6 @@ import LoadingPage from "../common/LoadingPage";
 import { getStartedDescription } from "../../localData/translatedDescriptionData";
 
 const GetStarted = () => {
-  // 【any型修正】
   const translatedData: any = getStartedDescription;
   const [loadingPage, setLoadingPage] = useState<boolean>(false);
   const user = useAppSelector((state) => state.user.user);

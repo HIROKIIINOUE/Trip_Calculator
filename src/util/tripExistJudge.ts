@@ -7,7 +7,7 @@ export const tripExistJudge = (
   tripId: string | undefined,
   navigate: NavigateFunction
 ) => {
-  const arrayForJudge = tripList.filter((trip: any) => {
+  const arrayForJudge = tripList.filter((trip: TripType) => {
     return trip.id === tripId;
   });
 

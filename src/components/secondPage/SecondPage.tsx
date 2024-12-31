@@ -44,7 +44,7 @@ const SecondPage = () => {
   // 自国通貨へ変換後の合計金額
   useEffect(() => {
     let sumUp: number = 0;
-    tableList.forEach((table: any) => {
+    tableList.forEach((table: TableType) => {
       sumUp += table.moneyResult;
     });
     setSum(sumUp);
@@ -154,7 +154,12 @@ const SecondPage = () => {
             yourCurrency={tripData?.yourCurrency}
           />
           {tableList.map((tableData) => (
-            <Table tableData={tableData} tableList={tableList} key={tableData.id} tripId={tripId} />
+            <Table
+              tableData={tableData}
+              tableList={tableList}
+              key={tableData.id}
+              tripId={tripId}
+            />
           ))}
         </div>
       </div>

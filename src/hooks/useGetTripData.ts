@@ -10,19 +10,14 @@ import {
 } from "firebase/firestore";
 import { db } from "../firebase";
 import { NavigateFunction } from "react-router-dom";
-
-type User = {
-  uid: string;
-  photo: string;
-  email: string;
-  displayName: string;
-} | null;
+import { TripType } from "../type/TripType";
+import { UserType } from "../type/UserType";
 
 export const useGetTripData = (
-  user: User,
+  user: UserType,
   navigate: NavigateFunction,
   userName: string | undefined,
-  tripList: any,
+  tripList: TripType[],
   tripId: string | undefined,
   userDocumentID: string | null,
   setTripData: React.Dispatch<any>

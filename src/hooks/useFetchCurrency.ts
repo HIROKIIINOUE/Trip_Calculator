@@ -8,16 +8,10 @@ import { useAppDispatch } from "../app/storeType";
 import { userLoginJudge } from "../util/userLoginJudge";
 import { userURLJudge } from "../util/userURLJudge";
 import { NavigateFunction } from "react-router-dom";
-
-type User = {
-  uid: string;
-  photo: string;
-  email: string;
-  displayName: string;
-} | null;
+import { UserType } from "../type/UserType";
 
 export const useFetchCurrency = async (
-  user: User,
+  user: UserType,
   userName: string | undefined,
   navigate: NavigateFunction
 ) => {
