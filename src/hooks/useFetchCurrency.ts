@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-import { fetchData } from "../api/exchangeRateAPI";
 import {
   setCurrencyNameList,
   setCurrencyRateList,
@@ -9,6 +8,7 @@ import { userLoginJudge } from "../util/userLoginJudge";
 import { userURLJudge } from "../util/userURLJudge";
 import { NavigateFunction } from "react-router-dom";
 import { UserType } from "../type/UserType";
+import { fetchRateData } from "../api/currencyRateAPI";
 
 export const useFetchCurrency = async (
   user: UserType,
@@ -26,7 +26,7 @@ export const useFetchCurrency = async (
     }
     const getExchangeRateData = async (): Promise<void> => {
       // api/exchangeRateAPI.ts からAPI関数を叩く
-      const data = await fetchData();
+      const data = await fetchRateData();
       const currencyRateList = data[0].conversion_rates;
       const currencyNameList = Object.keys(currencyRateList);
       dispatch(setCurrencyRateList(currencyRateList));

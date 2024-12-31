@@ -2,20 +2,20 @@ import { TranslationType } from "../type/LanguageType";
 
 export const loginPageDescription: TranslationType = {
   japanese: ["Googleでログインする"],
-  english: ["login as google account"],
-  french: ["Connectez-vous avec un compte Google"],
+  english: ["Log in with Google"],
+  french: ["Se connecter avec Google"],
 };
 
 export const headerDescription: TranslationType = {
   japanese: ["ログアウト", "ログアウトしますか？", "戻る"],
-  english: ["logout", "Are you sure?", "return"],
-  french: ["Deconnectez", "Es-tu sur?", "retour"],
+  english: ["Logout", "Do you want to log out?", "Back"],
+  french: ["Déconnexion", "Voulez-vous vous déconnecter?", "Retour"],
 };
 
 export const getStartedDescription: TranslationType = {
   japanese: ["始めましょう！"],
-  english: ["Get Started!!"],
-  french: ["Commencer!!"],
+  english: ["Get Started!"],
+  french: ["C'est parti!"],
 };
 
 export const topPageDescription: TranslationType = {
@@ -33,28 +33,27 @@ export const topPageDescription: TranslationType = {
   english: [
     "ex",
     "Japan trip",
-    "currency",
+    "Currency",
     "YEN",
-    "budget",
+    "Budget",
     "50,000",
-    "start",
-    "29/04/2024",
-    "Are you sure to delete?",
+    "Start",
+    "2024/04/29",
+    "Are you sure you want to delete?",
   ],
   french: [
     "ex",
     "Voyage au Japon",
-    "devise",
+    "Devise",
     "YEN",
-    "budget",
-    "50,000",
-    "commence",
-    "29/04/2024",
-    "Es-tu sur de supprimer?",
+    "Budget",
+    "50 000",
+    "Début",
+    "2024/04/29",
+    "Voulez-vous vraiment supprimer ?",
   ],
 };
 
-// 【修正】ココの翻訳は現段階では適当
 export const menuButtonDescription: TranslationType = {
   japanese: [
     "旅行データ削除",
@@ -66,26 +65,25 @@ export const menuButtonDescription: TranslationType = {
     "を削除しますか",
   ],
   english: [
-    "delete all trip data",
-    "delete your account",
-    "Are you sure to delete all trip data?",
-    "Are you sure to delete your account data?",
-    "detail",
-    "delete",
-    "make it deleted",
+    "Delete trip data",
+    "Delete account",
+    "Are you sure you want to delete all trip data?",
+    "Are you sure you want to delete your account?",
+    "Details",
+    "Delete",
+    "Delete?",
   ],
   french: [
-    "FR delete all trip data",
-    "FR delete your account",
-    "FR Are you sure to delete all trip data?",
-    "FR Are you sure to delete your account data?",
-    "detail",
-    "delete",
-    "make it deleted",
+    "Supprimer les données de voyage",
+    "Supprimer le compte",
+    "Voulez-vous vraiment supprimer toutes les données de voyage ?",
+    "Voulez-vous vraiment supprimer votre compte ?",
+    "Détails",
+    "Supprimer",
+    "Supprimer ?",
   ],
 };
 
-// 【修正】ココの翻訳は現段階では適当
 export const newTripSetUpPageDescription: TranslationType = {
   japanese: [
     "タイトル(10文字以内)",
@@ -97,41 +95,47 @@ export const newTripSetUpPageDescription: TranslationType = {
     "半角で数値を入力してください",
   ],
   english: [
-    "title(10 letters)",
-    "option",
-    "your currency",
-    "budget(within 8 digits)",
-    "start day",
-    "create",
-    "input number",
+    "Title (in 10 characters)",
+    "Select",
+    "Home currency",
+    "Budget (up to 8 digits)",
+    "Start date",
+    "Create",
+    "Enter numbers",
   ],
   french: [
-    "titre(10 letters)",
-    "option",
-    "your currency",
-    "budget(within 8 digits)",
-    "start day",
-    "create",
-    "input number",
+    "Titre (à 10 caractères)",
+    "Sélectionner",
+    "Devise nationale",
+    "Budget (à 8 chiffres)",
+    "Date de début",
+    "Créer",
+    "Entrez des chiffres",
   ],
 };
 
-// 【修正】ココの翻訳は現段階では適当
 export const secondPageDescription: TranslationType = {
   japanese: ["タイトル", "予算", "合計", "差分", "日付", "金額", "詳細"],
-  english: ["title", "budget", "sum", "difference", "date", "money", "detail"],
+  english: [
+    "Title",
+    "Budget",
+    "Total",
+    "Difference",
+    "Date",
+    "Amount",
+    "Details",
+  ],
   french: [
-    "titre",
-    "option",
-    "currency",
-    "budget",
-    "start day",
-    "money",
-    "detail",
+    "Titre",
+    "Budget",
+    "Total",
+    "Différence",
+    "Date",
+    "Montant",
+    "Détails",
   ],
 };
 
-// 【修正】ココの翻訳は現段階では適当
 export const newTableSetUpPageDescription: TranslationType = {
   japanese: [
     "日付",
@@ -145,25 +149,25 @@ export const newTableSetUpPageDescription: TranslationType = {
     "現地の通貨を入力してください",
   ],
   english: [
-    "date",
-    "money(within 8 digits)",
-    "option",
-    "click",
-    "detail (no more than 70 words)",
-    "return",
-    "add",
-    "input number",
-    "choose local currency",
+    "Date",
+    "Money (up to 8 digits)",
+    "Select",
+    "Click",
+    "Details (up to 70 characters)",
+    "Back",
+    "Add",
+    "Enter numbers",
+    "Enter local currency",
   ],
   french: [
-    "date",
-    "money(within 8 digits)",
-    "option",
-    "click",
-    "detail (no more than 70 words)",
-    "return",
-    "add",
-    "input number",
-    "choose local currency",
+    "Date",
+    "Montant (jusqu'à 8 chiffres)",
+    "Sélectionner",
+    "Cliquer",
+    "Détails (jusqu'à 70 caractères)",
+    "Retour",
+    "Ajouter",
+    "Entrez des chiffres",
+    "Entrez la devise locale",
   ],
 };

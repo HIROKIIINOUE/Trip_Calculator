@@ -1,14 +1,12 @@
 ★ ①デザイン
 ★ ②React.memoを使ってチューニングとリファクトリング。useSWRを使ったカスタムフックスでuserのフェッチ情報をキャッシュ化
 ★ ③any型
- →UserのTypeをexportで一箇所に指定。userURLJudge.ts等を参照
-==until 12:30==
 
+==until 12:30==
 ④本番API
 ⑤ラストチェック → APIが1月1500回しか叩けない問題
 ⑥セキュリティ面の改善₍APIのgit ignore₎
 ==13:00-14:00==
-
 
 
 【リファクタリング】
@@ -61,3 +59,8 @@ UserType.ts
 ★attachUserDocument.ts → Done
 ★userLoginJudge.ts → Done
 ★userURLJudge.ts → Done
+
+
+【今後の課題】
+まだ少しany型が残ってる
+APIが1月1500回しか叩けない問題

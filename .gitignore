@@ -24,3 +24,6 @@ yarn-error.log*
 
 # fire base の情報
 firebase.ts
+
+# 通貨レートAPI情報
+currencyRateAPI.ts
