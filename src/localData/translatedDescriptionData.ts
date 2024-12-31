@@ -87,7 +87,7 @@ export const menuButtonDescription: TranslationType = {
 export const newTripSetUpPageDescription: TranslationType = {
   japanese: [
     "タイトル(10文字以内)",
-    "選択",
+    "自国通貨",
     "自国通貨",
     "予算(8桁以内)",
     "開始日",
@@ -96,8 +96,8 @@ export const newTripSetUpPageDescription: TranslationType = {
   ],
   english: [
     "Title (in 10 characters)",
-    "Select",
-    "Home currency",
+    "Your currency",
+    "Your currency",
     "Budget (up to 8 digits)",
     "Start date",
     "Create",
@@ -106,7 +106,7 @@ export const newTripSetUpPageDescription: TranslationType = {
   french: [
     "Titre (à 10 caractères)",
     "Sélectionner",
-    "Devise nationale",
+    "Votre devise",
     "Budget (à 8 chiffres)",
     "Date de début",
     "Créer",
