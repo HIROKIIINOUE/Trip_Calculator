@@ -7,7 +7,7 @@ import {
 } from "@mui/material";
 import React from "react";
 import { useAppSelector } from "../../app/storeType";
-import { newTripSetUpPageDescription } from "../../localData/translatedDescriptionData";
+import { inputCurrencyNameDescription } from "../../localData/translatedDescriptionData";
 
 // 自分用：共通コンポーネントでは受け渡されるプロップスが異なるので型指定にオプショナルプロップス 「末尾に?マーク」 を使用する
 type Props = {
@@ -17,6 +17,7 @@ type Props = {
   startDayRef?: React.RefObject<HTMLInputElement>;
   setButtonDisabled?: React.Dispatch<React.SetStateAction<boolean>>;
   setCurrency?: React.Dispatch<React.SetStateAction<string>>;
+  secondPage?: boolean;
 };
 
 const InputCurrencyName = (props: Props) => {
@@ -27,8 +28,9 @@ const InputCurrencyName = (props: Props) => {
     startDayRef,
     setButtonDisabled,
     setCurrency,
+    secondPage,
   } = props;
-  const translatedData: any = newTripSetUpPageDescription;
+  const translatedData: any = inputCurrencyNameDescription;
   const language = useAppSelector((state) => state.language.language);
   const currencyNameList = useAppSelector(
     (state) => state.currency.currencyNameList
@@ -67,11 +69,19 @@ const InputCurrencyName = (props: Props) => {
           inputRef={yourCurrencyRef}
           renderValue={(selected) => {
             if (!selected) {
-              return (
-                <em className="not-italic tex">
-                  {translatedData[language][1]}
-                </em>
-              );
+              if (secondPage) {
+                return (
+                  <em className="not-italic tex">
+                    {translatedData[language][1]}
+                  </em>
+                );
+              } else {
+                return (
+                  <em className="not-italic tex">
+                    {translatedData[language][0]}
+                  </em>
+                );
+              }
             }
             return selected;
           }}
@@ -79,7 +89,11 @@ const InputCurrencyName = (props: Props) => {
           defaultValue=""
         >
           <MenuItem disabled value="">
-            <em className="not-italic">{translatedData[language][2]}</em>
+            {secondPage ? (
+              <em className="not-italic">{translatedData[language][1]}</em>
+            ) : (
+              <em className="not-italic">{translatedData[language][0]}</em>
+            )}
           </MenuItem>
           {currencyNameList?.map((name) => (
             <MenuItem key={name} value={name}>

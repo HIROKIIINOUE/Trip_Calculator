@@ -65,7 +65,7 @@ const Trip = (props: Props) => {
         onClick={toSecondPage}
       >
         <div className="h-full w-full">
-          <h2 className="h-[40%] w-full text-[24px] bg-orange-100 text-center rounded-xl">
+          <h2 className="h-[40%] w-full min-[425px]:text-[20px] text-[16px] bg-orange-100 font-bold text-center rounded-xl min-[425px]:pt-1 pt-2">
             {trip.title}
           </h2>
           <div className="h-[60%] w-full flex  font-bold">

@@ -197,7 +197,7 @@ const NewTableSetUpPage = (props: Props) => {
               marginBottom: "8px",
             }}
           >
-            <InputCurrencyName setCurrency={setCurrency} />
+            <InputCurrencyName setCurrency={setCurrency} secondPage={true} />
           </Box>
 
           <Box

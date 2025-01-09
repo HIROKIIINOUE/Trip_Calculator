@@ -39,7 +39,7 @@ const InputMoney = (props: Props) => {
     const budget = budgetRef.current?.value;
     const budgetWithoutComma = budget?.replaceAll(",", "");
     if (!Number(budgetWithoutComma)) {
-      alert(translatedData[language][6]);
+      alert(translatedData[language][4]);
       if (budgetRef.current) {
         budgetRef.current.value = "";
       }
@@ -65,7 +65,7 @@ const InputMoney = (props: Props) => {
       <TextField
         sx={{ width: "100%" }}
         id="outlined-basic"
-        label={translatedData[language][3]}
+        label={translatedData[language][1]}
         type="text"
         variant="outlined"
         inputRef={budgetRef}

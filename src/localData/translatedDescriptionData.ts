@@ -86,32 +86,32 @@ export const menuButtonDescription: TranslationType = {
 
 export const newTripSetUpPageDescription: TranslationType = {
   japanese: [
-    "タイトル(10文字以内)",
-    "自国通貨",
-    "自国通貨",
+    "タイトル(15文字以内)",
     "予算(8桁以内)",
     "開始日",
     "作成",
     "半角で数値を入力してください",
   ],
   english: [
-    "Title (in 10 characters)",
-    "Your currency",
-    "Your currency",
+    "Title (in 15 characters)",
     "Budget (up to 8 digits)",
     "Start date",
     "Create",
     "Enter numbers",
   ],
   french: [
-    "Titre (à 10 caractères)",
-    "Votre devise",
-    "Votre devise",
+    "Titre (à 15 caractères)",
     "Budget (à 8 chiffres)",
     "Date de début",
     "Créer",
     "Entrez des chiffres",
   ],
+};
+
+export const inputCurrencyNameDescription: TranslationType = {
+  japanese: ["自国通貨", "使用通貨"],
+  english: ["Your currency", "Currency used"],
+  french: ["Votre devise", "Devise utilisée"],
 };
 
 export const secondPageDescription: TranslationType = {

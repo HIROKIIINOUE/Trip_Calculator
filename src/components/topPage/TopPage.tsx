@@ -98,7 +98,7 @@ const TopPage = () => {
         <>
           <div className="h-screen bg-orange-300">
             <div className="bg-orange-300 py-10 h-auto">
-              <div className="h-full sm:w-[60%] w-[95%] mx-auto">
+              <div className="h-full md:w-[60%] w-[95%] mx-auto">
                 <div className="flex">
                   <Box
                     sx={{

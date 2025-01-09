@@ -83,7 +83,7 @@ const NewTripSetUpPage = (props: Props) => {
               label={translatedData[language][0]}
               variant="outlined"
               inputRef={titleRef}
-              inputProps={{ maxLength: 10 }}
+              inputProps={{ maxLength: 15 }}
               onChange={() =>
                 setButtonDisabled(
                   !titleRef.current?.value ||
@@ -120,7 +120,7 @@ const NewTripSetUpPage = (props: Props) => {
                     readOnly: true,
                   },
                 }}
-                label={translatedData[language][4]}
+                label={translatedData[language][2]}
                 sx={{ width: "100%" }}
                 inputRef={startDayRef}
                 onChange={(date) => {
@@ -142,7 +142,7 @@ const NewTripSetUpPage = (props: Props) => {
             onClick={handleCreateNewTrip}
             disabled={buttonDisabled}
           >
-            {translatedData[language][5]}
+            {translatedData[language][3]}
           </Button>
         </div>
       </div>
