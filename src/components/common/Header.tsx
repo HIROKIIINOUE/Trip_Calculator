@@ -20,6 +20,7 @@ const Header = React.memo(() => {
   const navigate = useNavigate();
 
   // URLが"/:userName/:tripId"の場合(SecondPageの場合)は「戻るボタン」、それ以外の場合は「ログアウトボタン」を表示。
+  // Return Button shows up if URL is "/:userName/:tripId", otherwise Logout Button shows up instead 
   useEffect(() => {
     if (tripId) {
       setJudgeSecondPage(true);
@@ -35,8 +36,8 @@ const Header = React.memo(() => {
     auth.signOut();
     logout();
     cleanUpLocalStorageExceptLanguage();
-    // window.location.reload(); //←【リファクタリング】問題なければ決して
     // →useNavigate()は使わないこと！  issue#22 を確認。
+    // Better not use useNavigate(), refer to issue#22
   };
 
   const handleBackPage = () => {

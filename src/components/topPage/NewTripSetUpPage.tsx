@@ -32,6 +32,7 @@ const NewTripSetUpPage = (props: Props) => {
   };
 
   // 新しい旅行情報の追加
+  // Function to add new trip data
   const handleCreateNewTrip = async () => {
     const title = titleRef.current?.value;
     const yourCurrency = yourCurrencyRef.current?.value;
@@ -58,6 +59,7 @@ const NewTripSetUpPage = (props: Props) => {
   };
 
   // ポップアップ要素のデザイン。画面上からフェードインしてくるアニメーション。
+  // The 2 designs for the popup display to make it fade-in animation
   const boxDesignBefore =
     "h-[500px] md:w-[50%] w-[80%] fixed top-12 bottom-0 right-0 left-0 mx-auto bg-orange-100 rounded shadow-lg translate-y-[-800px] duration-1000";
   const boxDesignAfter =

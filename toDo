@@ -1,58 +1,7 @@
 【今後の課題】
-まだ少しany型が残ってる
-APIが1月1500回しか叩けない問題
-セキュリティ面の改善₍APIのgit ignore₎
-
-
-【リファクタリング】
-<common>
-★Header.tsx → Done
-★InputCurrencyName.tsx → Done
-★InputMoney.tsx → Done
-★LanguageOption.tsx → Done
-★LoadingPage.tsx → Done
-★MenuButton.tsx → Done
-★NoPage.tsx → Done
-
-★<loginPage>
-★LoginPage.tsx → Done
-
-★<topPage> → Done
-★ExampleTrip.tsx → Done
-★GetStarted.tsx → Done
-★NewTripSetUpPage.tsx → Done
-★TopPage.tsx → Done
-★Trip.tsx → Done
-
-<secondPage>
-★Detail.tsx → Done
-★NewTableSetUpPage.tsx → Done
-★SecondPage.tsx → Done
-★Table.tsx → Done
-★TableHeader.tsx → Done
-
-<slice>
-★currencySlice.ts → Done
-★languageSlice.ts →Done
-★tripSlice.ts → Done
-★userSlice.ts → Done
-
-<type> 
-CurrencyType.ts
-LanguageType.ts
-TripType.ts
-UserType.ts
-
-<hooks>
-★useFetchCurrency.ts → Done
-★useGetTripData.ts → Done
-★useGetTableData.ts → Done
-
-<util>
-★calculationMoney.ts → Done
-★cleanUpLocalstorage.ts → Done
-★attachUserDocument.ts → Done
-★userLoginJudge.ts → Done
-★userURLJudge.ts → Done
-
-
+・まだ少しany型が残ってる
+・APIが1ヵ月1500回しか叩けない問題
+  →当面はAPIを叩く回数を減らすように改善(useSWRとか使う？)
+・セキュリティ面の改善₍APIのgit ignore₎
+・Tripデータの値(予算やタイトルなど)を作成後に編集できるように機能追加
+・旅行先通貨のデフォルト値を設定してユーザーの入力手間を削減

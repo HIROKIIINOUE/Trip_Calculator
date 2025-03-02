@@ -22,7 +22,7 @@ type Props = {
   tableData?: TableType;
   tableList?: TableType[];
   tripId?: string | undefined;
-  topPage: boolean; //←トップページのメニューボタンかセカンドページのメニューボタンかを判断
+  topPage: boolean; 
 };
 
 const MenuButton = (props: Props) => {
@@ -41,6 +41,7 @@ const MenuButton = (props: Props) => {
   };
 
   // 自分用：トップページ、旅行情報全削除
+  // Function to delete all trip data for TopPage
   const handleDeleteAllTrip = async () => {
     if (!window.confirm(translatedData[language][2])) {
       setAnchorEl(null);
@@ -51,6 +52,7 @@ const MenuButton = (props: Props) => {
     const querySnapshot = await getDocs(collectionRef);
 
     // querySnapshotで集めたdocumentデータの配列を非同期処理で1つずつ削除していく
+    // Use map function to delete all data
     // eslint-disable-next-line array-callback-return
     const deletePromise = querySnapshot.docs.map((item) => {
       const documentRef: DocumentReference<DocumentData, DocumentData> = doc(
@@ -69,6 +71,7 @@ const MenuButton = (props: Props) => {
   };
 
   // 自分用：トップページ、ユーザアカウント情報削除
+  // Function to delete user data for TopPage
   const handleDeleteUserData = async () => {
     if (!window.confirm(translatedData[language][3])) {
       setAnchorEl(null);
@@ -87,6 +90,7 @@ const MenuButton = (props: Props) => {
   };
 
   // セカンドページ、指定したテーブルの詳細情報を表示
+  // Show the detail information for the selected table in SecondPage 
   const handleDetail = () => {
     if (setDisplayDetail) {
       setDisplayDetail(true);
@@ -95,6 +99,7 @@ const MenuButton = (props: Props) => {
   };
 
   // セカンドページ、指定したテーブルデータをfirebaseデータベースから削除
+  // Delete the table data of the selected table in SecondPage
   const handleDelete = async () => {
     if (
       !window.confirm(
@@ -118,6 +123,7 @@ const MenuButton = (props: Props) => {
 
     // 最後1つのテーブルを削除した時のみ、削除後もテーブルがページ内に表示されてしまう。
     // →最後のテーブル削除時のみ以下の処理を実行
+    // Function to refresh the webpage when user deletes the last table
     if (tableList?.length === 1) {
       window.location.reload();
     }

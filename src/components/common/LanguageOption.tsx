@@ -27,7 +27,10 @@ const LanguageOption = (props: Props) => {
 
   const handleSelectLanguage = (language: string): void => {
     // reduxを使用しないでlocalStorageだけで管理しようとするとタイムリーに言語変換できない。
+    // Use redux for changing language data timely
+
     // localStorageを使用しないでreduxだけで管理しようとするとwebページを更新する際に日本語(デフォルト値)に戻ってしまう
+    // Use localstorage for keeping language data even after refreshing the webpage
     dispatch(selectLanguage(language));
     localStorage.setItem("language", language);
     setLanguageOptionPage(false);

@@ -35,6 +35,7 @@ const InputMoney = (props: Props) => {
   };
 
   // 予算のデータで文字列を入力するとエラーになる処理
+  // To fix the error that occurs when user put string data in budget input box
   const checkCorrectBudgetValue = () => {
     const budget = budgetRef.current?.value;
     const budgetWithoutComma = budget?.replaceAll(",", "");
@@ -71,11 +72,12 @@ const InputMoney = (props: Props) => {
         inputRef={budgetRef}
         inputProps={{
           maxLength: 10,
-          inputMode: "numeric", // 数値キーボードを表示
-          pattern: "[0-9]*", // 半角数値のみ許可
+          inputMode: "numeric", // 数値キーボードを表示 Display keypad of number
+          pattern: "[0-9]*", // 半角数値のみ許可 Allow to input only number 
         }}
         onChange={handleBudgetChange}
         // 自分用：スクロールしたらインプット項目が変化してしまうエラーの修正
+        // To fix the error that allows user change the input data with scrolling
         onFocus={(e) =>
           e.target.addEventListener(
             "wheel",

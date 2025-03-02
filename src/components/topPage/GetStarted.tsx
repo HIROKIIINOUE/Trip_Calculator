@@ -25,6 +25,7 @@ const GetStarted = () => {
   // 自分用：onSnapshot()じゃなくてgetDoc()を使うことで毎回データベースと通信を行う
   // →データベース上にuser情報があるかどうかを正しいタイミングでジャッジできる。
   // →ページがリフレッシュされても重複したuser情報がデータベースに保存されなくなる。
+  // Use getDoc() instead onSnapshot() in order to connect with database proper timing
   const createDatabase = async () => {
     setLoadingPage(true);
     const collectionRef: CollectionReference<DocumentData, DocumentData> =
@@ -34,6 +35,7 @@ const GetStarted = () => {
     const querySnapshot = await getDocs(q);
 
     // ログインしているユーザ情報がDB上に無ければ(emptyならば)、DBにドキュメントを追加する
+    // Create new document unless database already has their data
     if (querySnapshot.empty) {
       await addDoc(collectionRef, {
         user: user,

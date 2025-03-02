@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { CurrencyType } from "../type/CurrencyType";
 
 // 自分用：currencyRateListの初期値をローカルデータで保持する
+// Keep initial currencyRateList with local storage
 const getCurrencyRateListFromLocalStorageValue = (
   key: string,
   initialValue: null
@@ -12,6 +13,7 @@ const getCurrencyRateListFromLocalStorageValue = (
 
 // ローカルストレージを使用せずReduxだけで管理すると２ページ目でも毎回レートのAPIを叩かなければならない。
 // →APIを叩く回数を減らすためローカルストレージを使用
+// Use local storage in order to decrease the occasions to call API
 const getCurrencyNameListLocalStorageValue = (
   key: string,
   initialValue: null

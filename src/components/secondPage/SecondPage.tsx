@@ -14,7 +14,7 @@ import { TripType } from "../../type/TripType";
 
 const SecondPage = () => {
   const { userName, tripId } = useParams();
-  // ココ修正：any型
+  // ↓will fix [any]
   const translatedData: any = secondPageDescription;
   const language = useAppSelector((state) => state.language.language);
   const user = useAppSelector((state) => state.user.user);
@@ -29,6 +29,7 @@ const SecondPage = () => {
   const navigate = useNavigate();
 
   // トリップデータを取得
+  // Get the Trip data
   useGetTripData(
     user,
     navigate,
@@ -40,9 +41,11 @@ const SecondPage = () => {
   );
 
   // 複数のテーブルデータを取得
+  // Get the all Table data
   useGetTableData(tripId, userDocumentID, setTableList);
 
   // 自国通貨へ変換後の合計金額
+  // Turn money data into money with user's currency type
   useEffect(() => {
     let sumUp: number = 0;
     tableList.forEach((table: TableType) => {
@@ -52,18 +55,22 @@ const SecondPage = () => {
   }, [tableList]);
 
   // tripデータから取得した「予算」から上で計算した「使用合計金額」を差し引いた「差額」を算出
+  // Calculate the difference between budget and paid money
   useEffect(() => {
     const stringBudget = tripData?.budget;
     let budget: string = "";
     if (stringBudget) {
       // 文字列型データからカンマを削除
+      // Erase the comma from string input data
       budget = stringBudget.replaceAll(",", "");
     }
     // Number(budget)で文字列型から数値型に変換
+    // Transfer string data to number data
     const difference: number = Number(budget) - sum;
     setUpToBudget(difference);
 
     // 実費が予算を上回ったら差額を赤字にする
+    // Change the color of difference between budget and paid money as long as it's deficit
     if (difference < 0) {
       setExceedBudget(true);
     } else {

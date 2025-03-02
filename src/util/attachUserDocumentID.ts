@@ -13,6 +13,8 @@ import { UserType } from "../type/UserType";
 
 // ↓↓ログインしているuser情報のfirebase上にあるドキュメントIDを取得し、reduxで管理↓↓
 // ※firebaseデータベース上にログイン情報が無ければuserDocumentIDがnullになり、GetStarted.tsxが表示される
+// Manage user information with documentID from database and manage it with redux
+// Display GetStared.tsx if database doesn't have user information
 export const attachUserDocumentID = async (
   user: UserType,
   dispatch: AppDispatch

@@ -9,6 +9,7 @@ export const calculationToYourCurrency = (
 ) => {
   
   // yourCurrencyはundefinedの可能性があるためココでチェック
+  // Judge if yourCurrency is undefined
   if (!yourCurrency) {
     return;
   }

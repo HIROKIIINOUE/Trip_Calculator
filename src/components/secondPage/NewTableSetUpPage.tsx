@@ -24,7 +24,8 @@ type Props = {
 
 // 【注釈】勉強のためテーブルのsetupポップアップはuseStateで状態管理。
 // ※tripのsetupポップアップはuseRefで状態を管理している。
-
+// Table data is controlled with useState, whereas Trip data is controlled with useRef
+//  → That's just because of my studying
 const NewTableSetUpPage = (props: Props) => {
   const { setNewTableSetUpPage, yourCurrency } = props;
   const { tripId } = useParams();
@@ -67,12 +68,14 @@ const NewTableSetUpPage = (props: Props) => {
   };
 
   // インプット金額か通貨タイプを変更したら変換ボタンを再度ユーザーに押させる仕様
+  // Force user to push button again when they change money data or currency type data
   useEffect(() => {
     setMoneyResult(0);
     setGuideClick(true);
   }, [money, currency]);
 
   // 金額インプットの処理。
+  // Function for input data
   const handleMoneyChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -131,6 +134,7 @@ const NewTableSetUpPage = (props: Props) => {
                   border: "4px double rgb(251 146 60)",
                 }}
                 //↓自分用：日付データのイベント引数は以下のように変換すること
+                // ↓That's for schedule data input 
                 onChange={(date: dayjs.Dayjs | null) =>
                   setDate(date?.toISOString().split("T")[0])
                 }
@@ -165,8 +169,8 @@ const NewTableSetUpPage = (props: Props) => {
               value={money === 0 ? "" : money.toLocaleString()}
               inputProps={{
                 maxLength: 10,
-                inputMode: "numeric", // 数値キーボードを表示
-                pattern: "[0-9]*", // 半角数値のみ許可
+                inputMode: "numeric", // 数値キーボードを表示 Display keypad of number
+                pattern: "[0-9]*", // 半角数値のみ許可 Allow to put only number
               }}
               inputMode="tel"
               onChange={(e) => handleMoneyChange(e)}

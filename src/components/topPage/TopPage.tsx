@@ -36,10 +36,12 @@ const TopPage = () => {
   const { userName } = useParams();
 
   // APIを叩いて通貨レート情報を取得
+  // Call API to get currency rate information from the Website
   useFetchCurrency(user, userName, navigate);
 
   useEffect(() => {
     // URLの「/:userName」を手打ちした時、「ログインしていない」もしくは「手打ちしたURLがログインしているユーザ情報と一致しない」時は自動でログイン画面に遷移され、attachUserDocumentID以降の処理は実行されない。(ログインしている場合はログイン画面→トップページへと遷移される)
+    // If user changes URL physically, it's rejected unless it's proper URL
     const userJudge = userLoginJudge(user, navigate);
     const URLJudge = userURLJudge(user, navigate, userName);
     if (!userJudge || !URLJudge) {
@@ -47,6 +49,7 @@ const TopPage = () => {
     }
 
     // URLが適正の場合以下から文末までを実行
+    // The code below is executed as long as URL is correct
     attachUserDocumentID(user, dispatch);
 
     if (userDocumentID) {
@@ -83,6 +86,7 @@ const TopPage = () => {
       );
 
       // クリーンアップ関数を返すことで、コンポーネントのアンマウント時にリスナーを解除
+      // Use clean up function to avoid the infinite loop
       return () => getTripDataListFromDatabase();
     }
   }, [userDocumentID]);

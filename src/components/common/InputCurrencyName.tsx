@@ -10,6 +10,7 @@ import { useAppSelector } from "../../app/storeType";
 import { inputCurrencyNameDescription } from "../../localData/translatedDescriptionData";
 
 // 自分用：共通コンポーネントでは受け渡されるプロップスが異なるので型指定にオプショナルプロップス 「末尾に?マーク」 を使用する
+// use [?] for optional props
 type Props = {
   titleRef?: React.RefObject<HTMLInputElement>;
   yourCurrencyRef?: React.RefObject<HTMLInputElement>;
